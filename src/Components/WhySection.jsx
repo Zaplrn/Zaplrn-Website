@@ -12,29 +12,27 @@ export default function WhySection() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          padding-top: 100px;
-          padding-bottom: 100px;
+          padding: 80px 20px;
           box-sizing: border-box;
+          overflow: hidden;
         }
 
-        /* TEXT BLOCK — 920 × 234 */
         .why-text {
-          width: 920px;
-          min-height: 234px;
+          width: 100%;
+          max-width: 920px;
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: center;
           text-align: center;
           gap: 20px;
-          margin-bottom: 60px;
+          margin-bottom: 40px;
         }
 
         .why-heading {
           font-family: 'Playfair Display', serif;
           font-weight: 700;
-          font-size: 88px;
-          line-height: 1.0;
+          font-size: clamp(40px, 8vw, 88px);
+          line-height: 1.1;
           color: #ffffff;
           margin: 0;
           letter-spacing: -0.02em;
@@ -51,37 +49,31 @@ export default function WhySection() {
           max-width: 500px;
         }
 
-        /* MAIN CONTENT — 1300 × 984 */
+        /* --- BODY CONTAINER --- */
         .why-body {
-          width: 1300px;
-          height: 984px;
+          width: 100%;
+          max-width: 1300px;
+          height: auto;
+          min-height: 600px;
           position: relative;
           display: flex;
+          flex-direction: column;
           align-items: center;
-          justify-content: center;
+          gap: 40px;
         }
 
-        /* Circle background */
-        .why-circles {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 750px;
-          height: 750px;
-          opacity: 0.12;
-          pointer-events: none;
-          z-index: 0;
+        @media (min-width: 1024px) {
+          .why-body {
+            height: 984px;
+            flex-direction: row;
+            justify-content: center;
+          }
         }
 
-        /* Phone placeholder — 331 × 675 */
+        /* --- PHONE PLACEHOLDER --- */
         .why-phone {
-          position: absolute;
-          width: 331px;
-          height: 675px;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
+          width: 280px;
+          height: 570px;
           border-radius: 36px;
           overflow: hidden;
           border: 1.5px dashed rgba(255,255,255,0.15);
@@ -92,59 +84,81 @@ export default function WhySection() {
           flex-direction: column;
           gap: 12px;
           z-index: 2;
+          order: 1; /* Center on mobile */
+        }
+
+        @media (min-width: 1024px) {
+          .why-phone {
+            position: absolute;
+            width: 331px;
+            height: 675px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
         }
 
         .why-phone-label {
           font-family: 'Syne', sans-serif;
           font-size: 11px;
           color: rgba(255,255,255,0.2);
-          letter-spacing: 0.06em;
           text-transform: uppercase;
         }
 
-        /* Feature point — icon inline with text */
+        /* --- FEATURE POINTS --- */
         .why-point {
-          position: absolute;
+          width: 100%;
+          max-width: 320px;
           z-index: 3;
         }
 
-        /* Left points: text on left, icon on right */
-        .why-point-left .why-point-inner {
-          display: flex;
-          flex-direction: row;
-          align-items: flex-start;
-          justify-content: flex-end;
-          gap: 12px;
-          text-align: right;
+        @media (min-width: 1024px) {
+          .why-point { position: absolute; }
         }
 
-        .why-point-left .why-point-texts {
+        .why-point-inner {
+          display: flex;
+          gap: 16px;
+          align-items: center;
+        }
+
+        .why-point-texts {
           display: flex;
           flex-direction: column;
-          align-items: flex-end;
           gap: 4px;
         }
 
-        /* Right points: icon on left, text on right */
-        .why-point-right .why-point-inner {
-          display: flex;
-          flex-direction: row;
-          align-items: flex-start;
-          justify-content: flex-start;
-          gap: 12px;
-          text-align: left;
+        /* Desktop Point Directions */
+        @media (min-width: 1024px) {
+          .why-point-left .why-point-inner {
+            flex-direction: row;
+            text-align: right;
+            justify-content: flex-end;
+          }
+          .why-point-left .why-point-texts { align-items: flex-end; }
+          
+          .why-point-right .why-point-inner {
+            flex-direction: row;
+            text-align: left;
+            justify-content: flex-start;
+          }
+          .why-point-right .why-point-texts { align-items: flex-start; }
         }
 
-        .why-point-right .why-point-texts {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 4px;
+        /* Mobile Point Logic */
+        @media (max-width: 1023px) {
+          .why-point-inner {
+            flex-direction: row-reverse !important; /* Icon left, Text right for mobile consistency */
+            text-align: left !important;
+          }
+          .why-point-texts { align-items: flex-start !important; }
+          .why-point:nth-child(even) { order: 2; } /* Put some below phone */
+          .why-point:nth-child(odd) { order: 0; }  /* Put some above phone */
         }
 
         .why-point-icon {
-          width: 36px;
-          height: 36px;
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
           border: 1px solid rgba(255,255,255,0.15);
           background: rgba(255,255,255,0.05);
@@ -152,30 +166,27 @@ export default function WhySection() {
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
-          margin-top: 2px;
         }
 
         .why-point-title {
           font-family: 'Playfair Display', serif;
           font-weight: 700;
-          font-size: 17px;
+          font-size: 20px;
           color: #ffffff;
           margin: 0;
-          line-height: 1.25;
-          letter-spacing: -0.01em;
+          line-height: 1.2;
         }
 
         .why-point-desc {
           font-family: 'Syne', sans-serif;
-          font-size: 12px;
+          font-size: 13px;
           color: rgba(255,255,255,0.4);
-          line-height: 1.6;
+          line-height: 1.5;
           margin: 0;
         }
       `}</style>
 
       <section className="why-section">
-        {/* TEXT BLOCK */}
         <div className="why-text">
           <h2 className="why-heading">
             Why Zaplrn Solution
@@ -183,16 +194,13 @@ export default function WhySection() {
             <em>to Your Problems</em>
           </h2>
           <p className="why-subtext">
-            The platforms we used to love have become noisy. It's time for a
-            space where your attention is an investment, not a product.
+            It's time for a space where your attention is an investment, not a
+            product.
           </p>
         </div>
 
-        {/* MAIN BODY */}
         <div className="why-body">
-          {/* Circle background removed — plain black */}
-
-          {/* PHONE PLACEHOLDER */}
+          {/* PHONE */}
           <div className="why-phone">
             <svg
               width="32"
@@ -204,20 +212,13 @@ export default function WhySection() {
             >
               <rect x="5" y="2" width="14" height="20" rx="2" />
             </svg>
-            <span className="why-phone-label">331 × 675</span>
+            <span className="why-phone-label">App Preview</span>
           </div>
 
-          {/* ── LEFT POINTS ── text left, icon right */}
-
-          {/* Top left — "Clean Mind" Guarantee — 252×72 */}
+          {/* POINT 1 */}
           <div
             className="why-point why-point-left"
-            style={{
-              left: "80px",
-              top: "280px",
-              width: "252px",
-              height: "72px",
-            }}
+            style={{ left: "60px", top: "240px" }}
           >
             <div className="why-point-inner">
               <div className="why-point-texts">
@@ -230,8 +231,8 @@ export default function WhySection() {
               </div>
               <div className="why-point-icon">
                 <svg
-                  width="16"
-                  height="16"
+                  width="18"
+                  height="18"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="white"
@@ -243,15 +244,10 @@ export default function WhySection() {
             </div>
           </div>
 
-          {/* Bottom left — Zero "Algorithm Anxiety" — 230×94 */}
+          {/* POINT 2 */}
           <div
             className="why-point why-point-left"
-            style={{
-              left: "170px",
-              top: "550px",
-              width: "230px",
-              height: "94px",
-            }}
+            style={{ left: "110px", top: "580px" }}
           >
             <div className="why-point-inner">
               <div className="why-point-texts">
@@ -266,8 +262,8 @@ export default function WhySection() {
               </div>
               <div className="why-point-icon">
                 <svg
-                  width="16"
-                  height="16"
+                  width="18"
+                  height="18"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="white"
@@ -275,32 +271,21 @@ export default function WhySection() {
                 >
                   <circle cx="12" cy="12" r="8" />
                   <circle cx="12" cy="12" r="3" />
-                  <line x1="12" y1="2" x2="12" y2="4" />
-                  <line x1="12" y1="20" x2="12" y2="22" />
-                  <line x1="2" y1="12" x2="4" y2="12" />
-                  <line x1="20" y1="12" x2="22" y2="12" />
                 </svg>
               </div>
             </div>
           </div>
 
-          {/* ── RIGHT POINTS ── icon left, text right */}
-
-          {/* Top right — From "Passive Watching" to "Active Doing" — 305×94 */}
+          {/* POINT 3 */}
           <div
             className="why-point why-point-right"
-            style={{
-              right: "60px",
-              top: "280px",
-              width: "305px",
-              height: "94px",
-            }}
+            style={{ right: "40px", top: "240px" }}
           >
             <div className="why-point-inner">
               <div className="why-point-icon">
                 <svg
-                  width="16"
-                  height="16"
+                  width="18"
+                  height="18"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="white"
@@ -316,27 +301,22 @@ export default function WhySection() {
                   to "Active Doing"
                 </h4>
                 <p className="why-point-desc">
-                  Structured Series and Integrated Mastery Chat
+                  Structured Series and Mastery Chat
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Bottom right — Content with a "Shelf-Life" — 216×94 */}
+          {/* POINT 4 */}
           <div
             className="why-point why-point-right"
-            style={{
-              right: "190px",
-              top: "540px",
-              width: "216px",
-              height: "94px",
-            }}
+            style={{ right: "120px", top: "580px" }}
           >
             <div className="why-point-inner">
               <div className="why-point-icon">
                 <svg
-                  width="16"
-                  height="16"
+                  width="18"
+                  height="18"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="white"

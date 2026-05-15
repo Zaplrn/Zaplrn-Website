@@ -75,15 +75,19 @@ export default function ScrollSection() {
       transform: `translateY(${yOffset}px) translateX(${xOffset}px) scale(${scale})`,
       transformOrigin: "left center",
       opacity,
-      transition: "transform 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.55s ease",
+      transition:
+        "transform 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.55s ease",
       zIndex: offset === 0 ? 10 : 10 - absOffset,
       pointerEvents: offset === 0 ? "auto" : "none",
     };
   };
 
-  const getTitleSize = (index) => Math.max(17, 26 - Math.abs(index - activeStep) * 5);
-  const getDescSize = (index) => Math.max(11, 17 - Math.abs(index - activeStep) * 4);
-  const getNumberSize = (index) => Math.max(13, 20 - Math.abs(index - activeStep) * 4);
+  const getTitleSize = (index) =>
+    Math.max(17, 26 - Math.abs(index - activeStep) * 5);
+  const getDescSize = (index) =>
+    Math.max(11, 17 - Math.abs(index - activeStep) * 4);
+  const getNumberSize = (index) =>
+    Math.max(13, 20 - Math.abs(index - activeStep) * 4);
 
   const CENTER_W = 260;
   const CENTER_H = 500;
@@ -241,7 +245,8 @@ export default function ScrollSection() {
       <section className="scroll-section" ref={sectionRef}>
         <div className="scroll-text">
           <h2 className="scroll-heading">
-            Your Growth,<br />
+            Your Growth,
+            <br />
             <em>On Your Terms</em>
           </h2>
           <p className="scroll-subtext">
@@ -256,83 +261,117 @@ export default function ScrollSection() {
           {/* LEFT — sticky 3-phone fan, all bottom-aligned */}
           <div className="scroll-left">
             <div className="phone-fan">
-
               {/* BACK LEFT PHONE */}
-              <div style={{
-                position: "absolute",
-                width: `${SIDE_W}px`,
-                height: `${SIDE_H}px`,
-                bottom: 0,
-                left: 0,
-                borderRadius: "24px",
-                overflow: "hidden",
-                border: "1px solid rgba(255,255,255,0.1)",
-                background: "#111",
-                transformOrigin: "bottom right",
-                zIndex: 1,
-                opacity: 0.7,
-              }}>
+              <div
+                style={{
+                  position: "absolute",
+                  width: `${SIDE_W}px`,
+                  height: `${SIDE_H}px`,
+                  bottom: 0,
+                  left: 0,
+                  borderRadius: "24px",
+                  overflow: "hidden",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  background: "#111",
+                  transformOrigin: "bottom right",
+                  zIndex: 1,
+                  opacity: 0.7,
+                }}
+              >
                 {steps.map((step, i) => (
-                  <img key={i} src={step.imgs[0]} alt="" style={{
-                    opacity: activeStep === i ? 1 : 0,
-                    width: "100%", height: "100%", objectFit: "cover",
-                    position: "absolute", inset: 0, transition: "opacity 0.5s ease",
-                  }} />
+                  <img
+                    key={i}
+                    src={step.imgs[0]}
+                    alt=""
+                    style={{
+                      opacity: activeStep === i ? 1 : 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      position: "absolute",
+                      inset: 0,
+                      transition: "opacity 0.5s ease",
+                    }}
+                  />
                 ))}
               </div>
 
               {/* CENTER PHONE */}
-              <div style={{
-                position: "absolute",
-                width: `${CENTER_W}px`,
-                height: `${CENTER_H}px`,
-                bottom: 0,
-                left: `${CENTER_LEFT}px`,
-                borderRadius: "28px",
-                overflow: "hidden",
-                border: "1px solid rgba(255,255,255,0.12)",
-                background: "#111",
-                transform: "rotate(0deg)",
-                zIndex: 3,
-              }}>
+              <div
+                style={{
+                  position: "absolute",
+                  width: `${CENTER_W}px`,
+                  height: `${CENTER_H}px`,
+                  bottom: 0,
+                  left: `${CENTER_LEFT}px`,
+                  borderRadius: "28px",
+                  overflow: "hidden",
+                  border: "1px solid rgba(255,255,255,0.12)",
+                  background: "#111",
+                  transform: "rotate(0deg)",
+                  zIndex: 3,
+                }}
+              >
                 {steps.map((step, i) => (
-                  <img key={i} src={step.imgs[1]} alt="" style={{
-                    opacity: activeStep === i ? 1 : 0,
-                    width: "100%", height: "100%", objectFit: "cover",
-                    position: "absolute", inset: 0, transition: "opacity 0.5s ease",
-                  }} />
+                  <img
+                    key={i}
+                    src={step.imgs[1]}
+                    alt=""
+                    style={{
+                      opacity: activeStep === i ? 1 : 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      position: "absolute",
+                      inset: 0,
+                      transition: "opacity 0.5s ease",
+                    }}
+                  />
                 ))}
               </div>
 
               {/* BACK RIGHT PHONE */}
-              <div style={{
-                position: "absolute",
-                width: `${SIDE_W}px`,
-                height: `${SIDE_H}px`,
-                bottom: 0,
-                left: `${CENTER_LEFT + CENTER_W + -35}px`,
-                borderRadius: "24px",
-                overflow: "hidden",
-                border: "1px solid rgba(255,255,255,0.1)",
-                background: "#111",
-                transformOrigin: "bottom left",
-                zIndex: 2,
-                opacity: 0.7,
-              }}>
+              <div
+                style={{
+                  position: "absolute",
+                  width: `${SIDE_W}px`,
+                  height: `${SIDE_H}px`,
+                  bottom: 0,
+                  left: `${CENTER_LEFT + CENTER_W + -35}px`,
+                  borderRadius: "24px",
+                  overflow: "hidden",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  background: "#111",
+                  transformOrigin: "bottom left",
+                  zIndex: 2,
+                  opacity: 0.7,
+                }}
+              >
                 {steps.map((step, i) => (
-                  <img key={i} src={step.imgs[2]} alt="" style={{
-                    opacity: activeStep === i ? 1 : 0,
-                    width: "100%", height: "100%", objectFit: "cover",
-                    position: "absolute", inset: 0, transition: "opacity 0.5s ease",
-                  }} />
+                  <img
+                    key={i}
+                    src={step.imgs[2]}
+                    alt=""
+                    style={{
+                      opacity: activeStep === i ? 1 : 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      position: "absolute",
+                      inset: 0,
+                      transition: "opacity 0.5s ease",
+                    }}
+                  />
                 ))}
               </div>
-
             </div>
           </div>
 
           {/* RIGHT */}
-          <div className="scroll-right" style={{ height: `${steps.length * 100}vh` }}>
+          <div
+            className="scroll-right"
+            style={{ height: `${steps.length * 100}vh` }}
+          >
             <div className="scroll-carousel">
               <div className="scroll-carousel-inner">
                 {steps.map((step, i) => (
@@ -343,13 +382,42 @@ export default function ScrollSection() {
                   >
                     <div className="scroll-step-dot" />
                     <div className="scroll-step-content">
-                      <span style={{ fontFamily:"'Syne',sans-serif", fontSize:`${getNumberSize(i)}px`, fontWeight:500, color:"rgba(255,255,255,0.35)", letterSpacing:"0.08em", transition:"font-size 0.4s ease" }}>
+                      <span
+                        style={{
+                          fontFamily: "'Syne',sans-serif",
+                          fontSize: `${getNumberSize(i)}px`,
+                          fontWeight: 500,
+                          color: "rgba(255,255,255,0.35)",
+                          letterSpacing: "0.08em",
+                          transition: "font-size 0.4s ease",
+                        }}
+                      >
                         {step.number}
                       </span>
-                      <h3 style={{ fontFamily:"'Playfair Display',serif", fontWeight:700, fontSize:`${getTitleSize(i)}px`, color:"#ffffff", margin:0, lineHeight:1.15, transition:"font-size 0.4s ease" }}>
+                      <h3
+                        style={{
+                          fontFamily: "'Playfair Display',serif",
+                          fontWeight: 700,
+                          fontSize: `${getTitleSize(i)}px`,
+                          color: "#ffffff",
+                          margin: 0,
+                          lineHeight: 1.15,
+                          transition: "font-size 0.4s ease",
+                        }}
+                      >
                         {step.title}
                       </h3>
-                      <p style={{ fontFamily:"'Syne',sans-serif", fontSize:`${getDescSize(i)}px`, color:"rgba(255,255,255,0.45)", lineHeight:1.75, margin:"4px 0 0 0", maxWidth:"440px", transition:"font-size 0.4s ease" }}>
+                      <p
+                        style={{
+                          fontFamily: "'Syne',sans-serif",
+                          fontSize: `${getDescSize(i)}px`,
+                          color: "rgba(255,255,255,0.45)",
+                          lineHeight: 1.75,
+                          margin: "4px 0 0 0",
+                          maxWidth: "440px",
+                          transition: "font-size 0.4s ease",
+                        }}
+                      >
                         {step.desc}
                       </p>
                     </div>
@@ -360,7 +428,11 @@ export default function ScrollSection() {
 
             <div className="scroll-triggers">
               {steps.map((_, i) => (
-                <div key={i} className="scroll-trigger" ref={(el) => (triggerRefs.current[i] = el)} />
+                <div
+                  key={i}
+                  className="scroll-trigger"
+                  ref={(el) => (triggerRefs.current[i] = el)}
+                />
               ))}
             </div>
           </div>
