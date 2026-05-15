@@ -11,31 +11,31 @@ const steps = [
     number: "01",
     title: "Download the app",
     desc: "From the App Store or Google Play and create your account. You can sign up with your email, Google, Facebook, or Apple ID.",
-    img: step1Img,
+    imgs: [step1Img, step1Img, step1Img],
   },
   {
     number: "02",
     title: "Mentorship in Your Pocket",
     desc: "Use the Integrated Chat to talk to the experts behind the Zaps. Ask questions, get clarity, and connect with the people who are actually doing the work you want to do.",
-    img: step2Img,
+    imgs: [step2Img, step2Img, step2Img],
   },
   {
     number: "03",
     title: 'The 60-Second "Knowledge Bomb"',
     desc: "Master one concept at a time. Every Zap is a high-impact lesson that fits into the gaps of your day.",
-    img: step3Img,
+    imgs: [step3Img, step3Img, step3Img],
   },
   {
     number: "04",
     title: "Structured Learning Series",
     desc: "No more jumping between random videos. Follow curated Series that take you from 'Day 1' to 'Done'.",
-    img: step4Img,
+    imgs: [step4Img, step4Img, step4Img],
   },
   {
     number: "05",
     title: "Track Your Growth",
     desc: "See your progress across every Series. Know exactly how far you've come and what's next on your journey.",
-    img: step5Img,
+    imgs: [step5Img, step5Img, step5Img],
   },
 ];
 
@@ -63,16 +63,11 @@ export default function ScrollSection() {
   const getStepStyle = (index) => {
     const offset = index - activeStep;
     const absOffset = Math.abs(offset);
-
     const yStep = 200;
     const yOffset = offset * yStep;
-
-    // Active step starts at +60px right, arc curves left as items move away
     const xOffset = absOffset === 0 ? 80 : 50 + absOffset * absOffset * -50;
-
     const scale = offset === 0 ? 1 : Math.max(0.78, 1.1 - absOffset * 0.1);
     const opacity = offset === 0 ? 1 : Math.max(0.3, 0.8 - absOffset * 0.28);
-
     return {
       position: "absolute",
       left: 0,
@@ -80,31 +75,24 @@ export default function ScrollSection() {
       transform: `translateY(${yOffset}px) translateX(${xOffset}px) scale(${scale})`,
       transformOrigin: "left center",
       opacity,
-      transition:
-        "transform 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.55s ease",
+      transition: "transform 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.55s ease",
       zIndex: offset === 0 ? 10 : 10 - absOffset,
       pointerEvents: offset === 0 ? "auto" : "none",
     };
   };
 
-  // Font sizes shrink with distance from active
-  const getTitleSize = (index) => {
-    const absOffset = Math.abs(index - activeStep);
-    // active=26px, 1away=21px, 2away=17px
-    return Math.max(17, 26 - absOffset * 5);
-  };
+  const getTitleSize = (index) => Math.max(17, 26 - Math.abs(index - activeStep) * 5);
+  const getDescSize = (index) => Math.max(11, 17 - Math.abs(index - activeStep) * 4);
+  const getNumberSize = (index) => Math.max(13, 20 - Math.abs(index - activeStep) * 4);
 
-  const getDescSize = (index) => {
-    const absOffset = Math.abs(index - activeStep);
-    // active=17px, 1away=13px, 2away=11px
-    return Math.max(11, 17 - absOffset * 4);
-  };
-
-  const getNumberSize = (index) => {
-    const absOffset = Math.abs(index - activeStep);
-    // active=20px, 1away=16px, 2away=13px
-    return Math.max(13, 20 - absOffset * 4);
-  };
+  const CENTER_W = 260;
+  const CENTER_H = 500;
+  const SIDE_W = 210;
+  const SIDE_H = 420;
+  const LEFT_OFFSET_X = -130;
+  const RIGHT_OFFSET_X = CENTER_W + 20;
+  const FAN_W = CENTER_W + Math.abs(LEFT_OFFSET_X) + SIDE_W + 20;
+  const CENTER_LEFT = Math.abs(LEFT_OFFSET_X) + 10;
 
   return (
     <>
@@ -158,35 +146,34 @@ export default function ScrollSection() {
           flex-direction: row;
           align-items: flex-start;
           gap: 80px;
+          padding-top: 60px;      /* ← gap between text and phone fan */
           padding-bottom: 80px;
+          box-sizing: border-box;
         }
 
         .scroll-left {
           width: 460px;
           flex-shrink: 0;
           position: sticky;
-          top: 180px;
+          top: 220px;             /* ← pushed down from navbar (was 180px) */
           display: flex;
           align-items: center;
           justify-content: center;
         }
 
-        .scroll-img-wrapper {
-          width: 320px;
-          height: 520px;
-          border-radius: 32px;
-          overflow: hidden;
-          border: 1px solid rgba(255,255,255,0.08);
+        .phone-fan {
           position: relative;
-          background: #111;
+          height: ${CENTER_H}px;
+          width: ${FAN_W}px;
         }
 
-        .scroll-img-wrapper img {
-          position: absolute;
-          inset: 0;
+        .phone-card img {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          display: block;
+          position: absolute;
+          inset: 0;
           transition: opacity 0.5s ease;
         }
 
@@ -214,15 +201,12 @@ export default function ScrollSection() {
 
         .scroll-triggers {
           position: absolute;
-          top: 0;
-          left: 0;
+          top: 0; left: 0;
           width: 1px;
           height: 100%;
         }
 
-        .scroll-trigger {
-          height: 100vh;
-        }
+        .scroll-trigger { height: 100vh; }
 
         .scroll-step {
           display: flex;
@@ -255,11 +239,9 @@ export default function ScrollSection() {
       `}</style>
 
       <section className="scroll-section" ref={sectionRef}>
-        {/* TEXT BLOCK */}
         <div className="scroll-text">
           <h2 className="scroll-heading">
-            Your Growth,
-            <br />
+            Your Growth,<br />
             <em>On Your Terms</em>
           </h2>
           <p className="scroll-subtext">
@@ -270,28 +252,87 @@ export default function ScrollSection() {
           </p>
         </div>
 
-        {/* BODY */}
         <div className="scroll-body">
-          {/* LEFT — sticky image */}
+          {/* LEFT — sticky 3-phone fan, all bottom-aligned */}
           <div className="scroll-left">
-            <div className="scroll-img-wrapper">
-              {steps.map((step, i) => (
-                <img
-                  key={i}
-                  src={step.img}
-                  alt={step.title}
-                  style={{ opacity: activeStep === i ? 1 : 0 }}
-                />
-              ))}
+            <div className="phone-fan">
+
+              {/* BACK LEFT PHONE */}
+              <div style={{
+                position: "absolute",
+                width: `${SIDE_W}px`,
+                height: `${SIDE_H}px`,
+                bottom: 0,
+                left: 0,
+                borderRadius: "24px",
+                overflow: "hidden",
+                border: "1px solid rgba(255,255,255,0.1)",
+                background: "#111",
+                transformOrigin: "bottom right",
+                zIndex: 1,
+                opacity: 0.7,
+              }}>
+                {steps.map((step, i) => (
+                  <img key={i} src={step.imgs[0]} alt="" style={{
+                    opacity: activeStep === i ? 1 : 0,
+                    width: "100%", height: "100%", objectFit: "cover",
+                    position: "absolute", inset: 0, transition: "opacity 0.5s ease",
+                  }} />
+                ))}
+              </div>
+
+              {/* CENTER PHONE */}
+              <div style={{
+                position: "absolute",
+                width: `${CENTER_W}px`,
+                height: `${CENTER_H}px`,
+                bottom: 0,
+                left: `${CENTER_LEFT}px`,
+                borderRadius: "28px",
+                overflow: "hidden",
+                border: "1px solid rgba(255,255,255,0.12)",
+                background: "#111",
+                transform: "rotate(0deg)",
+                zIndex: 3,
+              }}>
+                {steps.map((step, i) => (
+                  <img key={i} src={step.imgs[1]} alt="" style={{
+                    opacity: activeStep === i ? 1 : 0,
+                    width: "100%", height: "100%", objectFit: "cover",
+                    position: "absolute", inset: 0, transition: "opacity 0.5s ease",
+                  }} />
+                ))}
+              </div>
+
+              {/* BACK RIGHT PHONE */}
+              <div style={{
+                position: "absolute",
+                width: `${SIDE_W}px`,
+                height: `${SIDE_H}px`,
+                bottom: 0,
+                left: `${CENTER_LEFT + CENTER_W + -35}px`,
+                borderRadius: "24px",
+                overflow: "hidden",
+                border: "1px solid rgba(255,255,255,0.1)",
+                background: "#111",
+                transformOrigin: "bottom left",
+                zIndex: 2,
+                opacity: 0.7,
+              }}>
+                {steps.map((step, i) => (
+                  <img key={i} src={step.imgs[2]} alt="" style={{
+                    opacity: activeStep === i ? 1 : 0,
+                    width: "100%", height: "100%", objectFit: "cover",
+                    position: "absolute", inset: 0, transition: "opacity 0.5s ease",
+                  }} />
+                ))}
+              </div>
+
             </div>
           </div>
 
           {/* RIGHT */}
-          <div
-            className="scroll-right"
-            style={{ height: `${steps.length * 100}vh` }}
-          >
-            {/* Arc carousel — sticky */}
+          <div className="scroll-right" style={{ height: `${steps.length * 100}vh` }}>
             <div className="scroll-carousel">
               <div className="scroll-carousel-inner">
                 {steps.map((step, i) => (
@@ -302,47 +343,13 @@ export default function ScrollSection() {
                   >
                     <div className="scroll-step-dot" />
                     <div className="scroll-step-content">
-                      {/* Number — shrinks with distance */}
-                      <span
-                        style={{
-                          fontFamily: "'Syne', sans-serif",
-                          fontSize: `${getNumberSize(i)}px`,
-                          fontWeight: 500,
-                          color: "rgba(255,255,255,0.35)",
-                          letterSpacing: "0.08em",
-                          transition: "font-size 0.4s ease",
-                        }}
-                      >
+                      <span style={{ fontFamily:"'Syne',sans-serif", fontSize:`${getNumberSize(i)}px`, fontWeight:500, color:"rgba(255,255,255,0.35)", letterSpacing:"0.08em", transition:"font-size 0.4s ease" }}>
                         {step.number}
                       </span>
-
-                      {/* Title — shrinks with distance */}
-                      <h3
-                        style={{
-                          fontFamily: "'Playfair Display', serif",
-                          fontWeight: 700,
-                          fontSize: `${getTitleSize(i)}px`,
-                          color: "#ffffff",
-                          margin: 0,
-                          lineHeight: 1.15,
-                          transition: "font-size 0.4s ease",
-                        }}
-                      >
+                      <h3 style={{ fontFamily:"'Playfair Display',serif", fontWeight:700, fontSize:`${getTitleSize(i)}px`, color:"#ffffff", margin:0, lineHeight:1.15, transition:"font-size 0.4s ease" }}>
                         {step.title}
                       </h3>
-
-                      {/* Desc — always visible, shrinks with distance */}
-                      <p
-                        style={{
-                          fontFamily: "'Syne', sans-serif",
-                          fontSize: `${getDescSize(i)}px`,
-                          color: "rgba(255,255,255,0.45)",
-                          lineHeight: 1.75,
-                          margin: "4px 0 0 0",
-                          maxWidth: "440px",
-                          transition: "font-size 0.4s ease",
-                        }}
-                      >
+                      <p style={{ fontFamily:"'Syne',sans-serif", fontSize:`${getDescSize(i)}px`, color:"rgba(255,255,255,0.45)", lineHeight:1.75, margin:"4px 0 0 0", maxWidth:"440px", transition:"font-size 0.4s ease" }}>
                         {step.desc}
                       </p>
                     </div>
@@ -351,14 +358,9 @@ export default function ScrollSection() {
               </div>
             </div>
 
-            {/* Invisible scroll triggers */}
             <div className="scroll-triggers">
               {steps.map((_, i) => (
-                <div
-                  key={i}
-                  className="scroll-trigger"
-                  ref={(el) => (triggerRefs.current[i] = el)}
-                />
+                <div key={i} className="scroll-trigger" ref={(el) => (triggerRefs.current[i] = el)} />
               ))}
             </div>
           </div>

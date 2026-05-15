@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ZaplrnLogo from "../assets/Zaplrn_logo.png"; // place the logo in src/assets/
+import ZaplrnLogo from "../assets/Zaplrn_logo.png";
 
 const PlayStoreIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -15,6 +15,7 @@ const AppleIcon = () => (
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -23,84 +24,66 @@ export default function Navbar() {
   }, []);
 
   return (
-    <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500&display=swap');
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 font-syne
+        ${scrolled ? "bg-black/90 backdrop-blur-md h-20 md:h-24" : "bg-[#0d0e0c] h-24 md:h-[164px]"}`}
+    >
+      <div className="max-w-[1440px] h-full mx-auto px-6 md:px-10 flex items-center justify-between relative">
+        {/* Logo - Scales down on mobile */}
+        <img
+          src={ZaplrnLogo}
+          alt="Zaplrn"
+          className="w-[140px] md:w-[224.8px] h-auto object-contain transition-all"
+        />
 
-        .nav-btn {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding: 14px 28px;
-          border-radius: 999px;
-          border: 1.5px solid rgba(255, 255, 255, 0.85);
-          background-color: transparent;
-          color: #ffffff;
-          font-family: 'Syne', sans-serif;
-          font-size: 15px;
-          font-weight: 500;
-          cursor: pointer;
-          white-space: nowrap;
-          transition: background-color 0.2s ease, border-color 0.2s ease;
-          letter-spacing: 0.01em;
-        }
+        {/* Desktop Buttons - Hidden on Mobile */}
+        <div className="hidden lg:flex items-center gap-3">
+          <button className="flex items-center gap-2 px-7 py-3 rounded-full border-[1.5px] border-white/80 text-white text-[15px] font-medium hover:bg-white/10 transition-colors whitespace-nowrap">
+            <PlayStoreIcon />
+            Play Store
+          </button>
+          <button className="flex items-center gap-2 px-7 py-3 rounded-full border-[1.5px] border-white/80 text-white text-[15px] font-medium hover:bg-white/10 transition-colors whitespace-nowrap">
+            <AppleIcon />
+            App Store
+          </button>
+        </div>
 
-        .nav-btn:hover {
-          background-color: rgba(255, 255, 255, 0.1);
-          border-color: #ffffff;
-        }
-      `}</style>
-
-      <nav
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 50,
-          width: "100%",
-          height: "164px",
-          backgroundColor: scrolled ? "rgba(10,10,10,0.9)" : "#0d0e0c",
-          backdropFilter: scrolled ? "blur(14px)" : "none",
-          transition: "background-color 0.3s ease",
-        }}
-      >
-        <div
-          style={{
-            maxWidth: "1440px",
-            height: "100%",
-            margin: "0 auto",
-            paddingLeft: "40px",
-            paddingRight: "40px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
+        {/* Mobile Menu Toggle Button */}
+        <button
+          className="lg:hidden text-white p-2"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
-          {/* Logo image — same width as before (224.8px from Figma) */}
-          <img
-            src={ZaplrnLogo}
-            alt="Zaplrn — better than mindless scrolling"
-            style={{
-              width: "224.8px" /* Figma logo group width */,
-              height: "auto",
-              objectFit: "contain",
-            }}
-          />
+          <svg
+            className="w-8 h-8"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d={
+                mobileMenuOpen
+                  ? "M6 18L18 6M6 6l12 12"
+                  : "M4 6h16M4 12h16M4 18h16"
+              }
+            />
+          </svg>
+        </button>
 
-          {/* CTA Buttons */}
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <button className="nav-btn">
-              <PlayStoreIcon />
-              Play Store
+        {/* Mobile Dropdown Menu */}
+        {mobileMenuOpen && (
+          <div className="absolute top-full left-0 w-full bg-[#0d0e0c] border-t border-white/10 p-6 flex flex-col gap-4 lg:hidden shadow-2xl animate-in slide-in-from-top duration-300">
+            <button className="flex items-center justify-center gap-2 w-full px-7 py-4 rounded-full border-[1.5px] border-white text-white font-medium">
+              <PlayStoreIcon /> Play Store
             </button>
-            <button className="nav-btn">
-              <AppleIcon />
-              App Store
+            <button className="flex items-center justify-center gap-2 w-full px-7 py-4 rounded-full border-[1.5px] border-white text-white font-medium">
+              <AppleIcon /> App Store
             </button>
           </div>
-        </div>
-      </nav>
-    </>
+        )}
+      </div>
+    </nav>
   );
 }

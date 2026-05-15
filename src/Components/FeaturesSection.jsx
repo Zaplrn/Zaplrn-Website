@@ -8,32 +8,32 @@ export default function FeaturesSection() {
 
         .feat-section {
           width: 100%;
-          height: 1020px;
           background-color: #0d0e0c;
           position: relative;
           overflow: hidden;
           box-sizing: border-box;
+          padding: 80px 24px;
         }
 
         .feat-text {
-          position: absolute;
-          left: 260px;
-          width: 920px;
-          height: 244px;
+          width: 100%;
+          max-width: 920px;
+          margin: 0 auto 60px auto;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
           text-align: center;
           gap: 20px;
-          z-index: 2;
+          z-index: 10;
+          position: relative;
         }
 
         .feat-heading {
           font-family: 'Playfair Display', serif;
           font-weight: 700;
-          font-size: 80px;
-          line-height: 1.05;
+          font-size: 42px;
+          line-height: 1.1;
           color: #ffffff;
           margin: 0;
           letter-spacing: -0.02em;
@@ -43,66 +43,41 @@ export default function FeaturesSection() {
 
         .feat-subtext {
           font-family: 'Syne', sans-serif;
-          font-size: 15px;
+          font-size: 14px;
           color: rgba(255,255,255,0.45);
-          line-height: 1.7;
+          line-height: 1.6;
           margin: 0;
-          text-align: center;
+          max-width: 600px;
         }
 
-        /* BIG CARD */
-        .feat-card {
-          position: absolute;
-          left: 25px;
-          top: 200px;
-          width: 1392px;
-          height: 802px;
-          background-color: #0d0e0c;
-          overflow: hidden;
-          z-index: 1;
-        }
-
-        /* Phone placeholder */
-        .feat-phone {
-          position: absolute;
-          width: 408px;
-          height: 613px;
-          left: 490px;
-          top: 95px;
-          transform: rotate(-23.95deg);
-          transform-origin: center center;
-          border-radius: 40px;
+        /* CARD CONTAINER */
+        .feat-card-container {
+          width: 100%;
+          max-width: 1392px;
+          margin: 0 auto;
+          position: relative;
           display: flex;
-          align-items: center;
-          justify-content: center;
           flex-direction: column;
-          gap: 12px;
-          z-index: 2;
-        }
-
-        .feat-phone-label {
-          font-family: 'Syne', sans-serif;
-          font-size: 11px;
-          color: rgba(255,255,255,0.2);
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
+          gap: 20px;
         }
 
         .feat-info-card {
-          position: absolute;
-          width: 406px;
-          height: 120px;
+          width: 100%;
           background: #0d0e0c;
-          border: 1px solid #ADACAC;
+          border: 1px solid rgba(173, 172, 172, 0.4);
           border-radius: 14px;
-          padding: 24px 26px;
+          padding: 24px;
           box-sizing: border-box;
-          z-index: 3;
+          transition: border-color 0.3s ease;
+        }
+
+        .feat-info-card:hover {
+          border-color: #ffffff;
         }
 
         .feat-info-title {
           font-family: 'Syne', sans-serif;
-          font-size: 14px;
+          font-size: 16px;
           font-weight: 600;
           color: #ffffff;
           margin: 0 0 10px 0;
@@ -110,15 +85,78 @@ export default function FeaturesSection() {
 
         .feat-info-desc {
           font-family: 'Syne', sans-serif;
-          font-size: 12px;
+          font-size: 13px;
           color: rgba(255,255,255,0.4);
-          line-height: 1.65;
+          line-height: 1.6;
           margin: 0;
+        }
+
+        /* Phone visual hidden on mobile to save space */
+        .feat-phone-visual {
+          display: none;
+        }
+
+        /* DESKTOP STYLES (Restores your original layout) */
+        @media (min-width: 1200px) {
+          .feat-section {
+            height: 1020px;
+            padding: 0;
+          }
+
+          .feat-text {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 60px;
+            margin: 0;
+          }
+
+          .feat-heading {
+            font-size: 80px;
+          }
+
+          .feat-card-container {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 240px;
+            height: 802px;
+            width: 1392px;
+            display: block; /* Disable flex column */
+          }
+
+          .feat-info-card {
+            position: absolute;
+            width: 406px;
+          }
+
+          .feat-phone-visual {
+            display: flex;
+            position: absolute;
+            width: 408px;
+            height: 613px;
+            left: 492px;
+            top: 95px;
+            transform: rotate(-23.95deg);
+            border-radius: 40px;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.02);
+          }
+
+          .feat-phone-label {
+            font-family: 'Syne', sans-serif;
+            font-size: 11px;
+            color: rgba(255,255,255,0.2);
+            text-transform: uppercase;
+          }
         }
       `}</style>
 
       <section className="feat-section">
-        {/* TEXT BLOCK */}
         <div className="feat-text">
           <h2 className="feat-heading">
             from content creator
@@ -127,16 +165,14 @@ export default function FeaturesSection() {
           </h2>
           <p className="feat-subtext">
             At Zaplrn, we've built a home where your wisdom isn't just "content"
-            —<br />
-            it's a curriculum. We don't just give you views; we give you a
+            — it's a curriculum. We don't just give you views; we give you a
             legacy.
           </p>
         </div>
 
-        {/* BIG CARD — left:25, top:242, 1392×802 */}
-        <div className="feat-card">
-          {/* PHONE — left:490, top:95 inside card, 408×613, rotate:-23.95deg */}
-          <div className="feat-phone">
+        <div className="feat-card-container">
+          {/* Phone (Desktop Only) */}
+          <div className="feat-phone-visual">
             <svg
               width="32"
               height="32"
@@ -150,7 +186,7 @@ export default function FeaturesSection() {
             <span className="feat-phone-label">Phone Screen</span>
           </div>
 
-          {/* LEFT — TOP: The Series Architect | left:28, top:48, 406×120 */}
+          {/* Cards */}
           <div
             className="feat-info-card"
             style={{ left: "70px", top: "120px" }}
@@ -162,7 +198,6 @@ export default function FeaturesSection() {
             </p>
           </div>
 
-          {/* LEFT — MIDDLE: Integrated Mastery Chat | left:28, top:310, 406×120 */}
           <div
             className="feat-info-card"
             style={{ left: "20px", top: "340px" }}
@@ -174,34 +209,31 @@ export default function FeaturesSection() {
             </p>
           </div>
 
-          {/* LEFT — BOTTOM: Deep-Dive Analytics | left:28, top:562, 406×120 */}
           <div
             className="feat-info-card"
             style={{ left: "70px", top: "562px" }}
           >
             <p className="feat-info-title">Deep-Dive Analytics</p>
             <p className="feat-info-desc">
-              Don't just track "views." See how many users completed your
-              Series, where they got stuck, and how their skills are improving.
+              See how many users completed your Series, where they got stuck,
+              and how their skills are improving.
             </p>
           </div>
 
-          {/* RIGHT — TOP: 60-Second Learning | right:28, top:48, 406×120 */}
           <div
             className="feat-info-card"
-            style={{ right: "80px", top: "120px" }}
+            style={{ right: "40px", top: "120px" }}
           >
             <p className="feat-info-title">60-Second "Concentrated" Learning</p>
             <p className="feat-info-desc">
-              We challenge you to be the best version of yourself. By limiting
+              We challenge you to be the best version of yourself by limiting
               Zaps to 60 seconds.
             </p>
           </div>
 
-          {/* RIGHT — MIDDLE: Intentional Reach | right:28, top:310, 406×120 */}
           <div
             className="feat-info-card"
-            style={{ right: "20px", top: "340px" }}
+            style={{ right: "2px", top: "340px" }}
           >
             <p className="feat-info-title">Intentional Reach</p>
             <p className="feat-info-desc">
@@ -210,15 +242,14 @@ export default function FeaturesSection() {
             </p>
           </div>
 
-          {/* RIGHT — BOTTOM: Your Digital Campus | right:28, top:562, 406×120 */}
           <div
             className="feat-info-card"
-            style={{ right: "80px", top: "562px" }}
+            style={{ right: "30px", top: "562px" }}
           >
             <p className="feat-info-title">Your Digital Campus</p>
             <p className="feat-info-desc">
-              Your profile on Zaplrn isn't just a bio; it's a school. Organize
-              your Zaps by category — ZAPLRN, your professional portfolio.
+              Organize your Zaps by category — your profile on Zaplrn is your
+              professional portfolio.
             </p>
           </div>
         </div>

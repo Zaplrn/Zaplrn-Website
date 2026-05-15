@@ -30,82 +30,33 @@ export default function HeroSection() {
         }
       `}</style>
 
-      {/* 
-        Section total height = 164px (navbar) + 596px (hero) = 760px
-        paddingTop pushes content below navbar
-        inner content sits within remaining 596px
-      */}
       <section
-        style={{
-          width: "100%",
-          minHeight: "760px" /* 164 navbar + 596 hero */,
-          backgroundColor: "#0d0e0c",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          paddingTop: "164px" /* exactly navbar height */,
-          boxSizing: "border-box",
-        }}
+        className="w-full bg-[#0d0e0c] flex items-center justify-center box-border
+          /* Desktop padding-top matches navbar height, mobile is smaller */
+          pt-[100px] md:pt-[164px] pb-20 md:pb-0 min-h-screen md:min-h-[760px]"
       >
-        {/* Inner container — 1204 × 468 */}
-        <div
-          style={{
-            width: "1204px",
-            maxWidth: "100%",
-            height: "468px",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          {/* LEFT — 609 × 464 */}
-          <div
-            style={{
-              width: "609px",
-              flexShrink: 0,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              gap: "36px",
-            }}
-          >
+        {/* Inner container — Maintains 1204px on desktop, becomes full width on mobile */}
+        <div className="w-full max-w-[1204px] px-6 md:px-0 flex flex-col-reverse md:flex-row items-center justify-between gap-12 md:gap-0">
+          {/* LEFT CONTENT — 609px on desktop */}
+          <div className="w-full md:w-[609px] flex flex-col justify-center gap-6 md:gap-[36px] text-center md:text-left">
             <h1
-              style={{
-                fontFamily: "'Playfair Display', serif",
-                fontWeight: 700,
-                fontSize: "72px",
-                lineHeight: 1.08,
-                color: "#ffffff",
-                margin: 0,
-                letterSpacing: "-0.02em",
-              }}
+              className="font-['Playfair_Display'] font-bold text-white leading-[1.1] tracking-tight m-0
+              /* Fluid font size: 42px on mobile, 72px on desktop */
+              text-[42px] md:text-[72px]"
             >
-              you scrolled
-              <br />
-              something today
-              <br />
-              that felt like
-              <br />a waste, isn't it?
+              you scrolled <br className="hidden md:block" />
+              something today <br className="hidden md:block" />
+              that felt like <br className="hidden md:block" />
+              <span className="italic">a waste, isn't it?</span>
             </h1>
 
             {/* CTA Row */}
-            <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-              <div
-                style={{
-                  width: "48px",
-                  height: "48px",
-                  borderRadius: "50%",
-                  backgroundColor: "#ffffff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                }}
-              >
+            <div className="flex items-center justify-center md:justify-start gap-4">
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white flex items-center justify-center shrink-0">
                 <svg
-                  width="22"
-                  height="22"
+                  width="20"
+                  height="20"
+                  className="md:w-[22px] md:h-[22px]"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="#0d0e0c"
@@ -116,28 +67,18 @@ export default function HeroSection() {
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
               </div>
-              <button className="hero-cta-btn">Let's Fix It</button>
+              <button className="hero-cta-btn text-sm md:text-base">
+                Let's Fix It
+              </button>
             </div>
           </div>
 
-          {/* RIGHT — 468 × 468, flexShrink:0 prevents squishing */}
-          <div
-            style={{
-              width: "464px",
-              height: "464px",
-              flexShrink: 0 /* KEY FIX: don't let flex squish this */,
-              overflow: "hidden",
-            }}
-          >
+          {/* RIGHT IMAGE — 464px on desktop, scales on mobile */}
+          <div className="w-[280px] h-[280px] md:w-[464px] md:h-[464px] shrink-0 overflow-hidden rounded-2xl md:rounded-none">
             <img
               src={heroImage}
               alt="Hero visual"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                display: "block",
-              }}
+              className="w-full h-full object-cover block"
             />
           </div>
         </div>
