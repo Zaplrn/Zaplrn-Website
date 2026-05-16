@@ -4,7 +4,6 @@ export default function GrowthSection() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Syne:wght@400;500;600&display=swap');
 
         .growth-section {
           width: 100%;
@@ -29,7 +28,7 @@ export default function GrowthSection() {
         }
 
         .growth-heading {
-          font-family: 'Playfair Display', serif;
+          font-family: 'Denton', serif;
           font-weight: 700;
           font-size: 48px; /* Mobile size */
           line-height: 1.1;
@@ -41,7 +40,7 @@ export default function GrowthSection() {
         .growth-heading em { font-style: italic; }
 
         .growth-subtext {
-          font-family: 'Syne', sans-serif;
+          font-family: 'Gilroy', sans-serif;
           font-size: 14px;
           color: rgba(255,255,255,0.45);
           line-height: 1.6;
@@ -84,7 +83,7 @@ export default function GrowthSection() {
         }
 
         .growth-card-placeholder span {
-          font-family: 'Syne', sans-serif;
+          font-family: 'Gilroy', sans-serif;
           font-size: 10px;
           color: rgba(255,255,255,0.2);
           letter-spacing: 0.08em;
@@ -97,7 +96,7 @@ export default function GrowthSection() {
         }
 
         .growth-card-title {
-          font-family: 'Playfair Display', serif;
+          font-family: 'Denton', serif;
           font-weight: 700;
           font-size: 22px;
           color: #ffffff;
@@ -105,7 +104,7 @@ export default function GrowthSection() {
         }
 
         .growth-card-desc {
-          font-family: 'Syne', sans-serif;
+          font-family: 'Gilroy', sans-serif;
           font-size: 13px;
           color: rgba(255,255,255,0.45);
           line-height: 1.5;
@@ -150,7 +149,7 @@ export default function GrowthSection() {
           <h2 className="growth-heading">
             One App.
             <br />
-            <em>Unlimited Growth.</em>
+            <span>Unlimited Growth.</span>
           </h2>
           <p className="growth-subtext">
             Whether you want to master a new coding language, understand

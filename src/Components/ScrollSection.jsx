@@ -101,8 +101,7 @@ export default function ScrollSection() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Syne:wght@400;500;600&display=swap');
-
+      
         .scroll-section {
           width: 100%;
           background-color: #0d0e0c;
@@ -124,7 +123,7 @@ export default function ScrollSection() {
         }
 
         .scroll-heading {
-          font-family: 'Playfair Display', serif;
+          font-family: 'Denton', serif;
           font-weight: 700;
           font-size: 88px;
           line-height: 1.0;
@@ -136,7 +135,7 @@ export default function ScrollSection() {
         .scroll-heading em { font-style: italic; }
 
         .scroll-subtext {
-          font-family: 'Syne', sans-serif;
+          font-family: 'Gilroy', sans-serif;
           font-size: 15px;
           color: rgba(255,255,255,0.45);
           line-height: 1.75;

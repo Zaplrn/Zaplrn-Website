@@ -1,4 +1,6 @@
 import React from "react";
+import creatorImg from "../assets/creator-card.png";
+import learnerImg from "../assets/learner-card.png";
 
 export default function FeatureSection2({ onSelect }) {
   const handleCardClick = (e, role) => {
@@ -11,8 +13,6 @@ export default function FeatureSection2({ onSelect }) {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Syne:wght@400;500;600&display=swap');
-
         .fs2-section {
           width: 100%;
           min-height: auto;
@@ -40,7 +40,7 @@ export default function FeatureSection2({ onSelect }) {
         }
 
         .fs2-heading {
-          font-family: 'Playfair Display', serif;
+          font-family: 'Denton', serif;
           font-weight: 700;
           font-size: 42px;
           line-height: 1.1;
@@ -72,23 +72,15 @@ export default function FeatureSection2({ onSelect }) {
           border: none;
           padding: 0;
           transition: transform 0.3s ease, box-shadow 0.3s ease;
+          border: 3px solid rgba(173, 172, 172, 0.8);
         }
 
-        .fs2-card-placeholder {
+        .fs2-card img {
           width: 100%;
           height: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          font-family: 'Syne', sans-serif;
-          font-size: 14px;
-          color: rgba(255,255,255,0.4);
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
-          border: 1.5px dashed rgba(255,255,255,0.12);
-          border-radius: 24px;
-          gap: 12px;
+          object-fit: cover;
+          display: block;
+
         }
 
         /* Desktop Adjustments */
@@ -127,50 +119,25 @@ export default function FeatureSection2({ onSelect }) {
               <br />
               from your
               <br />
-              <em>screen time?</em>
+              <span>screen time?</span>
             </h2>
           </div>
 
           <div className="fs2-cards">
-            {/* CREATOR CARD */}
+            {/* CREATOR CARD — logic unchanged */}
             <button
               className="fs2-card"
               onClick={(e) => handleCardClick(e, "creator")}
             >
-              <div className="fs2-card-placeholder">
-                <svg
-                  width="40"
-                  height="40"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="white"
-                  strokeWidth="1.5"
-                >
-                  <rect x="3" y="3" width="18" height="18" rx="2" />
-                  <path d="M3 9h18M9 21V9" />
-                </svg>
-                <span>For Creators</span>
-              </div>
+              <img src={creatorImg} alt="For Creators" />
             </button>
 
-            {/* LEARNER CARD */}
+            {/* LEARNER CARD — logic unchanged */}
             <button
               className="fs2-card"
               onClick={(e) => handleCardClick(e, "learner")}
             >
-              <div className="fs2-card-placeholder">
-                <svg
-                  width="40"
-                  height="40"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="white"
-                  strokeWidth="1.5"
-                >
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                </svg>
-                <span>For Learners</span>
-              </div>
+              <img src={learnerImg} alt="For Learners" />
             </button>
           </div>
         </div>

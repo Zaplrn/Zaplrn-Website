@@ -4,8 +4,7 @@ export default function FeaturesSection() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Syne:wght@400;500;600&display=swap');
-
+      
         .feat-section {
           width: 100%;
           background-color: #0d0e0c;
@@ -30,7 +29,7 @@ export default function FeaturesSection() {
         }
 
         .feat-heading {
-          font-family: 'Playfair Display', serif;
+          font-family: 'Denton', serif;
           font-weight: 700;
           font-size: 42px;
           line-height: 1.1;
@@ -42,7 +41,7 @@ export default function FeaturesSection() {
         .feat-heading em { font-style: italic; }
 
         .feat-subtext {
-          font-family: 'Syne', sans-serif;
+          font-family: 'Gilroy', sans-serif;
           font-size: 14px;
           color: rgba(255,255,255,0.45);
           line-height: 1.6;
@@ -76,7 +75,7 @@ export default function FeaturesSection() {
         }
 
         .feat-info-title {
-          font-family: 'Syne', sans-serif;
+          font-family: 'Gilroy', sans-serif;
           font-size: 16px;
           font-weight: 600;
           color: #ffffff;
@@ -84,7 +83,7 @@ export default function FeaturesSection() {
         }
 
         .feat-info-desc {
-          font-family: 'Syne', sans-serif;
+          font-family: 'Gilroy', sans-serif;
           font-size: 13px;
           color: rgba(255,255,255,0.4);
           line-height: 1.6;
@@ -148,7 +147,7 @@ export default function FeaturesSection() {
           }
 
           .feat-phone-label {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Gilroy', sans-serif;
             font-size: 11px;
             color: rgba(255,255,255,0.2);
             text-transform: uppercase;
@@ -161,7 +160,7 @@ export default function FeaturesSection() {
           <h2 className="feat-heading">
             from content creator
             <br />
-            <em>to knowledge leader</em>
+            <span>to knowledge leader</span>
           </h2>
           <p className="feat-subtext">
             At Zaplrn, we've built a home where your wisdom isn't just "content"

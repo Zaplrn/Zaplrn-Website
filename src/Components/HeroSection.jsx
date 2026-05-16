@@ -5,7 +5,6 @@ export default function HeroSection() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Syne:wght@400;500&display=swap');
 
         .hero-cta-btn {
           display: flex;
@@ -16,7 +15,7 @@ export default function HeroSection() {
           border: 1.5px solid rgba(255, 255, 255, 0.8);
           background-color: transparent;
           color: #ffffff;
-          font-family: 'Syne', sans-serif;
+          font-family: 'Gilroy', sans-serif;
           font-size: 16px;
           font-weight: 500;
           cursor: pointer;
@@ -47,7 +46,7 @@ export default function HeroSection() {
               you scrolled <br className="hidden md:block" />
               something today <br className="hidden md:block" />
               that felt like <br className="hidden md:block" />
-              <span className="italic">a waste, isn't it?</span>
+              <span>a waste, isn't it?</span>
             </h1>
 
             {/* CTA Row */}

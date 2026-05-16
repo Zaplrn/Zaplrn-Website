@@ -7,10 +7,6 @@ import card4 from "../assets/card4.png";
 export default function FeatureSection() {
   return (
     <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Syne:wght@400;500&display=swap');
-      `}</style>
-
       <section
         className="w-full bg-[#0d0e0c] flex flex-col items-center justify-start overflow-hidden relative box-border
           /* Desktop height is 614px, mobile is auto to allow content to breathe */
@@ -29,7 +25,7 @@ export default function FeatureSection() {
           >
             to the future of
             <br />
-            <em className="italic">micro–learning</em>
+            <span>micro–learning</span>
           </h2>
 
           <p className="font-syne text-[14px] md:text-[15px] font-normal text-white/50 leading-[1.65] max-w-[520px]">

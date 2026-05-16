@@ -4,8 +4,7 @@ export default function WhySection() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Syne:wght@400;500;600&display=swap');
-
+      
         .why-section {
           width: 100%;
           background-color: #0d0e0c;
@@ -29,7 +28,7 @@ export default function WhySection() {
         }
 
         .why-heading {
-          font-family: 'Playfair Display', serif;
+          font-family: 'Denton', serif;
           font-weight: 700;
           font-size: clamp(40px, 8vw, 88px);
           line-height: 1.1;
@@ -41,7 +40,7 @@ export default function WhySection() {
         .why-heading em { font-style: italic; }
 
         .why-subtext {
-          font-family: 'Syne', sans-serif;
+          font-family: 'Gilroy', sans-serif;
           font-size: 15px;
           color: rgba(255,255,255,0.45);
           line-height: 1.75;
@@ -99,7 +98,7 @@ export default function WhySection() {
         }
 
         .why-phone-label {
-          font-family: 'Syne', sans-serif;
+          font-family: 'Gilroy', sans-serif;
           font-size: 11px;
           color: rgba(255,255,255,0.2);
           text-transform: uppercase;
@@ -169,7 +168,7 @@ export default function WhySection() {
         }
 
         .why-point-title {
-          font-family: 'Playfair Display', serif;
+          font-family: 'Denton', serif;
           font-weight: 700;
           font-size: 20px;
           color: #ffffff;
@@ -178,7 +177,7 @@ export default function WhySection() {
         }
 
         .why-point-desc {
-          font-family: 'Syne', sans-serif;
+          font-family: 'Gilroy', sans-serif;
           font-size: 13px;
           color: rgba(255,255,255,0.4);
           line-height: 1.5;
@@ -191,7 +190,7 @@ export default function WhySection() {
           <h2 className="why-heading">
             Why Zaplrn Solution
             <br />
-            <em>to Your Problems</em>
+            <span>to Your Problems</span>
           </h2>
           <p className="why-subtext">
             It's time for a space where your attention is an investment, not a
