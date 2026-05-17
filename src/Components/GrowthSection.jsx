@@ -1,10 +1,14 @@
 import React from "react";
+import card1Img from "../assets/growth-card1.png";
+import card2Img from "../assets/growth-card2.png";
+import card3Img from "../assets/growth-card3.png";
+import card4Img from "../assets/growth-card4.png";
+import card5Img from "../assets/growth-card5.png";
 
 export default function GrowthSection() {
   return (
     <>
       <style>{`
-
         .growth-section {
           width: 100%;
           background-color: #0d0e0c;
@@ -30,7 +34,7 @@ export default function GrowthSection() {
         .growth-heading {
           font-family: 'Denton', serif;
           font-weight: 700;
-          font-size: 48px; /* Mobile size */
+          font-size: 48px;
           line-height: 1.1;
           color: #ffffff;
           margin: 0;
@@ -48,12 +52,11 @@ export default function GrowthSection() {
           max-width: 560px;
         }
 
-        /* GRID SYSTEM */
         .growth-grid {
           width: 100%;
           max-width: 1313px;
           display: grid;
-          grid-template-columns: 1fr; /* Stacked on mobile */
+          grid-template-columns: 1fr;
           gap: 20px;
         }
 
@@ -61,7 +64,7 @@ export default function GrowthSection() {
           height: 380px;
           border-radius: 20px;
           overflow: hidden;
-          background: #111111;
+          background: #0d0e0c;
           border: 1px solid rgba(255,255,255,0.07);
           position: relative;
           display: flex;
@@ -69,6 +72,16 @@ export default function GrowthSection() {
           justify-content: flex-end;
           padding: 24px;
           box-sizing: border-box;
+        }
+
+        /* Image top-aligned, exact dimensions */
+        .growth-card-img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          display: block;
+          object-fit: cover;
+          z-index: 0;
         }
 
         .growth-card-placeholder {
@@ -80,6 +93,7 @@ export default function GrowthSection() {
           flex-direction: column;
           gap: 10px;
           background: rgba(255,255,255,0.02);
+          z-index: 1;
         }
 
         .growth-card-placeholder span {
@@ -92,7 +106,7 @@ export default function GrowthSection() {
 
         .growth-card-content {
           position: relative;
-          z-index: 2;
+          z-index: 3;
         }
 
         .growth-card-title {
@@ -117,30 +131,23 @@ export default function GrowthSection() {
           bottom: 0; left: 0; right: 0;
           height: 60%;
           background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
-          z-index: 1;
+          z-index: 2;
         }
 
-        /* DESKTOP REFINEMENTS */
         @media (min-width: 1024px) {
           .growth-section {
             padding-top: 128px;
-            height: auto; /* Allow growth if needed */
+            height: auto;
             min-height: 1358px;
           }
-
-          .growth-heading {
-            font-size: 96px;
-          }
-
+          .growth-heading { font-size: 96px; }
           .growth-grid {
             grid-template-columns: repeat(12, 1fr);
             gap: 25px;
           }
-
-          /* Defining the Bento Layout spans */
-          .card-1, .card-2, .card-3 { grid-column: span 4; } /* 3 equal cards top row */
-          .card-4 { grid-column: span 7; } /* Larger card bottom left */
-          .card-5 { grid-column: span 5; } /* Medium card bottom right */
+          .card-1, .card-2, .card-3 { grid-column: span 4; }
+          .card-4 { grid-column: span 7; }
+          .card-5 { grid-column: span 5; }
         }
       `}</style>
 
@@ -159,22 +166,14 @@ export default function GrowthSection() {
         </div>
 
         <div className="growth-grid">
-          {/* Card 1 */}
+          {/* Card 1 — image: 414×288 */}
           <div className="growth-card card-1">
-            <div className="growth-card-placeholder">
-              <svg
-                width="36"
-                height="36"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="white"
-                strokeWidth="1.2"
-              >
-                <rect x="3" y="3" width="18" height="18" rx="2" />
-                <path d="M3 9h18M9 21V9" />
-              </svg>
-              <span>Expert Creators</span>
-            </div>
+            <img
+              src={card1Img}
+              alt=""
+              className="growth-card-img"
+              style={{ width: "410px", height: "250px" }}
+            />
             <div className="growth-card-content">
               <h3 className="growth-card-title">Industry-Expert Creators</h3>
               <p className="growth-card-desc">
@@ -184,22 +183,15 @@ export default function GrowthSection() {
             </div>
           </div>
 
-          {/* Card 2 */}
+          {/* Card 2 — image: 384×326 */}
           <div className="growth-card card-2">
-            <div className="growth-card-placeholder">
-              <svg
-                width="36"
-                height="36"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="white"
-                strokeWidth="1.2"
-              >
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-              </svg>
-              <span>Dual Mode</span>
-            </div>
-            <div className="growth-card-content">
+            <img
+              src={card2Img}
+              alt=""
+              className="growth-card-img"
+              style={{ width: "380px", height: "310px" }}
+            />
+            <div className="growth-card-content mb-5">
               <h3 className="growth-card-title">Dual-Mode Versatility</h3>
               <p className="growth-card-desc">
                 Everyone has something to learn and something to teach.
@@ -207,21 +199,14 @@ export default function GrowthSection() {
             </div>
           </div>
 
-          {/* Card 3 */}
+          {/* Card 3 — image: 414×326 */}
           <div className="growth-card card-3">
-            <div className="growth-card-placeholder">
-              <svg
-                width="36"
-                height="36"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="white"
-                strokeWidth="1.2"
-              >
-                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0" />
-              </svg>
-              <span>Smart Notifications</span>
-            </div>
+            <img
+              src={card3Img}
+              alt=""
+              className="growth-card-img"
+              style={{ width: "414px", height: "326px" }}
+            />
             <div className="growth-card-content">
               <h3 className="growth-card-title">Smart Notifications</h3>
               <p className="growth-card-desc">
@@ -230,25 +215,35 @@ export default function GrowthSection() {
             </div>
           </div>
 
-          {/* Card 4 */}
+          {/* Card 4 — image: 465×277 */}
           <div className="growth-card card-4">
+            <img
+              src={card4Img}
+              alt=""
+              className="growth-card-img"
+              style={{
+                width: "465px",
+                height: "277px",
+                left: "50%",
+                transform: "translateX(-50%)",
+              }}
+            />
             <div className="growth-card-placeholder">
               <span>Ecosystem Visual</span>
             </div>
             <div className="growth-card-content">
               <h3 className="growth-card-title">Discovery Ecosystems</h3>
-              <p className="growth-card-desc">
-                Browse dedicated categories like Tech, Business, or Art. Your
-                feed is a reflection of your goals.
-              </p>
             </div>
           </div>
 
-          {/* Card 5 */}
+          {/* Card 5 — image: 505×282 */}
           <div className="growth-card card-5">
-            <div className="growth-card-placeholder">
-              <span>Metrics Visual</span>
-            </div>
+            <img
+              src={card5Img}
+              alt=""
+              className="growth-card-img"
+              style={{ width: "505px", height: "282px" }}
+            />
             <div className="growth-card-content">
               <h3 className="growth-card-title">Transparent Metrics</h3>
               <p className="growth-card-desc">
