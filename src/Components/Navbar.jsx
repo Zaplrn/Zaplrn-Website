@@ -28,7 +28,7 @@ export default function Navbar() {
 
         {/* Desktop Buttons */}
         <div className="hidden lg:flex items-center gap-3">
-          <button className="flex items-center gap-2 px-7 py-3 rounded-full border-[1.5px] border-white/80 text-white text-[15px] font-medium transition-colors whitespace-nowrap">
+          <button className="flex items-center gap-2 px-7 py-3 rounded-full cursor-pointer border-[1.5px] border-white/80 text-white text-[15px] font-medium transition-colors whitespace-nowrap">
             {/* Play Store icon image — 20×20 same as before */}
             <img
               src={PlayStoreImg}
@@ -39,7 +39,7 @@ export default function Navbar() {
             />
             Play Store
           </button>
-          <button className="flex items-center gap-2 px-7 py-3 rounded-full border-[1.5px] border-white/80 text-white text-[15px] font-medium transition-colors whitespace-nowrap">
+          <button className="flex items-center gap-2 px-7 py-3 rounded-full cursor-pointer border-[1.5px] border-white/80 text-white text-[15px] font-medium transition-colors whitespace-nowrap">
             {/* App Store icon image — 18×18 same as before */}
             <img
               src={AppStoreImg}

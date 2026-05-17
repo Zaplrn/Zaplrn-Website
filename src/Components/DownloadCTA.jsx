@@ -20,7 +20,7 @@ export default function DownloadCTA() {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           {/* Play Store Button */}
-          <button className="flex items-center justify-center gap-3 bg-white text-black px-8 py-3 rounded-full hover:bg-gray-200 transition-colors w-full sm:w-auto">
+          <button className="flex items-center justify-center cursor-pointer gap-3 bg-white text-black px-8 py-3 rounded-full hover:bg-gray-200 transition-colors w-full sm:w-auto">
             <img
               src={PlayStoreImg}
               alt="Play Store"
@@ -30,7 +30,7 @@ export default function DownloadCTA() {
           </button>
 
           {/* App Store Button */}
-          <button className="flex items-center justify-center gap-3 bg-white text-black px-8 py-3 rounded-full hover:bg-gray-200 transition-colors w-full sm:w-auto">
+          <button className="flex items-center justify-center cursor-pointer gap-3 bg-white text-black px-8 py-3 rounded-full hover:bg-gray-200 transition-colors w-full sm:w-auto">
             <img
               src={AppStoreImg}
               alt="App Store"
