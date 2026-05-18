@@ -1,5 +1,5 @@
 import React from "react";
-import heroImage from "../assets/hero-image.png";
+import heroVideo from "../assets/intro-hero-video.mp4";
 
 export default function HeroSection({ onLetsFix }) {
   return (
@@ -53,11 +53,10 @@ export default function HeroSection({ onLetsFix }) {
           pt-[100px] md:pt-[164px] pb-20 md:pb-0 min-h-screen md:min-h-[760px]"
       >
         <div className="w-full max-w-[1204px] px-6 md:px-0 flex flex-col-reverse md:flex-row items-center justify-between gap-12 md:gap-0">
-
           {/* LEFT CONTENT */}
           <div className="w-full md:w-[609px] flex flex-col justify-center gap-6 md:gap-[36px] text-center md:text-left">
             <h1
-              className="font-['Denton'] font-bold text-white leading-[1.1] tracking-tight m-0
+              className="font-[Denton] font-bold text-white leading-[1.1] tracking-tight m-0
               text-[42px] md:text-[72px]"
             >
               you scrolled <br className="hidden md:block" />
@@ -69,7 +68,6 @@ export default function HeroSection({ onLetsFix }) {
             {/* CTA Row */}
             <div className="flex items-center justify-center md:justify-start">
               <div className="hero-cta-row">
-
                 {/* Tick circle */}
                 <div className="hero-cta-tick w-10 h-10 md:w-12 md:h-12 rounded-full bg-white flex items-center justify-center shrink-0">
                   <svg
@@ -96,17 +94,18 @@ export default function HeroSection({ onLetsFix }) {
                     Let's Fix It
                   </button>
                 </div>
-
               </div>
             </div>
           </div>
 
           {/* RIGHT IMAGE */}
           <div className="w-[280px] h-[280px] md:w-[464px] md:h-[464px] shrink-0 overflow-hidden rounded-2xl md:rounded-none">
-            <img
-              src={heroImage}
-              alt="Hero visual"
-              className="w-full h-full object-cover block"
+            <video
+              src={heroVideo}
+              autoPlay
+              loop
+              muted
+              className="w-full h-full object-cover"
             />
           </div>
         </div>

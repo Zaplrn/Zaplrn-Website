@@ -1,6 +1,6 @@
 import React from "react";
-import PlayStoreImg from "../assets/footer-playstore-icon.png";
-import AppStoreImg from "../assets/footer-appstore-icon.png";
+import PlayStoreImg from "../assets/footer-PlayStore-Icon.png";
+import AppStoreImg from "../assets/footer-AppStore-Icon.png";
 
 export default function DownloadCTA() {
   return (
