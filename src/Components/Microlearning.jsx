@@ -33,11 +33,6 @@ export default function FeatureSection() {
             your focus by switching to a feed designed for growth, not
             distraction.
           </p>
-
-          {/* BADGE */}
-          <div className="mt-4 md:mt-[28px] inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-[#0d0e0c] font-syne text-[12px] md:text-[13px] font-medium shadow-xl">
-            ⭐ Loved by 1M+ users worldwide
-          </div>
         </div>
 
         {/* LEFT CARDS — Adjusted for mobile */}
@@ -78,6 +73,15 @@ export default function FeatureSection() {
               className="w-full h-full object-cover"
             />
           </div>
+        </div>
+
+        {/* FIXED BOTTOM ALIGNED BADGE */}
+        <div
+          className="absolute bottom-6 md:bottom-[40px] left-1/2 -translate-x-1/2 z-20 
+                     inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white 
+                     text-[#0d0e0c] font-syne text-[12px] md:text-[13px] font-medium shadow-2xl whitespace-nowrap"
+        >
+          ⭐ Loved by 1M+ users worldwide
         </div>
       </section>
     </>

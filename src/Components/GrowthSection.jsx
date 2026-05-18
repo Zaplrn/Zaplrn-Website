@@ -177,8 +177,8 @@ export default function GrowthSection() {
             <div className="growth-card-content">
               <h3 className="growth-card-title">Industry-Expert Creators</h3>
               <p className="growth-card-desc">
-                We aren't a platform for influencers — we're a home for
-                practitioners.
+                We aren't a platform for "influencers"— <br></br> we’re a home
+                for practitioners.
               </p>
             </div>
           </div>
@@ -194,7 +194,8 @@ export default function GrowthSection() {
             <div className="growth-card-content mb-5">
               <h3 className="growth-card-title">Dual-Mode Versatility</h3>
               <p className="growth-card-desc">
-                Everyone has something to learn and something to teach.
+                On Zaplrn you don't need two accounts. We believe <br></br>{" "}
+                everyone has something to learn and something to teach.
               </p>
             </div>
           </div>
@@ -210,7 +211,9 @@ export default function GrowthSection() {
             <div className="growth-card-content">
               <h3 className="growth-card-title">Smart Notifications</h3>
               <p className="growth-card-desc">
-                Receive updates only when a Series you follow drops a new Zap.
+                We don't nag you with random pings.  Receive notifications only
+                when a Series you follow is updated or when a creator you trust
+                drops a new "Zap."
               </p>
             </div>
           </div>
@@ -233,6 +236,11 @@ export default function GrowthSection() {
             </div>
             <div className="growth-card-content">
               <h3 className="growth-card-title">Discovery Ecosystems</h3>
+              <p className="growth-card-desc">
+                Browse dedicated categories like Tech , Business, or Art.{" "}
+                <br></br>Your feed isa reflection of your goals, nota
+                distraction.
+              </p>
             </div>
           </div>
 
@@ -247,8 +255,8 @@ export default function GrowthSection() {
             <div className="growth-card-content">
               <h3 className="growth-card-title">Transparent Metrics</h3>
               <p className="growth-card-desc">
-                See completion rates and progress. Master skills, don't just
-                collect views.
+                For Creators, See completion rates and student progress. For
+                Learners, it’s showing exactly what skills you've mastered
               </p>
             </div>
           </div>
