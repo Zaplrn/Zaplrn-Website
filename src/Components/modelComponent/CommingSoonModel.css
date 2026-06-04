@@ -1,0 +1,93 @@
+.cs-overlay {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(1.5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.cs-modal {
+  position: relative;
+  width: 700px;
+  max-width: 90%;
+  padding: 60px 40px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--color-black);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+  text-align: center;
+  color: var(--color-white);
+}
+
+.cs-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: transparent;
+  border: none;
+  color: var(--color-white);
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.cs-close:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+.cs-content h2 {
+  font-size: 36px;
+  font-family: "Denton";
+  font-weight: 600;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.cs-content .sub {
+  font-size: 16px;
+  font-family: "Gilroy";
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.cs-content .desc {
+  font-size: 16px;
+  font-family: "Gilroy";
+  color: var(--text-muted);
+}
+
+.cs-glow-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(204, 204, 204, 0.1) 49%,
+    rgba(255, 255, 255, 0) 100%
+  );
+
+  pointer-events: none;
+}
+
+.cs-glow-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+
+  background: linear-gradient(
+    270deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(204, 204, 204, 0.1) 49%,
+    rgba(255, 255, 255, 0) 100%
+  );
+
+  pointer-events: none;
+}
