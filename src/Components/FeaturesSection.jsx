@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import creatorVideo from "../assets/creator-section-video.mp4";
 
 export default function FeaturesSection() {
   const outerRef = useRef(null);
@@ -301,17 +302,9 @@ export default function FeaturesSection() {
 
           {/* Card container */}
           <div className="feat-card-container">
-            {/* Phone — original position */}
-            {/* <div className="feat-phone-visual">
-              <img
-                src="/src/assets/creator-mock-image.png"
-                alt="Zaplrn App Preview"
-                className="feat-phone-image"
-              />
-            </div> */}
             <div className="feat-phone-visual">
               <video
-                src="/src/assets/creator-section-video.mp4"
+                src={creatorVideo}
                 className="feat-phone-image"
                 autoPlay
                 loop
