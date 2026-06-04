@@ -2,115 +2,299 @@ import React from "react";
 import creatorImg from "../assets/creator-card.png";
 import learnerImg from "../assets/learner-card.png";
 
-export default function FeatureSection2({ onSelect }) {
-  const handleCardClick = (e, role) => {
-    e.preventDefault();
-    if (onSelect) {
-      onSelect(role);
-    }
-  };
+// ─── Icons ────────────────────────────────────────────────────────────────────
 
+const UserIcon = () => (
+  <svg
+    width="12"
+    height="12"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+    <circle cx="12" cy="7" r="4" />
+  </svg>
+);
+
+const PlayIcon = () => (
+  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M8 5v14l11-7z" />
+  </svg>
+);
+
+// ─── Card Label ───────────────────────────────────────────────────────────────
+
+function CardLabel({ icon, text }) {
+  return (
+    <div className="fc-label">
+      <div className="fc-label__icon">{icon}</div>
+      <span className="fc-label__text">{text}</span>
+    </div>
+  );
+}
+
+// ─── Creator Card ─────────────────────────────────────────────────────────────
+
+function CreatorCard({ onClick }) {
+  return (
+    <button
+      className="fc-card fc-card--creator"
+      onClick={(e) => {
+        e.preventDefault();
+        onClick("creator");
+      }}
+    >
+      {/* Background image */}
+      <img src={creatorImg} alt="For Creators" className="fc-card__bg" />
+
+      {/* Gradient overlay */}
+      <div className="fc-card__overlay fc-card__overlay--creator" />
+
+      {/* Text content */}
+      <div className="fc-card__body">
+        <CardLabel icon={<UserIcon />} text="For Creators" />
+
+        <h3 className="fc-card__title">
+          create
+          <br />
+          something
+          <br />
+          <i>meaningful</i>
+        </h3>
+
+        <div className="fc-card__line" />
+
+        <p className="fc-card__desc">
+          your ideas deserve
+          <br />
+          more than drafts
+        </p>
+      </div>
+    </button>
+  );
+}
+
+// ─── Learner Card ─────────────────────────────────────────────────────────────
+
+function LearnerCard({ onClick }) {
+  return (
+    <button
+      className="fc-card fc-card--learner"
+      onClick={(e) => {
+        e.preventDefault();
+        onClick("learner");
+      }}
+    >
+      <img src={learnerImg} alt="For Learners" className="fc-card__bg" />
+
+      <div className="fc-card__overlay fc-card__overlay--learner" />
+
+      <div className="fc-card__body">
+        <CardLabel icon={<PlayIcon />} text="For Learners" />
+
+        <h3 className="fc-card__title">
+          learn
+          <br />
+          something
+          <br />
+          <i>useful</i>
+        </h3>
+
+        <div className="fc-card__line" />
+        <p className="fc-card__desc">
+          small lessons.
+          <br />
+          real growth.
+          <br />
+          every day.
+        </p>
+      </div>
+    </button>
+  );
+}
+
+// ─── Main Component ───────────────────────────────────────────────────────────
+
+export default function FeatureSection({ onSelect }) {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Syne:wght@400;500;600&display=swap');
 
-        .fs2-section {
+        /* ══════════════════════════════════════
+           SECTION
+        ══════════════════════════════════════ */
+        .fc-section {
           width: 100%;
-          min-height: auto;
-          background-color: #0d0e0c;
+          background: #010101;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 80px 24px;
           box-sizing: border-box;
+          padding: 80px 24px 60px;
         }
+        
 
-        .fs2-inner {
+        /* ══════════════════════════════════════
+           INNER CONTAINER — mirrors navbar grid
+        ══════════════════════════════════════ */
+        .fc-inner {
           width: 100%;
-          max-width: 1204px;
+          max-width: 1440px;
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 40px;
+          gap: 48px;
         }
+        @media (min-width: 1024px) { .fc-inner { gap: 56px; } }
 
-        .fs2-text {
-          width: 100%;
-          max-width: 760px;
-          text-align: center;
-        }
-
-        .fs2-heading {
-          font-family: 'Denton', serif;
+        /* ══════════════════════════════════════
+           HEADLINE
+        ══════════════════════════════════════ */
+        .fc-heading {
+          font-family: 'Denton' ;
           font-weight: 700;
-          font-size: 42px;
-          line-height: 1.1;
           color: #ffffff;
+          line-height: 1.0;
+          letter-spacing: -0.03em;
           margin: 0;
-          letter-spacing: -0.02em;
+          text-align: center;
+          font-size: clamp(38px, 6vw, 80px);
         }
 
-        .fs2-cards {
-          width: 100%;
-          max-width: 1200px;
-          display: flex;
-          flex-direction: column;
-          gap: 32px;
-        }
+        /* ══════════════════════════════════════
+           CARDS ROW
+        ══════════════════════════════════════ */
+        .fc-cards {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  flex-direction: row;
+}
 
-        .fs2-card {
-          width: 100%;
-          height: 560px;
-          border-radius: 40px;
+        /* ══════════════════════════════════════
+           CARD BASE
+        ══════════════════════════════════════ */
+        .fc-card {
+          position: relative;
+          width: min(100%, 28vw);
+          max-width: 420px;
+          min-width: 280px;
+          border-radius: 32px;
           overflow: hidden;
           cursor: pointer;
-          position: relative;
           background: #050505;
-          border: none;
+          border: 2px solid #464344;
           padding: 0;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          text-align: left;
+          transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                      box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+          flex: unset;
+          aspect-ratio: 3 / 4;
         }
-
-        /* Background Images */
-        .fs2-card-bg {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
-          position: absolute;
-          top: 0;
-          left: 0;
-          z-index: 1;
+        @media (max-width: 767px) {
+          .fc-card {
+            width: 100%;
+            min-width: auto;
+          }
         }
+  
+          .fc-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+          }
 
-        /* --- EXACT FIGMA OVERLAY TEXT & ICONS --- */
-        .card-text-overlay {
+        /* Background image */
+       .fc-card__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  z-index: 1;
+}
+
+        /* Gradient overlay — unique per card theme */
+        .fc-card__overlay {
           position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
+          inset: 0;
           z-index: 2;
+        }
+
+        /* Creator: dark top, pink-tinted bottom */
+        .fc-card__overlay--creator {
+          background: linear-gradient(
+            180deg,
+            rgba(13,14,12,0.15)  0%,
+            rgba(13,14,12,0.0)   35%,
+            rgba(180,20,80,0.15) 75%,
+            rgba(13,14,12,0.75) 100%
+          );
+        }
+
+        /* Learner: dark top, purple-tinted bottom */
+        .fc-card__overlay--learner {
+          background: linear-gradient(
+            180deg,
+            rgba(13,14,12,0.15)   0%,
+            rgba(13,14,12,0.0)    35%,
+            rgba(80,30,160,0.15)  75%,
+            rgba(13,14,12,0.75)  100%
+          );
+        }
+
+        /* Text content */
+        .fc-card__body {
+          position: absolute;
+          inset: 0;
+          z-index: 3;
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
           align-items: flex-start;
-          padding: 50px 48px;
+          padding: 40px 36px;
           box-sizing: border-box;
-          text-align: left;
-          /* Subtle vignette to match the dark bottom drop in Figma */
-          background: linear-gradient(180deg, rgba(13,14,12,0.2) 0%, rgba(13,14,12,0) 40%, rgba(13,14,12,0.6) 100%);
+        }
+        @media (min-width: 1024px) {
+          .fc-card__body { padding: 52px 48px; }
         }
 
-        .card-label-zone {
+        .fc-card__line {
+  width: 60px;
+  height: 4px;
+  border-radius: 999px;
+  margin-bottom: 22px;
+}
+
+/* Creator card line */
+.fc-card--creator .fc-card__line {
+  background: #ff2e93;
+}
+
+/* Learner card line */
+.fc-card--learner .fc-card__line {
+  background: #9d5cff;
+}
+
+        /* ══════════════════════════════════════
+           CARD LABEL  ("FOR CREATORS" / "FOR LEARNERS")
+        ══════════════════════════════════════ */
+        .fc-label {
           display: flex;
           align-items: center;
           gap: 10px;
-          margin-bottom: 28px;
+          margin-bottom: 24px;
         }
 
-        .card-icon-wrap {
+        .fc-label__icon {
           display: flex;
           align-items: center;
           justify-content: center;
@@ -118,178 +302,61 @@ export default function FeatureSection2({ onSelect }) {
           height: 24px;
           border-radius: 50%;
           border: 1.5px solid currentColor;
+          flex-shrink: 0;
         }
 
-        .card-label-text {
-          font-family: 'Syne', sans-serif;
-          font-weight: 500;
-          font-size: 13px;
-          letter-spacing: 0.12em;
+        .fc-label__text {
+          font-family: 'Gilroy', ;
+          font-size: 11px;
+          font-weight: 600;
+          letter-spacing: 0.14em;
           text-transform: uppercase;
         }
 
-        .card-main-title {
-          font-family: 'Playfair Display', serif;
+        /* Colour per theme */
+        .fc-card--creator .fc-label { color: #ff2e93; }
+        .fc-card--learner .fc-label { color: #9d5cff; }
+
+        /* ══════════════════════════════════════
+           CARD TITLE
+        ══════════════════════════════════════ */
+        .fc-card__title {
+          font-family: 'Denton' ;
           font-weight: 700;
-          font-size: clamp(38px, 4.5vw, 52px);
+          font-size: clamp(36px, 3.5vw, 52px);
           line-height: 1.02;
           color: #ffffff;
-          margin: 0 0 24px 0;
-          letter-spacing: -0.02em;
-          text-transform: lowercase; /* Matches lowercase style from screenshot */
+          margin: 0 0 20px;
+          letter-spacing: -0.025em;
         }
 
-        .card-main-title em {
-          font-style: italic;
-          font-weight: 700;
-        }
-
-        .card-description {
-          font-family: 'Syne', sans-serif;
-          font-size: 15px;
-          line-height: 1.45;
+        /* ══════════════════════════════════════
+           CARD DESCRIPTION
+        ══════════════════════════════════════ */
+        .fc-card__desc {
+          font-family: 'Gilroy';
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 1.6;
           margin: 0;
-          max-width: 240px;
-          color: rgba(255, 255, 255, 0.5); /* Crisp secondary text */
-          text-transform: lowercase;
-        }
-
-        /* Pink Accent (Creators) */
-        .theme-creator .card-label-zone { color: #ff2e93; }
-        
-        /* Purple Accent (Learners) */
-        .theme-learner .card-label-zone { color: #9d5cff; }
-
-        /* Desktop Layout Sync */
-        @media (min-width: 1024px) {
-          .fs2-section {
-            min-height: 100vh;
-            padding: 60px 40px;
-          }
-          .fs2-inner {
-            gap: 60px;
-          }
-          .fs2-heading {
-            font-size: 70px;
-          }
-          .fs2-cards {
-            flex-direction: row;
-            height: 720px;
-            gap: 32px;
-          }
-          .fs2-card {
-            flex: 1;
-            height: 720px;
-          }
-          .fs2-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4);
-          }
-          .card-text-overlay {
-            padding: 64px 56px;
-          }
+          color: rgba(255, 255, 255, 0.5);
+          letter-spacing: 0.01em;
         }
       `}</style>
 
-      <section className="fs2-section">
-        <div className="fs2-inner">
-          <div className="fs2-text">
-            <h2 className="fs2-heading">
-              so what do you want
-              <br />
-              from your
-              <br />
-              <span>screen time?</span>
-            </h2>
-          </div>
+      <section className="fc-section" aria-label="Choose your path">
+        <div className="fc-inner">
+          {/* Headline */}
+          <h2 className="fc-heading">
+            so what do you want
+            <br />
+            <i>from your screen time</i>?
+          </h2>
 
-          <div className="fs2-cards">
-            {/* CREATOR CARD */}
-            <button
-              className="fs2-card theme-creator"
-              onClick={(e) => handleCardClick(e, "creator")}
-            >
-              <img
-                src={creatorImg}
-                alt="For Creators"
-                className="fs2-card-bg"
-              />
-
-              <div className="card-text-overlay">
-                <div className="card-label-zone">
-                  <div className="card-icon-wrap">
-                    {/* Outline Profile/User Icon from Figma */}
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                      <circle cx="12" cy="7" r="4" />
-                    </svg>
-                  </div>
-                  <span className="card-label-text">For Creators</span>
-                </div>
-
-                <h3 className="card-main-title">
-                  create
-                  <br />
-                  something
-                  <br />
-                  <em>meaningful</em>
-                </h3>
-
-                <p className="card-description">
-                  your ideas deserve <br></br> more than drafts
-                </p>
-              </div>
-            </button>
-
-            {/* LEARNER CARD */}
-            <button
-              className="fs2-card theme-learner"
-              onClick={(e) => handleCardClick(e, "learner")}
-            >
-              <img
-                src={learnerImg}
-                alt="For Learners"
-                className="fs2-card-bg"
-              />
-
-              <div className="card-text-overlay">
-                <div className="card-label-zone">
-                  <div className="card-icon-wrap">
-                    {/* Outline Play Arrow Icon from Figma */}
-                    <svg
-                      width="10"
-                      height="10"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                  <span className="card-label-text">For Learners</span>
-                </div>
-
-                <h3 className="card-main-title">
-                  learn
-                  <br />
-                  something
-                  <br />
-                  <em>useful</em>
-                </h3>
-
-                <p className="card-description">
-                  small lessons. <br></br> real growth. <br></br> every day.
-                </p>
-              </div>
-            </button>
+          {/* Cards */}
+          <div className="fc-cards">
+            <CreatorCard onClick={onSelect} />
+            <LearnerCard onClick={onSelect} />
           </div>
         </div>
       </section>

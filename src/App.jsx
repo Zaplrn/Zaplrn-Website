@@ -1,73 +1,43 @@
-import { useState } from "react";
-import Navbar from "./Components/Navbar";
-import HeroSection from "./Components/HeroSection";
-import Microlearning from "./Components/Microlearning";
-import FeatureSection from "./Components/FeatureSection";
-import FeaturesSection from "./Components/FeaturesSection";
-import Scrollsection from "./Components/ScrollSection";
-import GrowthSection from "./Components/GrowthSection";
-import WhySection from "./Components/WhySection";
-import DownloadCTA from "./Components/DownloadCTA";
+import LandingPage from "./pages/LandingPage";
+import PrivacyPolicy from "./pages/privacy";
+import TermsAndConditions from "./pages/termsAndConditions";
+import CookiePolicy from "./pages/cookies";
+import ContactUs from "./pages/contactUs";
+import AccountDeletionPolicy from "./pages/accountDeletionPolicy";
+import CommunityGuidelines from "./pages/communityGuidelines";
+import PageShell from "./Components/PageShell";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
-  const [revealed, setRevealed] = useState(false); // hero clicked or not
-  const [view, setView] = useState(null);           // creator or learner
-
-  const handleHeroClick = () => {
-    setRevealed(true);
-    // scroll to next section smoothly
-    setTimeout(() => {
-      window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
-    }, 100);
-  };
-
-  const handleSelection = (selectedRole) => {
-    setView(selectedRole);
-    window.scrollTo({ top: window.innerHeight * 2, behavior: "smooth" });
-  };
-
   return (
-    <div className="min-h-screen bg-[#0d0e0c]">
-      <Navbar />
-
-      {/* Always visible */}
-      <HeroSection onLetsFix={handleHeroClick} />
-
-      {/* Only shown after "Let's Fix It" is clicked */}
-      {revealed && (
-        <>
-          <Microlearning />
-          <FeatureSection onSelect={handleSelection} />
-
-          {/* Creator flow */}
-          {view === "creator" && (
-            <>
-              <FeaturesSection />
-              <GrowthSection />
-              <WhySection />
-              <DownloadCTA />
-            </>
-          )}
-
-          {/* Learner flow */}
-          {view === "learner" && (
-            <>
-              <Scrollsection />
-              <GrowthSection />
-              <WhySection />
-              <DownloadCTA />
-            </>
-          )}
-
-          {/* Waiting for selection */}
-          {!view && (
-            <div className="py-20 text-center text-gray-500 font-syne">
-              Please select an option above to continue your journey.
-            </div>
-          )}
-        </>
-      )}
-    </div>
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route element={<PageShell />}>
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+        <Route path="/cookie-policy" element={<CookiePolicy />} />
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/account-deletion" element={<AccountDeletionPolicy />} />
+        <Route path="/community-guidelines" element={<CommunityGuidelines />} />
+      </Route>
+      <Route
+        path="/terms"
+        element={<Navigate to="/terms-and-conditions" replace />}
+      />
+      <Route
+        path="/cookies"
+        element={<Navigate to="/cookie-policy" replace />}
+      />
+      <Route path="/home" element={<Navigate to="/" replace />} />
+      <Route
+        path="*"
+        element={
+          <div className="min-h-screen bg-[#010101] text-white flex items-center justify-center">
+            Page not found
+          </div>
+        }
+      />
+    </Routes>
   );
 }
 

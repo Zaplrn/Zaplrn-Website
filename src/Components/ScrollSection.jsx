@@ -1,41 +1,41 @@
 import React, { useState, useEffect, useRef } from "react";
 
-import step1Img from "../assets/step1.png";
-import step2Img from "../assets/step2.png";
-import step3Img from "../assets/step3.png";
-import step4Img from "../assets/step4.png";
-import step5Img from "../assets/step5.png";
+import step1Img from "../assets/learner-60-bom.png";
+import step2Img from "../assets/learner-structure-learning.png";
+import step3Img from "../assets/learner-goal-discovery.png";
+import step4Img from "../assets/leaner-mentor-ship.png";
+import step5Img from "../assets/leaner-dashboard.png";
 
 const steps = [
   {
     number: "01",
-    title: "Download the app",
-    desc: "From the App Store or Google Play and create your account. You can sign up with your email, Google, Facebook, or Apple ID.",
-    imgs: [step1Img, step1Img, step1Img],
+    title: "The 60-Second \"Knowledge Bomb\"",
+    desc: "Master one concept at a time. Every Zap is a distilled, high-impact lesson that fits into the gaps of your day—between meetings, on the commute, or over coffee.",
+    imgs: [step5Img, step1Img, step2Img],
   },
   {
     number: "02",
-    title: "Mentorship in Your Pocket",
-    desc: "Use the Integrated Chat to talk to the experts behind the Zaps. Ask questions, get clarity, and connect with the people who are actually doing the work you want to do.",
-    imgs: [step2Img, step2Img, step2Img],
+    title: "Structured Learning Series",
+    desc: "No more jumping between random videos. Follow curated Series that take you from 'Day 1' to 'Done.' It's a complete curriculum, served one minute at a time.",
+    imgs: [step1Img, step2Img, step3Img],
   },
   {
     number: "03",
-    title: 'The 60-Second "Knowledge Bomb"',
-    desc: "Master one concept at a time. Every Zap is a high-impact lesson that fits into the gaps of your day.",
-    imgs: [step3Img, step3Img, step3Img],
+    title: "Goal-Driven Discovery",
+    desc: "Your feed is a reflection of your ambitions. Browse by Industry—from Finance and Tech to Creative Arts—and let our engine suggest the skills you need to reach your next milestone.",
+    imgs: [step2Img, step3Img, step4Img],
   },
   {
     number: "04",
-    title: "Structured Learning Series",
-    desc: "No more jumping between random videos. Follow curated Series that take you from 'Day 1' to 'Done'.",
-    imgs: [step4Img, step4Img, step4Img],
+    title: "Mentorship in Your Pocket",
+    desc: "Use the Integrated Chat to talk to the experts behind the Zaps. Ask questions, get clarity, and connect with the people who are actually doing the work you want to do.",
+    imgs: [step3Img, step4Img, step5Img],
   },
   {
     number: "05",
-    title: "Track Your Growth",
-    desc: "See your progress across every Series. Know exactly how far you've come and what's next on your journey.",
-    imgs: [step5Img, step5Img, step5Img],
+    title: "Skill-Progress Dashboard",
+    desc: "Track your transformation. Watch your \"Skills Unlocked\" meter grow as you finish Series and Zaps. It’s not just about watching; it’s about becoming.",
+    imgs: [step4Img, step5Img, step1Img],
   },
 ];
 
@@ -46,11 +46,13 @@ export default function ScrollSection() {
 
   useEffect(() => {
     const handleScroll = () => {
+      if (window.innerWidth <= 1023) return;
       const triggers = triggerRefs.current;
       for (let i = triggers.length - 1; i >= 0; i--) {
         if (!triggers[i]) continue;
         const rect = triggers[i].getBoundingClientRect();
-        if (rect.top <= window.innerHeight * 0.5) {
+        if (rect
+          .top <= window.innerHeight * 0.5) {
           setActiveStep(i);
           break;
         }
@@ -91,7 +93,7 @@ export default function ScrollSection() {
 
   const CENTER_W = 260;
   const CENTER_H = 500;
-  const SIDE_W = 210;
+  const SIDE_W = 230;
   const SIDE_H = 420;
   const LEFT_OFFSET_X = -130;
   const RIGHT_OFFSET_X = CENTER_W + 20;
@@ -104,7 +106,7 @@ export default function ScrollSection() {
       
         .scroll-section {
           width: 100%;
-          background-color: #0d0e0c;
+          background-color: #010101;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -123,14 +125,14 @@ export default function ScrollSection() {
         }
 
         .scroll-heading {
-          font-family: 'Denton', serif;
-          font-weight: 700;
-          font-size: 88px;
-          line-height: 1.0;
-          color: #ffffff;
-          margin: 0;
-          letter-spacing: -0.02em;
-        }
+    font-family: 'Denton';
+    font-weight: bolder;
+    font-size: 88px;
+    line-height: 1.0;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
 
         .scroll-heading em { font-style: italic; }
 
@@ -153,6 +155,8 @@ export default function ScrollSection() {
           padding-bottom: 80px;
           box-sizing: border-box;
         }
+
+        
 
         .scroll-left {
           width: 460px;
@@ -239,6 +243,103 @@ export default function ScrollSection() {
           flex-direction: column;
           gap: 6px;
         }
+
+        .scroll-mobile {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .scroll-body {
+    display: none;
+  }
+
+  .scroll-text {
+    width: 100%;
+    min-height: auto;
+    padding: 56px 20px 0;
+    gap: 16px;
+    box-sizing: border-box;
+  }
+
+  .scroll-heading {
+    font-size: 38px;
+    line-height: 1.12;
+  }
+
+  .scroll-subtext {
+    font-size: 14px;
+  }
+
+  .scroll-mobile {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
+    padding: 40px 20px 56px;
+    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .scroll-mobile::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sm-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    width: 80vw;
+    max-width: 320px;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+  }
+
+  .sm-phone {
+    width: min(68%, 260px);
+    aspect-ratio: 260 / 500;
+    border-radius: 24px;
+    overflow: hidden;
+  }
+
+  .sm-phone img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .sm-number {
+    font-family: "Denton";
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.08em;
+  }
+
+  .sm-title {
+    font-family: "Denton";
+    font-weight: 700;
+    font-size: 22px;
+    color: #fff;
+    margin: 0;
+    line-height: 1.15;
+  }
+
+  .sm-desc {
+    font-family: "Gilroy";
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+    margin: 0;
+    max-width: 340px;
+  }
+}
       `}</style>
 
       <section className="scroll-section" ref={sectionRef}>
@@ -270,8 +371,6 @@ export default function ScrollSection() {
                   left: 0,
                   borderRadius: "24px",
                   overflow: "hidden",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  background: "#111",
                   transformOrigin: "bottom right",
                   zIndex: 1,
                   opacity: 0.7,
@@ -305,8 +404,6 @@ export default function ScrollSection() {
                   left: `${CENTER_LEFT}px`,
                   borderRadius: "28px",
                   overflow: "hidden",
-                  border: "1px solid rgba(255,255,255,0.12)",
-                  background: "#111",
                   transform: "rotate(0deg)",
                   zIndex: 3,
                 }}
@@ -339,8 +436,6 @@ export default function ScrollSection() {
                   left: `${CENTER_LEFT + CENTER_W + -35}px`,
                   borderRadius: "24px",
                   overflow: "hidden",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  background: "#111",
                   transformOrigin: "bottom left",
                   zIndex: 2,
                   opacity: 0.7,
@@ -383,7 +478,7 @@ export default function ScrollSection() {
                     <div className="scroll-step-content">
                       <span
                         style={{
-                          fontFamily: "'Syne',sans-serif",
+                          fontFamily: "Denton",
                           fontSize: `${getNumberSize(i)}px`,
                           fontWeight: 500,
                           color: "rgba(255,255,255,0.35)",
@@ -395,7 +490,7 @@ export default function ScrollSection() {
                       </span>
                       <h3
                         style={{
-                          fontFamily: "'Playfair Display',serif",
+                          fontFamily: "Denton",
                           fontWeight: 700,
                           fontSize: `${getTitleSize(i)}px`,
                           color: "#ffffff",
@@ -408,7 +503,7 @@ export default function ScrollSection() {
                       </h3>
                       <p
                         style={{
-                          fontFamily: "'Syne',sans-serif",
+                          fontFamily: "Denton",
                           fontSize: `${getDescSize(i)}px`,
                           color: "rgba(255,255,255,0.45)",
                           lineHeight: 1.75,
@@ -435,6 +530,21 @@ export default function ScrollSection() {
               ))}
             </div>
           </div>
+        </div>
+        <div className="scroll-mobile">
+          {steps.map((step, i) => (
+            <div className="sm-step" key={i}>
+              <div className="sm-phone">
+                <img src={step.imgs[1]} alt="" />
+              </div>
+
+              <span className="sm-number">{step.number}</span>
+
+              <h3 className="sm-title">{step.title}</h3>
+
+              <p className="sm-desc">{step.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
     </>

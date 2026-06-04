@@ -1,13 +1,127 @@
-import React from "react";
+import { useState, useEffect, useRef } from "react";
+import defaultImg from "../assets/why-zaplrn-image.png";
+import cleanMindImg from "../assets/clean-mind.png";
+import zeroAlgoImg from "../assets/zero-algo.png";
+import passiveToActiveImg from "../assets/passive to active doing.png";
+import selfLifeImg from "../assets/self-life.png";
+
+const ICONS = {
+  cleanMind: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5">
+      <path d="M4 6h16M4 12h16M4 18h16M9 6v12M15 6v12" />
+    </svg>
+  ),
+  zeroAlgo: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5">
+      <circle cx="12" cy="12" r="8" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  ),
+  passiveToActive: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5">
+      <path d="M5 12h14M12 5l7 7-7 7" />
+    </svg>
+  ),
+  selfLife: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5">
+      <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
+    </svg>
+  ),
+};
+
+const POINTS = [
+  { key: "cleanMind", title: 'The "Clean Mind" Guarantee', desc: "feeling better, not drained" },
+  { key: "zeroAlgo", title: 'Zero "Algorithm Anxiety"', desc: "Content with intent and categories" },
+  { key: "passiveToActive", title: 'From "Passive Watching" to "Active Doing"', desc: "Structured Series and Mastery Chat" },
+  { key: "selfLife", title: 'Content with a "Shelf-Life"', desc: "timeless wisdom over trending noise" },
+];
 
 export default function WhySection() {
+  const [activeCard, setActiveCard] = useState(null);
+  const trackRef = useRef(null);
+  const cardImages = {
+    default: defaultImg,
+    cleanMind: cleanMindImg,
+    zeroAlgo: zeroAlgoImg,
+    passiveToActive: passiveToActiveImg,
+    selfLife: selfLifeImg,
+  };
+  const activeImg = cardImages[activeCard] || cardImages.default;
+
+  // Mobile: swipe one card at a time; the centred card becomes active and
+  // swaps the image above it.
+  const settledIndex = useRef(0);
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    // Card whose centre is nearest the track centre (using viewport rects so
+    // it doesn't depend on offsetParent).
+    const nearestIndex = () => {
+      const trackRect = track.getBoundingClientRect();
+      const center = trackRect.left + trackRect.width / 2;
+      let nearest = 0;
+      let best = Infinity;
+      Array.from(track.children).forEach((child, idx) => {
+        const r = child.getBoundingClientRect();
+        const dist = Math.abs(r.left + r.width / 2 - center);
+        if (dist < best) {
+          best = dist;
+          nearest = idx;
+        }
+      });
+      return nearest;
+    };
+
+    const centerOn = (idx, smooth = true) => {
+      const child = track.children[idx];
+      if (!child) return;
+      const trackRect = track.getBoundingClientRect();
+      const r = child.getBoundingClientRect();
+      const delta = r.left + r.width / 2 - (trackRect.left + trackRect.width / 2);
+      track.scrollBy({ left: delta, behavior: smooth ? "smooth" : "auto" });
+    };
+
+    let timer;
+    const onScroll = () => {
+      if (window.innerWidth > 767) return;
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        // Limit movement to a single card per swipe.
+        let target = nearestIndex();
+        const prev = settledIndex.current;
+        if (target > prev + 1) target = prev + 1;
+        if (target < prev - 1) target = prev - 1;
+        settledIndex.current = target;
+        centerOn(target);
+        setActiveCard(POINTS[target].key);
+      }, 90);
+    };
+
+    const init = () => {
+      if (window.innerWidth > 767) return;
+      const idx = nearestIndex();
+      settledIndex.current = idx;
+      setActiveCard(POINTS[idx].key);
+    };
+
+    init();
+    track.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", init);
+    return () => {
+      clearTimeout(timer);
+      track.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", init);
+    };
+  }, []);
+
   return (
     <>
       <style>{`
       
         .why-section {
           width: 100%;
-          background-color: #0d0e0c;
+          background-color: #010101;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -28,7 +142,7 @@ export default function WhySection() {
         }
 
         .why-heading {
-          font-family: 'Denton', serif;
+          font-family: 'Denton';
           font-weight: 700;
           font-size: clamp(40px, 8vw, 88px);
           line-height: 1.1;
@@ -40,7 +154,7 @@ export default function WhySection() {
         .why-heading em { font-style: italic; }
 
         .why-subtext {
-          font-family: 'Gilroy', sans-serif;
+          font-family: 'Gilroy';
           font-size: 15px;
           color: rgba(255,255,255,0.45);
           line-height: 1.75;
@@ -63,7 +177,7 @@ export default function WhySection() {
 
         @media (min-width: 1024px) {
           .why-body {
-            height: 984px;
+            height: 800px;
             flex-direction: row;
             justify-content: center;
           }
@@ -73,10 +187,7 @@ export default function WhySection() {
         .why-phone {
           width: 280px;
           height: 570px;
-          border-radius: 36px;
           overflow: hidden;
-          border: 1.5px dashed rgba(255,255,255,0.15);
-          background: rgba(255,255,255,0.03);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -84,13 +195,40 @@ export default function WhySection() {
           gap: 12px;
           z-index: 2;
           order: 1; /* Center on mobile */
+          position: relative;
+          border-radius: 40px;
+          box-shadow: 0 35px 100px rgba(0, 0, 0, 0.35);
+          transition: transform 0.45s ease, box-shadow 0.45s ease;
+        }
+
+        .why-phone:hover,
+        .why-phone-active {
+          // transform: translateY(-6px);
+          box-shadow: 0 40px 120px rgba(0, 0, 0, 0.45);
+        }
+
+        .why-phone::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: radial-gradient(circle at top, rgba(255, 255, 255, 0.18), transparent 42%);
+          opacity: 0.7;
+        }
+
+        .why-phone img {
+          width: 100%;
+          height: auto;
+          display: block;
+          border-radius: 40px;
+          transition: transform 0.45s ease, opacity 0.45s ease;
         }
 
         @media (min-width: 1024px) {
           .why-phone {
             position: absolute;
-            width: 331px;
-            height: 675px;
+            width: 300px;
+            height: auto;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -98,7 +236,7 @@ export default function WhySection() {
         }
 
         .why-phone-label {
-          font-family: 'Gilroy', sans-serif;
+          font-family: 'Gilroy';
           font-size: 11px;
           color: rgba(255,255,255,0.2);
           text-transform: uppercase;
@@ -109,6 +247,37 @@ export default function WhySection() {
           width: 100%;
           max-width: 320px;
           z-index: 3;
+          cursor: pointer;
+          border-radius: 28px;
+          padding: 18px 20px 18px 18px;
+          transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease, border-color 0.35s ease;
+          border: 1px solid transparent;
+          background: rgba(255, 255, 255, 0.02);
+        }
+
+        .why-point:hover,
+        .why-point-active,
+        .why-point:focus-visible {
+          transform: translateY(-8px);
+          box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
+          background: rgba(255, 255, 255, 0.08);
+          border-color: rgba(255, 255, 255, 0.16);
+          outline: none;
+        }
+
+        .why-point:focus-visible {
+          outline: 2px solid rgba(255, 255, 255, 0.35);
+          outline-offset: 6px;
+        }
+
+        .why-point:hover .why-point-icon {
+          transform: scale(1.1) translateX(-1px);
+          background: rgba(255, 255, 255, 0.12);
+        }
+
+        .why-point:hover .why-point-title,
+        .why-point:hover .why-point-desc {
+          color: rgba(255, 255, 255, 0.95);
         }
 
         @media (min-width: 1024px) {
@@ -144,6 +313,44 @@ export default function WhySection() {
           .why-point-right .why-point-texts { align-items: flex-start; }
         }
 
+        @media (max-width: 1023px) {
+          .why-body {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: auto;
+            height: auto;
+            gap: 28px;
+            padding-top: 20px;
+          }
+          .why-phone {
+            position: relative;
+            width: min(100%, 320px);
+            height: auto;
+            left: auto;
+            top: auto;
+            transform: none;
+            margin: 0 auto;
+          }
+          .why-point {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            left: auto !important;
+            right: auto !important;
+            top: auto !important;
+            padding: 22px;
+          }
+          .why-point-inner {
+            flex-direction: row;
+            text-align: left;
+            justify-content: flex-start;
+          }
+          .why-point-texts {
+            align-items: flex-start;
+          }
+        }
+
         /* Mobile Point Logic */
         @media (max-width: 1023px) {
           .why-point-inner {
@@ -165,10 +372,11 @@ export default function WhySection() {
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
+          transition: transform 0.35s ease, background 0.35s ease, border-color 0.35s ease;
         }
 
         .why-point-title {
-          font-family: 'Denton', serif;
+          font-family: 'Denton';
           font-weight: 700;
           font-size: 20px;
           color: #ffffff;
@@ -177,11 +385,88 @@ export default function WhySection() {
         }
 
         .why-point-desc {
-          font-family: 'Gilroy', sans-serif;
+          font-family: 'Gilroy';
           font-size: 13px;
           color: rgba(255,255,255,0.4);
           line-height: 1.5;
           margin: 0;
+        }
+
+        /* ── MOBILE SWIPE LAYOUT ── */
+        .why-mobile { display: none; }
+
+        @media (max-width: 767px) {
+          /* Hide the desktop/tablet positioned layout */
+          .why-body { display: none; }
+
+          .why-mobile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            gap: 28px;
+          }
+
+          /* Phone image above, swaps with the active card */
+          .why-mobile-phone {
+            width: min(62%, 260px);
+            aspect-ratio: 280 / 570;
+            border-radius: 36px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 30px 90px rgba(0,0,0,0.4);
+            flex-shrink: 0;
+          }
+          .why-mobile-phone img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.4s ease;
+          }
+
+          /* Right-to-left swipeable card track */
+          .why-mobile-track {
+            display: flex;
+            flex-direction: row;
+            gap: 16px;
+            width: 100%;
+            padding: 8px calc(50% - 130px);
+            box-sizing: border-box;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x proximity;
+            scrollbar-width: none;
+          }
+          .why-mobile-track::-webkit-scrollbar { display: none; }
+
+          .why-mcard {
+            width: 260px;
+            flex-shrink: 0;
+            scroll-snap-align: center;
+            box-sizing: border-box;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+            opacity: 0.45;
+            transform: scale(0.92);
+            transition: opacity 0.35s ease, transform 0.35s ease,
+                        background 0.35s ease, border-color 0.35s ease;
+          }
+
+          /* Centre (active) card highlighted */
+          .why-mcard-active {
+            opacity: 1;
+            transform: scale(1);
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.18);
+          }
         }
       `}</style>
 
@@ -190,7 +475,9 @@ export default function WhySection() {
           <h2 className="why-heading">
             Why Zaplrn Solution
             <br />
-            <span>to Your Problems</span>
+            <span>
+              <em>to Your Problems</em>
+            </span>
           </h2>
           <p className="why-subtext">
             It's time for a space where your attention is an investment, not a
@@ -199,25 +486,22 @@ export default function WhySection() {
         </div>
 
         <div className="why-body">
-          {/* PHONE */}
-          <div className="why-phone">
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="rgba(255,255,255,0.18)"
-              strokeWidth="1.5"
-            >
-              <rect x="5" y="2" width="14" height="20" rx="2" />
-            </svg>
-            <span className="why-phone-label">App Preview</span>
-          </div>
+          <img
+            src={activeImg}
+            alt="Zaplrn App Preview"
+            className={activeCard ? "why-phone why-phone-active" : "why-phone"}
+          />
 
           {/* POINT 1 */}
           <div
             className="why-point why-point-left"
             style={{ left: "60px", top: "240px" }}
+            onMouseEnter={() => setActiveCard("cleanMind")}
+            onMouseLeave={() => setActiveCard(null)}
+            onFocus={() => setActiveCard("cleanMind")}
+            onBlur={() => setActiveCard(null)}
+            role="button"
+            tabIndex={0}
           >
             <div className="why-point-inner">
               <div className="why-point-texts">
@@ -247,6 +531,12 @@ export default function WhySection() {
           <div
             className="why-point why-point-left"
             style={{ left: "110px", top: "580px" }}
+            onMouseEnter={() => setActiveCard("zeroAlgo")}
+            onMouseLeave={() => setActiveCard(null)}
+            onFocus={() => setActiveCard("zeroAlgo")}
+            onBlur={() => setActiveCard(null)}
+            role="button"
+            tabIndex={0}
           >
             <div className="why-point-inner">
               <div className="why-point-texts">
@@ -279,6 +569,12 @@ export default function WhySection() {
           <div
             className="why-point why-point-right"
             style={{ right: "40px", top: "240px" }}
+            onMouseEnter={() => setActiveCard("passiveToActive")}
+            onMouseLeave={() => setActiveCard(null)}
+            onFocus={() => setActiveCard("passiveToActive")}
+            onBlur={() => setActiveCard(null)}
+            role="button"
+            tabIndex={0}
           >
             <div className="why-point-inner">
               <div className="why-point-icon">
@@ -310,6 +606,12 @@ export default function WhySection() {
           <div
             className="why-point why-point-right"
             style={{ right: "120px", top: "580px" }}
+            onMouseEnter={() => setActiveCard("selfLife")}
+            onMouseLeave={() => setActiveCard(null)}
+            onFocus={() => setActiveCard("selfLife")}
+            onBlur={() => setActiveCard(null)}
+            role="button"
+            tabIndex={0}
           >
             <div className="why-point-inner">
               <div className="why-point-icon">
@@ -334,6 +636,26 @@ export default function WhySection() {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* MOBILE — image on top + right-to-left swipe cards (centre = active) */}
+        <div className="why-mobile">
+          <div className="why-mobile-phone">
+            <img src={activeImg} alt="Zaplrn App Preview" />
+          </div>
+
+          <div className="why-mobile-track" ref={trackRef}>
+            {POINTS.map((p) => (
+              <div
+                key={p.key}
+                className={`why-mcard ${activeCard === p.key ? "why-mcard-active" : ""}`}
+              >
+                <div className="why-point-icon">{ICONS[p.key]}</div>
+                <h4 className="why-point-title">{p.title}</h4>
+                <p className="why-point-desc">{p.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

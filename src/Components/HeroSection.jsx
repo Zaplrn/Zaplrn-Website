@@ -1,113 +1,279 @@
-import React from "react";
-import heroVideo from "../assets/intro-hero-video.mp4";
+import React, { useState, useEffect } from "react";
+import heroVideo from "../assets/intro-hero-video-2.mp4";
+
+// ─── Sub-components ───────────────────────────────────────────────────────────
+
+function TickCircle() {
+  return (
+    <div className="hero-tick">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#0d0e0c"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    </div>
+  );
+}
+
+// The button now accepts `pulsing` to toggle the sonar rings
+function CtaButton({ onClick, pulsing }) {
+  return (
+    <div className="hero-cta-btn-wrap">
+      <div className="hero-cta-pulse-wrap">
+        {/* Sonar rings — 3 staggered waves emanating from the button */}
+        {pulsing && (
+          <>
+            <span className="pulse-ring" style={{ animationDelay: "0s" }} />
+            <span className="pulse-ring" style={{ animationDelay: "0.55s" }} />
+            <span className="pulse-ring" style={{ animationDelay: "1.1s" }} />
+          </>
+        )}
+
+        <button className="hero-cta-btn" onClick={onClick}>
+          Let's Fix It
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function HeroVideo() {
+  return (
+    <div className="hero-media">
+      <video src={heroVideo} autoPlay loop muted playsInline />
+    </div>
+  );
+}
+
+// ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function HeroSection({ onLetsFix }) {
+  const [pulsing, setPulsing] = useState(false);
+
+  // Start pulsing 1.5s after mount
+  useEffect(() => {
+    const t = setTimeout(() => setPulsing(true), 1500);
+    return () => clearTimeout(t);
+  }, []);
+
+  // Stop pulsing and fire the parent handler
+  const handleCta = () => {
+    setPulsing(false);
+    onLetsFix?.();
+  };
+
   return (
     <>
       <style>{`
-        .hero-cta-btn {
+        /* ══════════════════════════════════════════
+           HERO SECTION
+        ══════════════════════════════════════════ */
+
+        .hero-section {
+          position: relative;
+          width: 100%;
+          background: #010101;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 16px 36px;
-          border-radius: 999px;
-          border: 1.5px solid rgba(255, 255, 255, 0.8);
-          background-color: transparent;
+          box-sizing: border-box;
+          min-height: 100svh;
+          padding-top: 100px;
+          padding-bottom: 80px;
+        }
+        @media (min-width: 768px) {
+          .hero-section { min-height: 760px; padding-bottom: 0; }
+        }
+
+        /* ── Inner container — mirrors Navbar ── */
+        .hero-inner {
+          width: 100%;
+          max-width: 1440px;
+          margin: 0 auto;
+          padding: 0 24px;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column-reverse;
+          align-items: center;
+          justify-content: space-between;
+          gap: 48px;
+        }
+        @media (min-width: 768px) {
+          .hero-inner { padding: 0 40px; flex-direction: row; gap: 0; }
+        }
+
+        /* ── Left content ── */
+        .hero-content {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 24px;
+          text-align: center;
+        }
+        @media (min-width: 768px) {
+          .hero-content { align-items: flex-start; text-align: left; gap: 36px; }
+        }
+
+        /* ── Headline ── */
+        .hero-headline {
+          font-family: 'Denton';
+          font-weight: bold;
           color: #ffffff;
-          font-family: 'Gilroy', sans-serif;
-          font-size: 16px;
-          font-weight: 500;
-          cursor: pointer;
-          white-space: nowrap;
-          transition: background-color 0.2s ease, border-color 0.2s ease;
+          line-height: 0.98;
+          letter-spacing: -0.03em;
+          margin: 0;
+          font-size: clamp(38px, 5.5vw, 88px);
         }
 
-        .hero-cta-btn:hover {
-          border-color: #ffffff;
-        }
-
+        /* ── CTA row ── */
         .hero-cta-row {
           display: flex;
           align-items: center;
           gap: 16px;
           position: relative;
+          cursor: default;
         }
 
-        .hero-cta-tick {
+        /* Tick circle */
+        .hero-tick {
+          width: 44px; height: 44px;
+          border-radius: 50%;
+          background: #ffffff;
+          display: flex; align-items: center; justify-content: center;
+          flex-shrink: 0;
           transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .hero-cta-row:hover .hero-cta-tick {
-          transform: translateX(160px);
+        .hero-tick svg { width: 20px; height: 20px; }
+        .hero-cta-row:hover .hero-tick { transform: translateX(160px); }
+
+        @media (min-width: 768px) {
+          .hero-tick { width: 48px; height: 48px; }
+          .hero-tick svg { width: 22px; height: 22px; }
         }
 
+        /* CTA slide wrap */
         .hero-cta-btn-wrap {
           transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .hero-cta-row:hover .hero-cta-btn-wrap {
-          transform: translateX(-60px);
+        .hero-cta-row:hover .hero-cta-btn-wrap { transform: translateX(-60px); }
+
+        /*
+         * ── Pulse wrap ──
+         * position:relative so the rings (position:absolute) expand from
+         * the button's own bounding box centre.
+         */
+        .hero-cta-pulse-wrap {
+          position: relative;
+          display: inline-flex;
+        }
+
+        /* ── The button itself ── */
+        .hero-cta-btn {
+          position: relative; /* sits above the rings */
+          z-index: 1;
+          display: flex; align-items: center; justify-content: center;
+          padding: 14px 32px;
+          border-radius: 999px;
+          border: 1.5px solid rgba(255,255,255,0.8);
+          background: transparent;
+          color: #ffffff;
+          font-family: 'Gilroy';
+          font-size: 15px; font-weight: 500;
+          cursor: pointer; white-space: nowrap;
+          transition: border-color 0.2s ease, background 0.2s ease;
+        }
+        .hero-cta-btn:hover {
+          border-color: #ffffff;
+          background: rgba(255,255,255,0.05);
+        }
+        @media (min-width: 768px) {
+          .hero-cta-btn { font-size: 16px; padding: 16px 36px; }
+        }
+
+        /* ══════════════════════════════════════════
+           SONAR PULSE RINGS
+           Each ring starts at the button's exact
+           border, then expands outward and fades.
+        ══════════════════════════════════════════ */
+        .pulse-ring {
+          position: absolute;
+          inset: 0;                       /* match button size exactly */
+          border-radius: 999px;
+          border: 1px solid rgba(255,255,255,0.55);
+          pointer-events: none;
+
+          /* start invisible & at button size, then scale up & fade */
+          animation: sonar-pulse 2.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+        }
+
+        @keyframes sonar-pulse {
+          0% {
+            transform: scale(1);
+            opacity: 0.6;
+          }
+          70% {
+            transform: scale(1.55);
+            opacity: 0;
+          }
+          100% {
+            transform: scale(1.55);
+            opacity: 0;
+          }
+        }
+
+        /* ── Right media ── */
+        .hero-media {
+          width: min(100%, 600px);
+          max-width: 100%;
+          height: auto;
+          aspect-ratio: 5 / 4;
+          flex-shrink: 0;
+          overflow: hidden;
+          border-radius: 16px;
+        }
+        .hero-media video {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          border-radius: 20px;
+          min-height: 240px;
+        }
+        @media (min-width: 768px) {
+          .hero-media {
+            width: 600px;
+            height: 464px;
+            aspect-ratio: auto;
+            border-radius: 0;
+          }
         }
       `}</style>
 
-      <section
-        className="w-full bg-[#0d0e0c] flex items-center justify-center box-border
-          pt-[100px] md:pt-[164px] pb-20 md:pb-0 min-h-screen md:min-h-[760px]"
-      >
-        <div className="w-full max-w-[1204px] px-6 md:px-0 flex flex-col-reverse md:flex-row items-center justify-between gap-12 md:gap-0">
-          {/* LEFT CONTENT */}
-          <div className="w-full md:w-[609px] flex flex-col justify-center gap-6 md:gap-[36px] text-center md:text-left">
-            <h1
-              className="font-[Denton] font-bold text-white leading-[1.1] tracking-tight m-0
-              text-[42px] md:text-[72px]"
-            >
-              you scrolled <br className="hidden md:block" />
-              something today <br className="hidden md:block" />
-              that felt like <br className="hidden md:block" />
-              <span>a waste, isn't it?</span>
+      <section className="hero-section" aria-label="Hero">
+        <div className="hero-inner">
+          {/* ── Left: headline + CTA ── */}
+          <div className="hero-content">
+            <h1 className="hero-headline">
+              you scrolled <br />
+              something today <br />
+              that felt like <br />
+              <i>a waste, isn't it?</i>
             </h1>
 
-            {/* CTA Row */}
-            <div className="flex items-center justify-center md:justify-start">
-              <div className="hero-cta-row">
-                {/* Tick circle */}
-                <div className="hero-cta-tick w-10 h-10 md:w-12 md:h-12 rounded-full bg-white flex items-center justify-center shrink-0">
-                  <svg
-                    width="20"
-                    height="20"
-                    className="md:w-[22px] md:h-[22px]"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#0d0e0c"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                </div>
-
-                {/* Let's Fix It button — triggers reveal */}
-                <div className="hero-cta-btn-wrap">
-                  <button
-                    className="hero-cta-btn text-sm md:text-base"
-                    onClick={onLetsFix}
-                  >
-                    Let's Fix It
-                  </button>
-                </div>
-              </div>
+            <div className="hero-cta-row">
+              <TickCircle />
+              <CtaButton onClick={handleCta} pulsing={pulsing} />
             </div>
           </div>
 
-          {/* RIGHT IMAGE */}
-          <div className="w-[280px] h-[280px] md:w-[464px] md:h-[464px] shrink-0 overflow-hidden rounded-2xl md:rounded-none">
-            <video
-              src={heroVideo}
-              autoPlay
-              loop
-              muted
-              className="w-full h-full object-cover"
-            />
-          </div>
+          {/* ── Right: video ── */}
+          <HeroVideo />
         </div>
       </section>
     </>

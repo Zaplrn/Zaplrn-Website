@@ -1,7 +1,6 @@
-import React from "react";
-import card1Img from "../assets/growth-card1.png";
-import card2Img from "../assets/growth-card2.png";
-import card3Img from "../assets/growth-card3.png";
+import card1Video from "../assets/growth-card1.mp4";
+import card2Video from "../assets/growth-card2.mp4";
+import card3Video from "../assets/growth-card3.mp4";
 import card4Img from "../assets/growth-card4.png";
 import card5Img from "../assets/growth-card5.png";
 
@@ -11,7 +10,7 @@ export default function GrowthSection() {
       <style>{`
         .growth-section {
           width: 100%;
-          background-color: #0d0e0c;
+          background-color: #010101;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -32,7 +31,7 @@ export default function GrowthSection() {
         }
 
         .growth-heading {
-          font-family: 'Denton', serif;
+          font-family: 'Denton';
           font-weight: 700;
           font-size: 48px;
           line-height: 1.1;
@@ -44,7 +43,7 @@ export default function GrowthSection() {
         .growth-heading em { font-style: italic; }
 
         .growth-subtext {
-          font-family: 'Gilroy', sans-serif;
+          font-family: 'Gilroy';
           font-size: 14px;
           color: rgba(255,255,255,0.45);
           line-height: 1.6;
@@ -97,7 +96,7 @@ export default function GrowthSection() {
         }
 
         .growth-card-placeholder span {
-          font-family: 'Gilroy', sans-serif;
+          font-family: 'Gilroy';
           font-size: 10px;
           color: rgba(255,255,255,0.2);
           letter-spacing: 0.08em;
@@ -110,7 +109,7 @@ export default function GrowthSection() {
         }
 
         .growth-card-title {
-          font-family: 'Denton', serif;
+          font-family: 'Denton';
           font-weight: 700;
           font-size: 22px;
           color: #ffffff;
@@ -118,7 +117,7 @@ export default function GrowthSection() {
         }
 
         .growth-card-desc {
-          font-family: 'Gilroy', sans-serif;
+          font-family: 'Gilroy';
           font-size: 13px;
           color: rgba(255,255,255,0.45);
           line-height: 1.5;
@@ -132,6 +131,60 @@ export default function GrowthSection() {
           height: 60%;
           background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
           z-index: 2;
+        }
+
+        /* ── MOBILE: consistent fonts + media fills card (no text overlap) ── */
+        @media (max-width: 767px) {
+          .growth-section {
+            padding: 56px 16px;
+          }
+          .growth-text {
+            gap: 16px;
+            margin-bottom: 32px;
+          }
+          .growth-heading {
+            font-size: 38px;
+            line-height: 1.12;
+          }
+          .growth-subtext {
+            font-size: 14px;
+          }
+
+          /* Stacked card: image on top, text below — no overlap */
+          .growth-card {
+            height: auto;
+            justify-content: flex-start;
+            padding: 0 0 22px;
+            gap: 18px;
+          }
+
+          /* Image/video becomes a normal top block (not an overlay) */
+          .growth-card-img {
+            position: relative !important;
+            width: 100% !important;
+            height: 200px !important;
+            top: auto !important;
+            left: auto !important;
+            transform: none !important;
+            object-fit: cover !important;
+            border-radius: 20px 20px 0 0;
+          }
+
+          /* No gradient / empty overlay in the stacked layout */
+          .growth-card::after { display: none; }
+          .growth-card-placeholder { display: none; }
+
+          /* Text sits in its own padded area below the image */
+          .growth-card-content {
+            padding: 0 20px;
+          }
+
+          .growth-card-title {
+            font-size: 20px;
+          }
+          .growth-card-desc {
+            font-size: 13px;
+          }
         }
 
         @media (min-width: 1024px) {
@@ -156,7 +209,9 @@ export default function GrowthSection() {
           <h2 className="growth-heading">
             One App.
             <br />
-            <span>Unlimited Growth.</span>
+            <span>
+              <i>Unlimited Growth.</i>
+            </span>
           </h2>
           <p className="growth-subtext">
             Whether you want to master a new coding language, understand
@@ -167,30 +222,45 @@ export default function GrowthSection() {
 
         <div className="growth-grid">
           {/* Card 1 — image: 414×288 */}
+          {/* Card 1 — Video */}
           <div className="growth-card card-1">
-            <img
-              src={card1Img}
-              alt=""
+            <video
+              src={card1Video}
               className="growth-card-img"
-              style={{ width: "410px", height: "250px" }}
+              autoPlay
+              muted
+              loop
+              playsInline
+              style={{
+                height: "250px",
+                objectFit: "cover",
+              }}
             />
+
             <div className="growth-card-content">
               <h3 className="growth-card-title">Industry-Expert Creators</h3>
               <p className="growth-card-desc">
-                We aren't a platform for "influencers"— <br></br> we’re a home
-                for practitioners.
+                We aren't a platform for "influencers"— <br />
+                we’re a home for practitioners.
               </p>
             </div>
           </div>
 
           {/* Card 2 — image: 384×326 */}
           <div className="growth-card card-2">
-            <img
-              src={card2Img}
-              alt=""
+            <video
+              src={card2Video}
               className="growth-card-img"
-              style={{ width: "380px", height: "310px" }}
+              autoPlay
+              muted
+              loop
+              playsInline
+              style={{
+                height: "250px",
+                objectFit: "cover",
+              }}
             />
+
             <div className="growth-card-content mb-5">
               <h3 className="growth-card-title">Dual-Mode Versatility</h3>
               <p className="growth-card-desc">
@@ -202,16 +272,22 @@ export default function GrowthSection() {
 
           {/* Card 3 — image: 414×326 */}
           <div className="growth-card card-3">
-            <img
-              src={card3Img}
-              alt=""
+            <video
+              src={card3Video}
               className="growth-card-img"
-              style={{ width: "414px", height: "326px" }}
+              autoPlay
+              muted
+              loop
+              playsInline
+              style={{
+                height: "250px",
+                objectFit: "cover",
+              }}
             />
             <div className="growth-card-content">
               <h3 className="growth-card-title">Smart Notifications</h3>
               <p className="growth-card-desc">
-                We don't nag you with random pings.  Receive notifications only
+                We don't nag you with random pings. Receive notifications only
                 when a Series you follow is updated or when a creator you trust
                 drops a new "Zap."
               </p>
@@ -225,15 +301,12 @@ export default function GrowthSection() {
               alt=""
               className="growth-card-img"
               style={{
-                width: "465px",
                 height: "277px",
                 left: "50%",
                 transform: "translateX(-50%)",
               }}
             />
-            <div className="growth-card-placeholder">
-              <span>Ecosystem Visual</span>
-            </div>
+            <div className="growth-card-placeholder"></div>
             <div className="growth-card-content">
               <h3 className="growth-card-title">Discovery Ecosystems</h3>
               <p className="growth-card-desc">
@@ -250,7 +323,7 @@ export default function GrowthSection() {
               src={card5Img}
               alt=""
               className="growth-card-img"
-              style={{ width: "505px", height: "282px" }}
+              style={{ left: "50%", transform: "translateX(-50%)", objectFit: "contain" }}
             />
             <div className="growth-card-content">
               <h3 className="growth-card-title">Transparent Metrics</h3>
