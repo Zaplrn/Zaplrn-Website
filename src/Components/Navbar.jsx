@@ -18,17 +18,15 @@ function StoreButton({ icon, alt, label, iconSize = 22, onClick }) {
 function HamburgerIcon({ open }) {
   return (
     <svg
-      className="w-7 h-7"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
+      width="30"
+      height="32"
+      viewBox="0 0 48 32"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
     >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        d={open ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-      />
+      <rect x="12" y="4" width="36" height="6" rx="4" />
+
+      <rect x="0" y="20" width="48" height="6" rx="4" />
     </svg>
   );
 }
@@ -42,7 +40,7 @@ export default function Navbar() {
 
   // Track scroll position for the sticky blur effect
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 100);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -63,13 +61,26 @@ export default function Navbar() {
         .navbar {
           position: fixed;
           top: 0; left: 0; right: 0;
-          z-index: 50;
+          z-index: 999;
           width: 100%;
           font-family: 'Gilroy';
           transition: height 0.3s ease, background 0.3s ease, backdrop-filter 0.3s ease;
         }
-        .navbar.scrolled  { height: 80px;  background: #010101; backdrop-filter: blur(12px); }
-        .navbar.top       { height: 96px;  background: #010101; }
+
+        /* Transparent when hero is visible */
+.navbar.top {
+  height: 96px;
+  background: transparent;
+  backdrop-filter: none;
+}
+
+/* Black + blur after scrolling */
+.navbar.scrolled {
+  height: 80px;
+  background: rgba(1, 1, 1, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
 
         @media (min-width: 768px) {
           .navbar.scrolled  { height: 96px;  }

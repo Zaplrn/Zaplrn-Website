@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import heroVideo from "../assets/intro-hero-video-2.mp4";
+import heroVideo from "../assets/hero-section-video.mp4";
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
@@ -103,9 +103,7 @@ export default function HeroSection({ onLetsFix }) {
           justify-content: space-between;
           gap: 48px;
         }
-        @media (min-width: 768px) {
-          .hero-inner { padding: 0 40px; flex-direction: row; gap: 0; }
-        }
+        
 
         /* ── Left content ── */
         .hero-content {
@@ -116,9 +114,7 @@ export default function HeroSection({ onLetsFix }) {
           gap: 24px;
           text-align: center;
         }
-        @media (min-width: 768px) {
-          .hero-content { align-items: flex-start; text-align: left; gap: 36px; }
-        }
+       
 
         /* ── Headline ── */
         .hero-headline {
@@ -128,7 +124,7 @@ export default function HeroSection({ onLetsFix }) {
           line-height: 0.98;
           letter-spacing: -0.03em;
           margin: 0;
-          font-size: clamp(38px, 5.5vw, 88px);
+          font-size: clamp(38px, 5.5vw, 80px);
         }
 
         /* ── CTA row ── */
@@ -245,18 +241,148 @@ export default function HeroSection({ onLetsFix }) {
           border-radius: 20px;
           min-height: 240px;
         }
+       
         @media (min-width: 768px) {
-          .hero-media {
-            width: 600px;
-            height: 464px;
-            aspect-ratio: auto;
-            border-radius: 0;
-          }
-        }
+  .hero-section {
+    min-height: 100vh;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .hero-inner {
+    position: relative;
+    width: 100%;
+    max-width: none;
+    height: 100vh;
+    padding: 0;
+    display: block;
+  }
+
+  /* Fullscreen background video */
+  .hero-media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    border-radius: 0;
+    z-index: 1;
+  }
+
+  .hero-media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+  }
+
+  /* Overlay */
+  .hero-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 2;
+  }
+
+  /* Center content */
+  .hero-content {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    gap: 36px;
+    padding: 40px;
+    top:240px
+  }
+
+ 
+
+  .hero-cta-row {
+    justify-content: center;
+  }
+}
+
+          /* Mobile */
+@media (max-width: 767px) {
+  .hero-section {
+    min-height: 100vh;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .hero-inner {
+    position: relative;
+    height: 100vh;
+    padding: 0;
+    display: block;
+  }
+
+  /* Full-screen video */
+  .hero-media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    border-radius: 0;
+    z-index: 1;
+  }
+
+  .hero-media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+    min-height: 100%;
+  }
+
+  /* Dark overlay for readability */
+  .hero-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 2;
+  }
+
+  /* Text centered over video */
+  .hero-content {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    padding: 24px;
+    gap: 24px;
+    top:265px;
+  }
+
+  .hero-headline {
+    font-size: clamp(36px, 9vw, 54px);
+    color: #fff;
+  }
+
+  .hero-cta-row {
+    justify-content: center;
+  }
+}
       `}</style>
 
       <section className="hero-section" aria-label="Hero">
         <div className="hero-inner">
+          <HeroVideo />
           {/* ── Left: headline + CTA ── */}
           <div className="hero-content">
             <h1 className="hero-headline">
@@ -273,7 +399,7 @@ export default function HeroSection({ onLetsFix }) {
           </div>
 
           {/* ── Right: video ── */}
-          <HeroVideo />
+          
         </div>
       </section>
     </>

@@ -1,14 +1,129 @@
+import React, { useEffect, useRef, useState } from "react";
+
 import card1Video from "../assets/growth-card1.mp4";
 import card2Video from "../assets/growth-card2.mp4";
 import card3Video from "../assets/growth-card3.mp4";
 import card4Img from "../assets/growth-card4.png";
 import card5Img from "../assets/growth-card5.png";
 
+function StarField() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    let animationFrameId;
+
+    const mouse = {
+      x: 0,
+      y: 0,
+      active: false,
+    };
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+
+    resize();
+    window.addEventListener("resize", resize);
+
+    const stars = Array.from({ length: 120 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      baseX: 0,
+      baseY: 0,
+      r: Math.random() * 1.5 + 0.5,
+      opacity: Math.random() * 0.6 + 0.2,
+      speed: Math.random() * 0.25 + 0.05,
+      vx: 0,
+      vy: 0,
+    }));
+
+    const prevMouse = { x: 0, y: 0 };
+
+    const handleMouseMove = (e) => {
+      mouse.dx = e.clientX - prevMouse.x;
+      mouse.dy = e.clientY - prevMouse.y;
+
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+
+      prevMouse.x = e.clientX;
+      prevMouse.y = e.clientY;
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      stars.forEach((star) => {
+        if (mouse.active) {
+          const dx = mouse.x - star.x;
+          const dy = mouse.y - star.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 150) {
+            const force = (150 - distance) / 150;
+
+            star.vx += (dx / distance) * force * 0.15;
+            star.vy += (dy / distance) * force * 0.15;
+          }
+        }
+
+        star.vx *= 0.96;
+        star.vy *= 0.96;
+
+        star.x += star.vx;
+        star.y += star.vy;
+        star.y -= star.speed;
+
+        if (star.y < -10) {
+          star.y = canvas.height + 10;
+          star.x = Math.random() * canvas.width;
+        }
+
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${star.opacity})`;
+        ctx.fill();
+      });
+
+      animationFrameId = requestAnimationFrame(draw);
+    };
+
+    draw();
+
+    return () => {
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: "absolute",
+        inset: 0,
+        width: "100%",
+        height: "100%",
+        pointerEvents: "none",
+        zIndex: 0,
+      }}
+    />
+  );
+}
+
 export default function GrowthSection() {
   return (
     <>
       <style>{`
         .growth-section {
+        position: relative;
           width: 100%;
           background-color: #010101;
           display: flex;
@@ -202,15 +317,46 @@ export default function GrowthSection() {
           .card-4 { grid-column: span 7; }
           .card-5 { grid-column: span 5; }
         }
+          .growth-text,
+.growth-grid {
+  position: relative;
+  z-index: 2;
+}
       `}</style>
 
       <section className="growth-section">
+        <StarField />
+
+        <div
+          style={{
+            position: "absolute",
+            top: "10%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "700px",
+            height: "400px",
+            pointerEvents: "none",
+            zIndex: 0,
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            bottom: "-100px",
+            left: "-100px",
+            width: "500px",
+            height: "500px",
+            pointerEvents: "none",
+            zIndex: 0,
+          }}
+        />
         <div className="growth-text">
           <h2 className="growth-heading">
-            One App.
+            one app.
             <br />
             <span>
-              <i>Unlimited Growth.</i>
+              <i>unlimited growth.</i>
             </span>
           </h2>
           <p className="growth-subtext">
@@ -323,7 +469,11 @@ export default function GrowthSection() {
               src={card5Img}
               alt=""
               className="growth-card-img"
-              style={{ left: "50%", transform: "translateX(-50%)", objectFit: "contain" }}
+              style={{
+                left: "50%",
+                transform: "translateX(-50%)",
+                objectFit: "contain",
+              }}
             />
             <div className="growth-card-content">
               <h3 className="growth-card-title">Transparent Metrics</h3>

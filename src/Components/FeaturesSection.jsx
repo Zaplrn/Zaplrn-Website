@@ -1,9 +1,122 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import creatorVideo from "../assets/creator-section-video.mp4";
+
+function StarField() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    let animationFrameId;
+
+    const mouse = {
+      x: 0,
+      y: 0,
+      active: false,
+    };
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+
+    resize();
+    window.addEventListener("resize", resize);
+
+    const stars = Array.from({ length: 120 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      baseX: 0,
+      baseY: 0,
+      r: Math.random() * 1.5 + 0.5,
+      opacity: Math.random() * 0.6 + 0.2,
+      speed: Math.random() * 0.25 + 0.05,
+      vx: 0,
+      vy: 0,
+    }));
+
+    const prevMouse = { x: 0, y: 0 };
+
+    const handleMouseMove = (e) => {
+      mouse.dx = e.clientX - prevMouse.x;
+      mouse.dy = e.clientY - prevMouse.y;
+
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+
+      prevMouse.x = e.clientX;
+      prevMouse.y = e.clientY;
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      stars.forEach((star) => {
+        if (mouse.active) {
+          const dx = mouse.x - star.x;
+          const dy = mouse.y - star.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 150) {
+            const force = (150 - distance) / 150;
+
+            star.vx += (dx / distance) * force * 0.15;
+            star.vy += (dy / distance) * force * 0.15;
+          }
+        }
+
+        star.vx *= 0.96;
+        star.vy *= 0.96;
+
+        star.x += star.vx;
+        star.y += star.vy;
+        star.y -= star.speed;
+
+        if (star.y < -10) {
+          star.y = canvas.height + 10;
+          star.x = Math.random() * canvas.width;
+        }
+
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${star.opacity})`;
+        ctx.fill();
+      });
+
+      animationFrameId = requestAnimationFrame(draw);
+    };
+
+    draw();
+
+    return () => {
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: "absolute",
+        inset: 0,
+        width: "100%",
+        height: "100%",
+        pointerEvents: "none",
+        zIndex: 0,
+      }}
+    />
+  );
+}
 
 export default function FeaturesSection() {
   const outerRef = useRef(null);
   const trackRef = useRef(null);
+  const autoSlideRef = useRef(null);
   const [visibleCards, setVisibleCards] = useState(0);
 
   useEffect(() => {
@@ -40,6 +153,54 @@ export default function FeaturesSection() {
     };
   }, []);
 
+  useEffect(() => {
+    if (window.innerWidth > 767) return;
+
+    const track = trackRef.current;
+    if (!track) return;
+
+    let currentIndex = 0;
+
+    const cards = track.querySelectorAll(".feat-info-card");
+
+    const startAutoSlide = () => {
+      autoSlideRef.current = setInterval(() => {
+        currentIndex = (currentIndex + 1) % cards.length;
+
+        const card = cards[currentIndex];
+
+        track.scrollTo({
+          left: card.offsetLeft - track.offsetWidth / 2 + card.offsetWidth / 2,
+          behavior: "smooth",
+        });
+      }, 4500);
+    };
+
+    startAutoSlide();
+
+    const stopAutoSlide = () => {
+      clearInterval(autoSlideRef.current);
+    };
+
+    const resumeAutoSlide = () => {
+      stopAutoSlide();
+
+      setTimeout(() => {
+        startAutoSlide();
+      }, 4000);
+    };
+
+    track.addEventListener("touchstart", stopAutoSlide);
+    track.addEventListener("touchend", resumeAutoSlide);
+
+    return () => {
+      stopAutoSlide();
+
+      track.removeEventListener("touchstart", stopAutoSlide);
+      track.removeEventListener("touchend", resumeAutoSlide);
+    };
+  }, []);
+
   return (
     <>
       <style>{`
@@ -48,7 +209,6 @@ export default function FeaturesSection() {
         .feat-outer {
           position: relative;
           background-color: #0d0e0c;
-          min-height: 100vh;
           overflow: hidden;
         }
 
@@ -59,7 +219,7 @@ export default function FeaturesSection() {
           height: 1020px;
           width: 100%;
           overflow: hidden;
-          background-color: #010101;
+          background-color: rgba(0,0,0); 
           box-sizing: border-box;
         }
 
@@ -253,13 +413,14 @@ export default function FeaturesSection() {
             gap: 16px;
             padding: 4px 20px;
             width: 100%;
-            max-width: 100%;
+            max-width: 100vw;
             box-sizing: border-box;
             transform: none;
             overflow-x: auto;
             overflow-y: hidden;
             -webkit-overflow-scrolling: touch;
-            scroll-snap-type: x mandatory;
+            scroll-snap-type: x proximity;
+            scroll-behavior: smooth;
             scrollbar-width: none;
             flex-shrink: 0;
           }
@@ -268,7 +429,8 @@ export default function FeaturesSection() {
           /* Each card snaps into place as the user swipes */
           .feat-info-card {
             position: relative;
-            width: 80vw;
+           width: calc(100vw - 80px);
+           min-width: calc(100vw - 80px);
             max-width: 320px;
             flex-shrink: 0;
             margin: 0;
@@ -281,11 +443,56 @@ export default function FeaturesSection() {
             transform: none !important;
             transition: border-color 0.3s ease;
           }
+            .feat-card-track {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: auto;
+  overflow-y: hidden;
+  box-sizing: border-box;
+}
+
+.feat-card-container {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+.feat-sticky {
+  overflow-x: hidden;
+}
         }
+          
       `}</style>
 
       <div ref={outerRef} className="feat-outer">
         <div className="feat-sticky">
+          <StarField />
+          <div
+            style={{
+              position: "absolute",
+              top: "10%",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "700px",
+              height: "400px",
+              pointerEvents: "none",
+              zIndex: 0,
+            }}
+          />
+
+          <div
+            style={{
+              position: "absolute",
+              bottom: "-100px",
+              left: "-100px",
+              width: "500px",
+              height: "500px",
+              background:
+                "radial-gradient(circle, rgba(255,46,147,0.08) 0%, transparent 70%)",
+              pointerEvents: "none",
+              zIndex: 0,
+            }}
+          />
           {/* Heading */}
           <div className="feat-text">
             <h2 className="feat-heading">

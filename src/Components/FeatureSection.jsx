@@ -1,6 +1,118 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import creatorImg from "../assets/creator-card.png";
 import learnerImg from "../assets/learner-card.png";
+
+function StarField() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    let animationFrameId;
+
+    const mouse = {
+      x: 0,
+      y: 0,
+      active: false,
+    };
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+
+    resize();
+    window.addEventListener("resize", resize);
+
+    const stars = Array.from({ length: 120 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      baseX: 0,
+      baseY: 0,
+      r: Math.random() * 1.5 + 0.5,
+      opacity: Math.random() * 0.6 + 0.2,
+      speed: Math.random() * 0.25 + 0.05,
+      vx: 0,
+      vy: 0,
+    }));
+
+    const prevMouse = { x: 0, y: 0 };
+
+    const handleMouseMove = (e) => {
+      mouse.dx = e.clientX - prevMouse.x;
+      mouse.dy = e.clientY - prevMouse.y;
+
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+
+      prevMouse.x = e.clientX;
+      prevMouse.y = e.clientY;
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      stars.forEach((star) => {
+        if (mouse.active) {
+          const dx = mouse.x - star.x;
+          const dy = mouse.y - star.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 150) {
+            const force = (150 - distance) / 150;
+
+            star.vx += (dx / distance) * force * 0.15;
+            star.vy += (dy / distance) * force * 0.15;
+          }
+        }
+
+        star.vx *= 0.96;
+        star.vy *= 0.96;
+
+        star.x += star.vx;
+        star.y += star.vy;
+        star.y -= star.speed;
+
+        if (star.y < -10) {
+          star.y = canvas.height + 10;
+          star.x = Math.random() * canvas.width;
+        }
+
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${star.opacity})`;
+        ctx.fill();
+      });
+
+      animationFrameId = requestAnimationFrame(draw);
+    };
+
+    draw();
+
+    return () => {
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: "absolute",
+        inset: 0,
+        width: "100%",
+        height: "100%",
+        pointerEvents: "none",
+        zIndex: 0,
+      }}
+    />
+  );
+}
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
 
@@ -122,6 +234,7 @@ function LearnerCard({ onClick }) {
 export default function FeatureSection({ onSelect }) {
   return (
     <>
+     
       <style>{`
 
         /* ══════════════════════════════════════
@@ -135,6 +248,8 @@ export default function FeatureSection({ onSelect }) {
           justify-content: center;
           box-sizing: border-box;
           padding: 80px 24px 60px;
+          position: relative;
+  overflow: hidden;
         }
         
 
@@ -148,6 +263,8 @@ export default function FeatureSection({ onSelect }) {
           flex-direction: column;
           align-items: center;
           gap: 48px;
+           position: relative;
+  z-index: 2;
         }
         @media (min-width: 1024px) { .fc-inner { gap: 56px; } }
 
@@ -206,9 +323,91 @@ export default function FeatureSection({ onSelect }) {
         }
   
           .fc-card:hover {
-            transform: translateY(-8px);
             box-shadow: 0 40px 80px rgba(0,0,0,0.5);
           }
+            .fc-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition:
+    transform .5s cubic-bezier(.22,1,.36,1),
+    box-shadow .5s cubic-bezier(.22,1,.36,1),
+    border-color .5s ease;
+}
+
+.fc-card:hover {
+  transform:
+    translateY(-28px)
+    scale(1.05);
+    
+  box-shadow:
+    0 50px 120px rgba(0,0,0,.8),
+    0 0 80px rgba(255,255,255,.12);
+
+  border-color: rgba(255,255,255,.45);
+}
+
+.fc-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(255,255,255,0.15),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity .4s ease;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.fc-card:hover::after {
+  opacity: 1;
+}
+  .fc-card__bg {
+  transition:
+    transform .8s cubic-bezier(.22,1,.36,1),
+    filter .8s ease;
+}
+
+.fc-card:hover .fc-card__bg {
+  transform: scale(1.08);
+  filter: brightness(1.1);
+}
+
+.fc-card__overlay {
+  transition: opacity .6s ease;
+}
+
+.fc-card:hover .fc-card__overlay {
+  opacity: .75;
+}
+  
+@keyframes floatCard {
+  0% {
+    transform: translateY(0px);
+  }
+  25% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  75% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.fc-card--creator {
+  animation: floatCard 3.5s ease-in-out infinite;
+}
+
+.fc-card--learner {
+  animation: floatCard 3.5s ease-in-out infinite 1.75s;
+}
 
         /* Background image */
        .fc-card__bg {
@@ -345,6 +544,10 @@ export default function FeatureSection({ onSelect }) {
       `}</style>
 
       <section className="fc-section" aria-label="Choose your path">
+        <StarField />
+
+        <div className="glow glow-1" />
+        <div className="glow glow-2" />
         <div className="fc-inner">
           {/* Headline */}
           <h2 className="fc-heading">
