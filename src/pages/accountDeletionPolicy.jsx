@@ -8,7 +8,6 @@ export default function AccountDeletionPolicy() {
         >
           Account Deletion Policy
         </h1>
-
         <p className="text-gray-400 mb-8" style={{ fontFamily: "Gilroy" }}>
           Last Updated: June 2026
         </p>
@@ -19,58 +18,120 @@ export default function AccountDeletionPolicy() {
         >
           <section>
             <p>
-              Zaplrn allows users to request deletion of their account and
-              personal data. This page explains what happens when you request
-              deletion.
+              At Zaplrn, we value your data autonomy. You have the right to
+              request the deletion of your account and personal data at any
+              time. This policy explains how account deletion works and what
+              happens to your information after a deletion request is submitted.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold text-white mb-2">
-              How to Request Deletion
+              1. How to Initiate Account Deletion
             </h2>
+
             <p>
-              Send a request to support@zaplrn.com with your account email and a
-              clear statement that you want your account deleted.
+              You can delete your account directly within the Zaplrn application
+              by navigating to:
+            </p>
+
+            <p className="mt-3 text-white">
+              Settings → Account Control → Delete Profile
+            </p>
+
+            <p className="mt-3">
+              Alternatively, you may submit a deletion request from your
+              registered email address by contacting :{" "}
+              <a href="mailto:support@zaplrn.com">support@zaplrn.com</a>
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold text-white mb-2">
-              What Will Be Deleted
+              2. What Happens to Your Data (For Learners)
             </h2>
+
             <p>
-              We will delete your account profile, personal data, and content
-              associated with your account where possible, subject to legal and
-              operational requirements.
+              Once your deletion request is verified and confirmed, we will
+              permanently remove or anonymize your personal information from our
+              active systems.
+            </p>
+
+            <ul className="list-disc pl-6 mt-4 space-y-2">
+              <li>Profile information and account details.</li>
+              <li>Learning progress and completion metrics.</li>
+              <li>Skills dashboard and achievement records.</li>
+              <li>Learning streaks and engagement history.</li>
+              <li>Chat conversations and related communication data.</li>
+            </ul>
+
+            <p className="mt-4">
+              This process is typically completed within 30 days of
+              confirmation.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold text-white mb-2">
-              Data Retention
+              3. The Continuity Clause (For Creators)
             </h2>
+
             <p>
-              Some information may remain in backups or logs for a limited
-              period to comply with legal obligations and to protect the service
-              from fraud and abuse.
+              To protect the learning journeys of active users, Zaplrn applies a
+              continuity policy for creators who have published educational
+              content and structured learning Series.
+            </p>
+
+            <p className="mt-3">When a creator account is deleted:</p>
+
+            <ul className="list-disc pl-6 mt-4 space-y-2">
+              <li>Personal profile information is permanently removed.</li>
+              <li>Creator verification status is revoked.</li>
+              <li>Monetization and promotion features are disabled.</li>
+              <li>Future publishing access is terminated.</li>
+            </ul>
+
+            <p className="mt-4">
+              However, if active learners are currently enrolled in or have
+              bookmarked a published Series, associated educational video assets
+              may remain available in a read-only, non-monetized archive for up
+              to 90 days to avoid disruption to ongoing learning paths.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-2">Timing</h2>
+            <h2 className="text-2xl font-semibold text-white mb-2">
+              4. Log and Backup Retention
+            </h2>
+
             <p>
-              Account deletion requests are typically processed within a
-              reasonable time frame, depending on the nature of the request and
-              any required verifications.
+              Certain technical logs, security records, payment-related records,
+              and encrypted backups may be retained for a limited period to meet
+              legal, regulatory, tax, accounting, security, and fraud-prevention
+              requirements.
+            </p>
+
+            <p className="mt-3">
+              Such retained information is isolated from active user systems and
+              will not be used for marketing, personalization, or community
+              engagement purposes.
+            </p>
+
+            <p className="mt-3">
+              Backup and regulatory retention periods will not exceed 90 days
+              unless a longer period is required by applicable law.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-2">Contact</h2>
+            <h2 className="text-2xl font-semibold text-white mb-2">
+              5. Contact Us
+            </h2>
+
             <p>
-              If you have questions about account deletion, please contact
-              support@zaplrn.com.
+              If you have questions regarding account deletion, data retention,
+              or privacy rights, please contact :{" "}
+              <a href="mailto:support@zaplrn.com">support@zaplrn.com</a>
             </p>
           </section>
         </div>

@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import defaultImg from "../assets/why-zaplrn-image.png";
 import cleanMindImg from "../assets/clean-mind.png";
 import zeroAlgoImg from "../assets/zero-algo.png";
 import passiveToActiveImg from "../assets/passive to active doing.png";
@@ -197,13 +196,29 @@ export default function WhySection() {
   const trackRef = useRef(null);
   const autoSlideRef = useRef(null);
   const cardImages = {
-    default: defaultImg,
+    // default: defaultImg,
     cleanMind: cleanMindImg,
     zeroAlgo: zeroAlgoImg,
     passiveToActive: passiveToActiveImg,
     selfLife: selfLifeImg,
   };
-  const activeImg = cardImages[activeCard] || cardImages.default;
+  const activeImg = cardImages[activeCard] || cardImages.cleanMind;
+
+  const stopAutoSlide = () => {
+    clearInterval(autoSlideRef.current);
+  };
+
+  //Add this useEffect here
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    track.addEventListener("touchstart", stopAutoSlide);
+
+    return () => {
+      track.removeEventListener("touchstart", stopAutoSlide);
+    };
+  }, []);
 
   // Mobile: swipe one card at a time; the centred card becomes active and
   // swaps the image above it.
@@ -230,30 +245,18 @@ export default function WhySection() {
       return nearest;
     };
 
-    const centerOn = (idx, smooth = true) => {
-      const child = track.children[idx];
-      if (!child) return;
-      const trackRect = track.getBoundingClientRect();
-      const r = child.getBoundingClientRect();
-      const delta =
-        r.left + r.width / 2 - (trackRect.left + trackRect.width / 2);
-      track.scrollBy({ left: delta, behavior: smooth ? "smooth" : "auto" });
-    };
-
     let timer;
     const onScroll = () => {
       if (window.innerWidth > 767) return;
+
       clearTimeout(timer);
+
       timer = setTimeout(() => {
-        // Limit movement to a single card per swipe.
-        let target = nearestIndex();
-        const prev = settledIndex.current;
-        if (target > prev + 1) target = prev + 1;
-        if (target < prev - 1) target = prev - 1;
+        const target = nearestIndex();
+
         settledIndex.current = target;
-        centerOn(target);
         setActiveCard(POINTS[target].key);
-      }, 90);
+      }, 120);
     };
 
     const init = () => {
@@ -261,16 +264,6 @@ export default function WhySection() {
 
       settledIndex.current = 0;
       setActiveCard(POINTS[0].key);
-
-      setTimeout(() => {
-        const firstCard = track.children[0];
-
-        firstCard?.scrollIntoView({
-          behavior: "auto",
-          inline: "center",
-          block: "nearest",
-        });
-      }, 100);
     };
 
     init();
@@ -633,7 +626,7 @@ export default function WhySection() {
           .why-mobile-phone img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             display: block;
             transition: opacity 0.4s ease;
           }
@@ -649,16 +642,18 @@ export default function WhySection() {
             overflow-x: auto;
             overflow-y: hidden;
             -webkit-overflow-scrolling: touch;
-            scroll-snap-type: x proximity;
+            scroll-snap-type: x mandatory;
             scrollbar-width: none;
             scroll-behavior: smooth;
           }
           .why-mobile-track::-webkit-scrollbar { display: none; }
 
+
           .why-mcard {
             width: 260px;
             flex-shrink: 0;
             scroll-snap-align: center;
+            scroll-snap-stop: always;
             box-sizing: border-box;
             border-radius: 24px;
             border: 1px solid rgba(255,255,255,0.08);
@@ -699,7 +694,7 @@ export default function WhySection() {
             why zaplrn solution
             <br />
             <span>
-              <em>to your problems</em>
+              <em style={{ fontWeight: "200" }}>to your problems</em>
             </span>
           </h2>
           <p className="why-subtext">

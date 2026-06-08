@@ -389,7 +389,7 @@ export default function HeroSection({ onLetsFix }) {
               you scrolled <br />
               something today <br />
               that felt like <br />
-              <i>a waste, isn't it?</i>
+              <i style={{fontWeight: '200'}}>a waste, isn't it?</i>
             </h1>
 
             <div className="hero-cta-row">

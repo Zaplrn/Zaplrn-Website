@@ -175,7 +175,7 @@ function CreatorCard({ onClick }) {
           <br />
           something
           <br />
-          <i>meaningful</i>
+          <i style={{fontWeight: '200'}}>meaningful</i>
         </h3>
 
         <div className="fc-card__line" />
@@ -213,7 +213,7 @@ function LearnerCard({ onClick }) {
           <br />
           something
           <br />
-          <i>useful</i>
+          <i style={{fontWeight: '200'}}>useful</i>
         </h3>
 
         <div className="fc-card__line" />
@@ -553,7 +553,7 @@ export default function FeatureSection({ onSelect }) {
           <h2 className="fc-heading">
             so what do you want
             <br />
-            <i>from your screen time</i>?
+            <i style={{fontWeight: '200'}}>from your screen time</i>?
           </h2>
 
           {/* Cards */}

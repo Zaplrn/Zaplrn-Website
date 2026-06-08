@@ -18,136 +18,137 @@ export default function PrivacyPolicy() {
           style={{ fontFamily: "Gilroy" }}
         >
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-3">Scope</h2>
-            <p>
-              This Privacy Policy describes how Zaplrn collects, uses, shares,
-              and protects information when you use our mobile app and website.
-            </p>
-          </section>
-
-          <section>
             <h2 className="text-2xl font-semibold text-white mb-3">
-              Information We Collect
+              1. Information We Collect
             </h2>
             <p>
-              We collect information to provide and improve our services,
-              including:
+              To power your personalized learning experience, Zaplrn collects:
             </p>
+
             <ul className="list-disc pl-6 mt-3 space-y-2">
-              <li>Contact details such as name and email address.</li>
-              <li>Account credentials and profile information.</li>
               <li>
-                Usage and engagement data, including app activity and feature
-                interactions.
+                <strong>Account Details:</strong> Name, email address, username,
+                and profile aesthetics.
               </li>
-              <li>Device information, operating system, and app version.</li>
               <li>
-                Analytics data to monitor performance and improve stability.
+                <strong>Growth Metrics:</strong> Your selected industry
+                interests, skill tags, tracked Series, lesson completion rates,
+                and learning streaks to fuel our Discovery Engine.
+              </li>
+              <li>
+                <strong>Communication Data:</strong> Text logs transmitted
+                through our Integrated Mastery Chat to ensure community safety
+                and prevent spam.
+              </li>
+              <li>
+                <strong>Device & Usage Analytics:</strong> IP address, operating
+                system, app crashes, and playback interaction data to optimize
+                mobile video streaming.
               </li>
             </ul>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold text-white mb-3">
-              How We Collect Information
+              2. How We Collect Information
             </h2>
             <p>
-              We collect information when you register, use the app, contact
-              support, or interact with features within Zaplrn.
+              We collect data directly from your inputs, including registration,
+              chat messages, and profile adjustments. We also collect
+              information automatically through app interactions as you browse
+              and engage with content across the platform.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold text-white mb-3">
-              How We Use Information
+              3. How We Use Your Information
             </h2>
-            <ul className="list-disc pl-6 space-y-2">
-              <li>To operate and personalize your experience on Zaplrn.</li>
-              <li>To deliver support and respond to inquiries.</li>
-              <li>To improve the app and diagnose technical issues.</li>
-              <li>To send important service updates and notifications.</li>
+
+            <p>
+              We use your information to provide and improve the Zaplrn learning
+              experience, including:
+            </p>
+
+            <ul className="list-disc pl-6 mt-3 space-y-2">
+              <li>
+                Delivering a personalized, distraction-free horizontal and
+                vertical learning feed.
+              </li>
+              <li>
+                Authenticating seamless profile switching between student and
+                mentor modes.
+              </li>
+              <li>
+                Providing analytics and progress insights for creators and
+                educators.
+              </li>
+              <li>
+                Diagnosing technical streaming issues and delivering critical
+                app updates.
+              </li>
             </ul>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold text-white mb-3">
-              Cookies and Similar Technologies
+              4. Data Sharing and No-Sale Commitment
             </h2>
             <p>
-              We use cookies and related technologies to analyze usage, remember
-              preferences, and improve performance. You can manage cookies
-              through your browser or device settings.
+              Zaplrn strictly does not sell your personal information, learning
+              activity, or scrolling history to third-party data brokers.
+            </p>
+
+            <p className="mt-3">
+              We only share information with trusted service providers who
+              assist us with hosting video content, processing payments,
+              maintaining infrastructure, and analyzing platform performance.
+              These providers operate under strict confidentiality and security
+              obligations.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold text-white mb-3">
-              Sharing and Disclosure
+              5. Cookies and Local Storage
             </h2>
             <p>
-              We do not sell personal information. We may share data with
-              trusted service providers who help us run the app, process
-              payments, host data, and handle analytics.
+              We use cookies, mobile device tokens, and similar technologies to
+              remember your preferences, such as volume settings, theme choices,
+              and login sessions, ensuring a seamless experience across your
+              digital campus.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold text-white mb-3">
-              Data Retention
+              6. Data Retention
             </h2>
             <p>
-              We retain personal information only as long as necessary to
-              provide the service, comply with legal obligations, and protect
-              our rights.
+              We retain your account information and personal growth metrics for
+              as long as your account remains active.
             </p>
-          </section>
 
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-3">Security</h2>
-            <p>
-              We implement reasonable technical and organizational measures to
-              protect your information from unauthorized access and misuse.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-3">
-              Children’s Privacy
-            </h2>
-            <p>
-              Zaplrn is not intended for children under the age required by
-              applicable law. We do not knowingly collect personal information
-              from children without parental consent.
+            <p className="mt-3">
+              If you request account deletion, your information will be removed
+              in accordance with our Account Deletion Policy and applicable
+              legal requirements.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold text-white mb-3">
-              Your Rights
+              7. Contact Us
             </h2>
             <p>
-              Depending on your jurisdiction, you may have rights to access,
-              rectify, delete, or export your personal information.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-3">
-              Changes to This Policy
-            </h2>
-            <p>
-              We may update this Privacy Policy from time to time. We will post
-              the revised policy on this page with the effective date.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-3">
-              Contact Us
-            </h2>
-            <p>
-              If you have questions about our privacy practices, contact
-              support@zaplrn.com.
+              If you have any questions, privacy concerns, or requests regarding
+              your personal data, please contact us at : {" "}
+              <a
+                href="mailto:support@zaplrn.com"
+                className="mt-3 text-white font-medium hover:underline"
+              >
+                support@zaplrn.com
+              </a>
             </p>
           </section>
         </div>

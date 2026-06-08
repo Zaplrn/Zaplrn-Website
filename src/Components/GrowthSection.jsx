@@ -356,7 +356,7 @@ export default function GrowthSection() {
             one app.
             <br />
             <span>
-              <i>unlimited growth.</i>
+              <i style={{fontWeight: '200'}}>unlimited growth.</i>
             </span>
           </h2>
           <p className="growth-subtext">

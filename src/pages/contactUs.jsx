@@ -218,6 +218,7 @@ export default function ContactUs() {
     lastName: "",
     email: "",
     phone: "",
+    userType: "Learner",
     message: "",
   });
   const [status, setStatus] = useState(null);
@@ -398,7 +399,7 @@ export default function ContactUs() {
               letterSpacing: "-0.02em",
             }}
           >
-            Lets Have a Chat
+            lets have a chat
           </h1>
 
           <p
@@ -468,6 +469,54 @@ export default function ContactUs() {
                 onChange={handleChange}
                 placeholder="+91 98765 43210"
               />
+            </div>
+
+            <div>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "16px",
+                  color: "rgba(255,255,255,0.55)",
+                  marginBottom: "12px",
+                  fontFamily: "Gilroy",
+                }}
+              >
+                I am a
+              </label>
+
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "12px",
+                }}
+              >
+                {["Learner", "Creator"].map((type) => (
+                  <button
+                    key={type}
+                    type="button"
+                    onClick={() => setForm({ ...form, userType: type })}
+                    style={{
+                      padding: "14px",
+                      borderRadius: "10px",
+                      border:
+                        form.userType === type
+                          ? "1px solid rgba(255,255,255,0.5)"
+                          : "1px solid rgba(255,255,255,0.1)",
+                      background:
+                        form.userType === type
+                          ? "rgba(255,255,255,0.08)"
+                          : "rgba(255,255,255,0.04)",
+                      color: "#fff",
+                      fontFamily: "Gilroy",
+                      cursor: "pointer",
+                      transition: "all .2s ease",
+                    }}
+                  >
+                    {type}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Message */}

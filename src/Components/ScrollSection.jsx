@@ -467,7 +467,6 @@ export default function ScrollSection() {
   .sm-phone {
     width: min(68%, 260px);
     aspect-ratio: 260 / 500;
-    border-radius: 24px;
     overflow: hidden;
   }
 
@@ -512,7 +511,7 @@ export default function ScrollSection() {
           <h2 className="scroll-heading">
             your growth,
             <br />
-            <em>on your terms</em>
+            <em style={{fontWeight: '200'}}>on your terms</em>
           </h2>
           <p className="scroll-subtext">
             The internet has become a place where we spend hours but gain
@@ -534,7 +533,6 @@ export default function ScrollSection() {
                   height: `${SIDE_H}px`,
                   bottom: 0,
                   left: 0,
-                  borderRadius: "24px",
                   overflow: "hidden",
                   transformOrigin: "bottom right",
                   zIndex: 1,
@@ -567,7 +565,6 @@ export default function ScrollSection() {
                   height: `${CENTER_H}px`,
                   bottom: 0,
                   left: `${CENTER_LEFT}px`,
-                  borderRadius: "28px",
                   overflow: "hidden",
                   transform: "rotate(0deg)",
                   zIndex: 3,
@@ -599,7 +596,6 @@ export default function ScrollSection() {
                   height: `${SIDE_H}px`,
                   bottom: 0,
                   left: `${CENTER_LEFT + CENTER_W + -35}px`,
-                  borderRadius: "24px",
                   overflow: "hidden",
                   transformOrigin: "bottom left",
                   zIndex: 2,

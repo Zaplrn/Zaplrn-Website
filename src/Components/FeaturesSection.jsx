@@ -498,7 +498,7 @@ export default function FeaturesSection() {
             <h2 className="feat-heading">
               from content creator
               <br />
-              <em>to knowledge leader</em>
+              <em style={{fontWeight: '200'}}>to knowledge leader</em>
             </h2>
             <p className="feat-subtext">
               At Zaplrn, we've built a home where your wisdom isn't just

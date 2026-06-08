@@ -373,8 +373,8 @@ const STYLES = `
     gap: 8px;
     padding: 11px 22px;
     border-radius: 999px;
-    background: #ffffff;
-    color: #0d0e0c;
+    background: #010101;
+    color: #ffffff;
     font-family: 'Gilroy';
     font-size: 15px;
     font-weight: 500;
@@ -383,6 +383,7 @@ const STYLES = `
     box-shadow: 0 8px 32px rgba(0,0,0,0.4);
     cursor: default;
     user-select: none;
+    border: 1.5px solid rgba(255, 255, 255);
   }
   @media (max-width: 767px) {
     .zph-badge {
@@ -402,7 +403,7 @@ function TextBlock() {
       <h2 className="zph-headline" id="zph-heading">
         to the future of
         <br />
-        <i>micro–learning</i>
+        <i style={{ fontWeight: "200" }}>micro–learning</i>
       </h2>
       <p className="zph-body">
         Wasting hours on entertainment with zero ROI? Reclaim your time and your
