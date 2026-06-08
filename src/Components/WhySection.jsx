@@ -1,52 +1,224 @@
 import { useState, useEffect, useRef } from "react";
-import defaultImg from "../assets/why-zaplrn-image.png";
 import cleanMindImg from "../assets/clean-mind.png";
 import zeroAlgoImg from "../assets/zero-algo.png";
 import passiveToActiveImg from "../assets/passive to active doing.png";
 import selfLifeImg from "../assets/self-life.png";
 
+function StarField() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    let animationFrameId;
+
+    const mouse = {
+      x: 0,
+      y: 0,
+      active: false,
+    };
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+
+    resize();
+    window.addEventListener("resize", resize);
+
+    const stars = Array.from({ length: 120 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      baseX: 0,
+      baseY: 0,
+      r: Math.random() * 1.5 + 0.5,
+      opacity: Math.random() * 0.6 + 0.2,
+      speed: Math.random() * 0.25 + 0.05,
+      vx: 0,
+      vy: 0,
+    }));
+
+    const prevMouse = { x: 0, y: 0 };
+
+    const handleMouseMove = (e) => {
+      mouse.dx = e.clientX - prevMouse.x;
+      mouse.dy = e.clientY - prevMouse.y;
+
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+
+      prevMouse.x = e.clientX;
+      prevMouse.y = e.clientY;
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      stars.forEach((star) => {
+        if (mouse.active) {
+          const dx = mouse.x - star.x;
+          const dy = mouse.y - star.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 150) {
+            const force = (150 - distance) / 150;
+
+            star.vx += (dx / distance) * force * 0.15;
+            star.vy += (dy / distance) * force * 0.15;
+          }
+        }
+
+        star.vx *= 0.96;
+        star.vy *= 0.96;
+
+        star.x += star.vx;
+        star.y += star.vy;
+        star.y -= star.speed;
+
+        if (star.y < -10) {
+          star.y = canvas.height + 10;
+          star.x = Math.random() * canvas.width;
+        }
+
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${star.opacity})`;
+        ctx.fill();
+      });
+
+      animationFrameId = requestAnimationFrame(draw);
+    };
+
+    draw();
+
+    return () => {
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: "absolute",
+        inset: 0,
+        width: "100%",
+        height: "100%",
+        pointerEvents: "none",
+        zIndex: 0,
+      }}
+    />
+  );
+}
+
 const ICONS = {
   cleanMind: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="white"
+      strokeWidth="1.5"
+    >
       <path d="M4 6h16M4 12h16M4 18h16M9 6v12M15 6v12" />
     </svg>
   ),
   zeroAlgo: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="white"
+      strokeWidth="1.5"
+    >
       <circle cx="12" cy="12" r="8" />
       <circle cx="12" cy="12" r="3" />
     </svg>
   ),
   passiveToActive: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="white"
+      strokeWidth="1.5"
+    >
       <path d="M5 12h14M12 5l7 7-7 7" />
     </svg>
   ),
   selfLife: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="white"
+      strokeWidth="1.5"
+    >
       <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
     </svg>
   ),
 };
 
 const POINTS = [
-  { key: "cleanMind", title: 'The "Clean Mind" Guarantee', desc: "feeling better, not drained" },
-  { key: "zeroAlgo", title: 'Zero "Algorithm Anxiety"', desc: "Content with intent and categories" },
-  { key: "passiveToActive", title: 'From "Passive Watching" to "Active Doing"', desc: "Structured Series and Mastery Chat" },
-  { key: "selfLife", title: 'Content with a "Shelf-Life"', desc: "timeless wisdom over trending noise" },
+  {
+    key: "cleanMind",
+    title: 'The "Clean Mind" Guarantee',
+    desc: "feeling better, not drained",
+  },
+  {
+    key: "zeroAlgo",
+    title: 'Zero "Algorithm Anxiety"',
+    desc: "Content with intent and categories",
+  },
+  {
+    key: "passiveToActive",
+    title: 'From "Passive Watching" to "Active Doing"',
+    desc: "Structured Series and Mastery Chat",
+  },
+  {
+    key: "selfLife",
+    title: 'Content with a "Shelf-Life"',
+    desc: "timeless wisdom over trending noise",
+  },
 ];
 
 export default function WhySection() {
   const [activeCard, setActiveCard] = useState(null);
   const trackRef = useRef(null);
+  const autoSlideRef = useRef(null);
   const cardImages = {
-    default: defaultImg,
+    // default: defaultImg,
     cleanMind: cleanMindImg,
     zeroAlgo: zeroAlgoImg,
     passiveToActive: passiveToActiveImg,
     selfLife: selfLifeImg,
   };
-  const activeImg = cardImages[activeCard] || cardImages.default;
+  const activeImg = cardImages[activeCard] || cardImages.cleanMind;
+
+  const stopAutoSlide = () => {
+    clearInterval(autoSlideRef.current);
+  };
+
+  //Add this useEffect here
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    track.addEventListener("touchstart", stopAutoSlide);
+
+    return () => {
+      track.removeEventListener("touchstart", stopAutoSlide);
+    };
+  }, []);
 
   // Mobile: swipe one card at a time; the centred card becomes active and
   // swaps the image above it.
@@ -73,36 +245,25 @@ export default function WhySection() {
       return nearest;
     };
 
-    const centerOn = (idx, smooth = true) => {
-      const child = track.children[idx];
-      if (!child) return;
-      const trackRect = track.getBoundingClientRect();
-      const r = child.getBoundingClientRect();
-      const delta = r.left + r.width / 2 - (trackRect.left + trackRect.width / 2);
-      track.scrollBy({ left: delta, behavior: smooth ? "smooth" : "auto" });
-    };
-
     let timer;
     const onScroll = () => {
       if (window.innerWidth > 767) return;
+
       clearTimeout(timer);
+
       timer = setTimeout(() => {
-        // Limit movement to a single card per swipe.
-        let target = nearestIndex();
-        const prev = settledIndex.current;
-        if (target > prev + 1) target = prev + 1;
-        if (target < prev - 1) target = prev - 1;
+        const target = nearestIndex();
+
         settledIndex.current = target;
-        centerOn(target);
         setActiveCard(POINTS[target].key);
-      }, 90);
+      }, 120);
     };
 
     const init = () => {
       if (window.innerWidth > 767) return;
-      const idx = nearestIndex();
-      settledIndex.current = idx;
-      setActiveCard(POINTS[idx].key);
+
+      settledIndex.current = 0;
+      setActiveCard(POINTS[0].key);
     };
 
     init();
@@ -115,20 +276,65 @@ export default function WhySection() {
     };
   }, []);
 
+  useEffect(() => {
+    if (window.innerWidth > 767) return;
+
+    const track = trackRef.current;
+    if (!track) return;
+
+    let currentIndex = 0;
+    const cards = track.querySelectorAll(".why-mcard");
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          autoSlideRef.current = setInterval(() => {
+            currentIndex = settledIndex.current;
+            currentIndex = (currentIndex + 1) % cards.length;
+
+            track.scrollTo({
+              left:
+                cards[currentIndex].offsetLeft -
+                track.offsetWidth / 2 +
+                cards[currentIndex].offsetWidth / 2,
+              behavior: "smooth",
+            });
+
+            settledIndex.current = currentIndex;
+            setActiveCard(POINTS[currentIndex].key);
+          }, 4500);
+        } else {
+          clearInterval(autoSlideRef.current);
+        }
+      },
+      {
+        threshold: 0.1,
+      },
+    );
+
+    observer.observe(track);
+
+    return () => {
+      clearInterval(autoSlideRef.current);
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <>
       <style>{`
       
-        .why-section {
-          width: 100%;
-          background-color: #010101;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          padding: 80px 20px;
-          box-sizing: border-box;
-          overflow: hidden;
-        }
+       .why-section {
+  position: relative;
+  width: 100%;
+  background-color: #010101;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
 
         .why-text {
           width: 100%;
@@ -420,7 +626,7 @@ export default function WhySection() {
           .why-mobile-phone img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             display: block;
             transition: opacity 0.4s ease;
           }
@@ -436,15 +642,18 @@ export default function WhySection() {
             overflow-x: auto;
             overflow-y: hidden;
             -webkit-overflow-scrolling: touch;
-            scroll-snap-type: x proximity;
+            scroll-snap-type: x mandatory;
             scrollbar-width: none;
+            scroll-behavior: smooth;
           }
           .why-mobile-track::-webkit-scrollbar { display: none; }
+
 
           .why-mcard {
             width: 260px;
             flex-shrink: 0;
             scroll-snap-align: center;
+            scroll-snap-stop: always;
             box-sizing: border-box;
             border-radius: 24px;
             border: 1px solid rgba(255,255,255,0.08);
@@ -466,17 +675,26 @@ export default function WhySection() {
             transform: scale(1);
             background: rgba(255,255,255,0.08);
             border-color: rgba(255,255,255,0.18);
+             box-shadow: 0 15px 40px rgba(255,255,255,0.08);
           }
         }
+          .why-text,
+.why-body,
+.why-mobile {
+  position: relative;
+  z-index: 2;
+}
       `}</style>
 
       <section className="why-section">
+        <StarField />
+
         <div className="why-text">
           <h2 className="why-heading">
-            Why Zaplrn Solution
+            why zaplrn solution
             <br />
             <span>
-              <em>to Your Problems</em>
+              <em style={{ fontWeight: "200" }}>to your problems</em>
             </span>
           </h2>
           <p className="why-subtext">
@@ -568,7 +786,7 @@ export default function WhySection() {
           {/* POINT 3 */}
           <div
             className="why-point why-point-right"
-            style={{ right: "40px", top: "240px" }}
+            style={{ right: "60px", top: "240px" }}
             onMouseEnter={() => setActiveCard("passiveToActive")}
             onMouseLeave={() => setActiveCard(null)}
             onFocus={() => setActiveCard("passiveToActive")}

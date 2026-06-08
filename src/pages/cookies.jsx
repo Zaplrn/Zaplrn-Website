@@ -8,7 +8,6 @@ export default function CookiePolicy() {
         >
           Cookie Policy
         </h1>
-
         <p className="text-gray-400 mb-8" style={{ fontFamily: "Gilroy" }}>
           Last Updated: June 2026
         </p>
@@ -19,60 +18,75 @@ export default function CookiePolicy() {
         >
           <section>
             <p>
-              Zaplrn uses cookies and similar technologies to improve the app
-              experience, analyze usage, and remember your preferences.
+              Zaplrn uses cookies, mobile device identifiers, and similar local
+              storage technologies to enhance app performance, remember your
+              preferences, and understand how you interact with our
+              micro-learning platform and educational content.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold text-white mb-2">
-              What Cookies We Use
+              1. Types of Technologies We Use
             </h2>
-            <ul className="list-disc pl-6 space-y-2">
+
+            <ul className="list-disc pl-6 space-y-3 mt-3">
               <li>
-                <strong>Essential cookies:</strong> Required for basic app
-                functionality and security.
+                <strong>Essential Storage:</strong> Required for keeping you
+                securely logged in, protecting account switches between Learner
+                and Creator profiles, and ensuring smooth short-form video
+                playback.
               </li>
+
               <li>
-                <strong>Performance cookies:</strong> Help us understand how the
-                app is used and improve performance.
+                <strong>Performance & Tracking:</strong> Helps us measure video
+                loading times, screen transition performance, application
+                stability, and crash analytics to improve the overall learning
+                experience.
               </li>
+
               <li>
-                <strong>Functional cookies:</strong> Remember your preferences
-                and settings.
+                <strong>Functional Preferences:</strong> Remembers your selected
+                learning categories, playback preferences, interface settings,
+                and other personalization choices.
               </li>
             </ul>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold text-white mb-2">
-              Third-Party Cookies
+              2. Third-Party Analytics
             </h2>
+
             <p>
-              We may use third-party analytics and service providers to help us
-              improve Zaplrn. These providers may also store cookies on your
-              device.
+              We may use trusted third-party analytics, crash monitoring, and
+              content delivery services to better understand platform
+              performance and optimize mobile streaming quality.
+            </p>
+
+            <p className="mt-3">
+              These services may deploy cookies, device tokens, or similar
+              technologies to collect technical performance information and
+              improve user experience.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold text-white mb-2">
-              Managing Cookies
+              3. Managing Your Preferences
             </h2>
-            <p>
-              You can control cookies through your browser or mobile device
-              settings. Disabling certain cookies may limit some features or
-              prevent the app from functioning properly.
-            </p>
-          </section>
 
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-2">
-              Changes to This Policy
-            </h2>
             <p>
-              We may update this Cookie Policy as we improve the app. We will
-              post any changes here with the effective date.
+              You can manage cookie preferences through your web browser
+              settings and control mobile tracking permissions directly from
+              your iOS or Android device settings.
+            </p>
+
+            <p className="mt-3">
+              Please note that disabling certain essential cookies, storage
+              technologies, or tracking tokens may affect core functionality,
+              including video playback, authentication, content recommendations,
+              and profile switching features.
             </p>
           </section>
         </div>

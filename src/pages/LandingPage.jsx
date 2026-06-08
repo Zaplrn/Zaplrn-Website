@@ -16,16 +16,17 @@ export default function LandingPage() {
   const [revealed, setRevealed] = useState(false);
   const [view, setView] = useState(null);
   const selectedSectionRef = useRef(null);
+  const microlearningRef = useRef(null);
 
   const handleHeroClick = () => {
     setRevealed(true);
 
     setTimeout(() => {
-      window.scrollTo({
-        top: window.innerHeight,
+      microlearningRef.current?.scrollIntoView({
         behavior: "smooth",
+        block: "start",
       });
-    }, 100);
+    }, 400);
   };
 
   const handleSelection = (selectedRole) => {
@@ -37,7 +38,7 @@ export default function LandingPage() {
         behavior: "smooth",
         block: "start",
       });
-    }, 100);
+    }, 400);
   };
 
   return (
@@ -50,7 +51,9 @@ export default function LandingPage() {
 
       {revealed && (
         <>
-          <Microlearning />
+          <div ref={microlearningRef}>
+            <Microlearning />
+          </div>
           <FeatureSection onSelect={handleSelection} />
 
           {view === "creator" && (

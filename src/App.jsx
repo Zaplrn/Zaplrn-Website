@@ -7,9 +7,12 @@ import AccountDeletionPolicy from "./pages/accountDeletionPolicy";
 import CommunityGuidelines from "./pages/communityGuidelines";
 import PageShell from "./Components/PageShell";
 import { Routes, Route, Navigate } from "react-router-dom";
+import ScrollToTop from "./Components/ScrollToTop";
 
 function App() {
   return (
+    <>
+      <ScrollToTop />
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route element={<PageShell />}>
@@ -38,6 +41,7 @@ function App() {
         }
       />
     </Routes>
+    </>
   );
 }
 

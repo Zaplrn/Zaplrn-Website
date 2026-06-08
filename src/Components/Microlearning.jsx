@@ -5,6 +5,121 @@ import video2 from "../assets/micro-learning-2.mp4";
 import video3 from "../assets/micro-learning-3.mp4";
 import video4 from "../assets/micro-learning-4.mp4";
 
+import { useRef, useEffect } from "react";
+import { TrendingUp } from "lucide-react";
+
+function StarField() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    let animationFrameId;
+
+    const mouse = {
+      x: 0,
+      y: 0,
+      active: false,
+    };
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+
+    resize();
+    window.addEventListener("resize", resize);
+
+    const stars = Array.from({ length: 120 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      baseX: 0,
+      baseY: 0,
+      r: Math.random() * 1.5 + 0.5,
+      opacity: Math.random() * 0.6 + 0.2,
+      speed: Math.random() * 0.25 + 0.05,
+      vx: 0,
+      vy: 0,
+    }));
+
+    const prevMouse = { x: 0, y: 0 };
+
+    const handleMouseMove = (e) => {
+      mouse.dx = e.clientX - prevMouse.x;
+      mouse.dy = e.clientY - prevMouse.y;
+
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+
+      prevMouse.x = e.clientX;
+      prevMouse.y = e.clientY;
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      stars.forEach((star) => {
+        if (mouse.active) {
+          const dx = mouse.x - star.x;
+          const dy = mouse.y - star.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 150) {
+            const force = (150 - distance) / 150;
+
+            star.vx += (dx / distance) * force * 0.15;
+            star.vy += (dy / distance) * force * 0.15;
+          }
+        }
+
+        star.vx *= 0.96;
+        star.vy *= 0.96;
+
+        star.x += star.vx;
+        star.y += star.vy;
+        star.y -= star.speed;
+
+        if (star.y < -10) {
+          star.y = canvas.height + 10;
+          star.x = Math.random() * canvas.width;
+        }
+
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${star.opacity})`;
+        ctx.fill();
+      });
+
+      animationFrameId = requestAnimationFrame(draw);
+    };
+
+    draw();
+
+    return () => {
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: "absolute",
+        inset: 0,
+        width: "100%",
+        height: "100%",
+        pointerEvents: "none",
+        zIndex: 0,
+      }}
+    />
+  );
+}
+
 // ─── Styles ───────────────────────────────────────────────────────────────────
 const STYLES = `
   /* ═══════════════════════════════════════
@@ -13,13 +128,14 @@ const STYLES = `
   .zph-section {
     position: relative;
     width: 100%;
-    background: #010101;
+    background: transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     overflow: hidden;
     box-sizing: border-box;
+    
   }
 
   /* Desktop */
@@ -126,29 +242,12 @@ const STYLES = `
   /* ── Shared phone frame ── */
   .zph-phone {
     position: absolute;
-    border-radius: 28px;
-    border: 2.5px solid #2a3a4a;
+    border-radius: 20px 20px 0 0;
     overflow: hidden;
-    box-shadow:
-      0 0 0 1px #0d1520,
-      0 16px 60px rgba(0,0,0,0.85),
-      inset 0 0 0 1.5px rgba(255,255,255,0.07);
-    bottom: -30px;
+    bottom: -50px;
   }
   /* Notch */
-  .zph-phone::before {
-    content: '';
-    position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 5px;
-    background: rgba(0,0,0,0.6);
-    border-radius: 3px;
-    z-index: 10;
-    pointer-events: none;
-  }
+  
   .zph-phone video {
     width: 100%;
     height: 100%;
@@ -166,20 +265,21 @@ const STYLES = `
   .zph-phone--1 {
     width: 240px;
     height: 400px;
-    left: -30px;
-    transform: rotate(14deg);
+    left: 61px;
+    transform: rotate(-19.05deg);
     transform-origin: bottom center;
     z-index: 1;
-  }
+}
 
   /* Phone 2 — left-center, slightly tilted */
   .zph-phone--2 {
     width: 220px;
     height: 380px;
     left: 170px;
-    transform: rotate(5deg);
+    bottom: -50px;
+    transform: rotate(10deg);
     transform-origin: bottom center;
-    z-index: 2;
+    z-index: -1;
   }
 
   /* Phone 3 — right-center, slightly tilted */
@@ -187,7 +287,8 @@ const STYLES = `
     width: 220px;
     height: 380px;
     right: 170px;
-    transform: rotate(-5deg);
+    bottom: -50px;
+    transform: rotate(-10deg);
     transform-origin: bottom center;
     z-index: 2;
   }
@@ -196,8 +297,8 @@ const STYLES = `
   .zph-phone--4 {
     width: 240px;
     height: 400px;
-    right: -30px;
-    transform: rotate(-14deg);
+    right: 61px;
+    transform: rotate(19.05deg);
     transform-origin: bottom center;
     z-index: 3;
   }
@@ -231,27 +332,10 @@ const STYLES = `
     width: 170px;
     height: 280px;
     border-radius: 24px;
-    border: 2px solid #2a3a4a;
     overflow: hidden;
-    box-shadow:
-      0 0 0 1px #0d1520,
-      0 12px 40px rgba(0,0,0,0.85),
-      inset 0 0 0 1px rgba(255,255,255,0.07);
     bottom: -20px;
   }
-  .zph-mphone::before {
-    content: '';
-    position: absolute;
-    top: 7px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 32px;
-    height: 5px;
-    background: rgba(0,0,0,0.55);
-    border-radius: 3px;
-    z-index: 10;
-    pointer-events: none;
-  }
+  
   .zph-mphone video {
     width: 100%;
     height: 100%;
@@ -289,8 +373,8 @@ const STYLES = `
     gap: 8px;
     padding: 11px 22px;
     border-radius: 999px;
-    background: #ffffff;
-    color: #0d0e0c;
+    background: #010101;
+    color: #ffffff;
     font-family: 'Gilroy';
     font-size: 15px;
     font-weight: 500;
@@ -299,6 +383,7 @@ const STYLES = `
     box-shadow: 0 8px 32px rgba(0,0,0,0.4);
     cursor: default;
     user-select: none;
+    border: 1.5px solid rgba(255, 255, 255);
   }
   @media (max-width: 767px) {
     .zph-badge {
@@ -318,7 +403,7 @@ function TextBlock() {
       <h2 className="zph-headline" id="zph-heading">
         to the future of
         <br />
-        <i>micro–learning</i>
+        <i style={{ fontWeight: "200" }}>micro–learning</i>
       </h2>
       <p className="zph-body">
         Wasting hours on entertainment with zero ROI? Reclaim your time and your
@@ -364,8 +449,8 @@ function MobilePhones() {
 function Badge() {
   return (
     <div className="zph-badge">
-      <span aria-hidden="true">⭐</span>
-      Loved by 1M+ users worldwide
+      <TrendingUp size={16} strokeWidth={2} />
+      Learn Smarter. Grow Faster.
     </div>
   );
 }
@@ -375,13 +460,53 @@ function Badge() {
 export default function Microlearning() {
   return (
     <>
-      <style>{STYLES}</style>
-      <section className="zph-section" aria-labelledby="zph-heading">
-        <TextBlock />
-        <DesktopPhones />
-        <MobilePhones />
-        <Badge />
-      </section>
+      <div
+        style={{
+          background: "#050507",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <style>{STYLES}</style>
+        <StarField />
+        <div
+          style={{
+            position: "absolute",
+            top: "15%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "500px",
+            height: "300px",
+            pointerEvents: "none",
+            zIndex: 0,
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            bottom: "10%",
+            left: "10%",
+            width: "350px",
+            height: "250px",
+            pointerEvents: "none",
+            zIndex: 0,
+          }}
+        />
+        <section
+          className="zph-section"
+          aria-labelledby="zph-heading"
+          style={{
+            position: "relative",
+            zIndex: 1,
+          }}
+        >
+          <TextBlock />
+          <DesktopPhones />
+          <MobilePhones />
+          <Badge />
+        </section>
+      </div>
     </>
   );
 }
