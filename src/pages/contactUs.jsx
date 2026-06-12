@@ -382,7 +382,35 @@ export default function ContactUs() {
               <span className="online-dot" />
               <span>4 Support online</span>
               <span className="pill-divider" />
-              <span className="join-link">Join us</span>
+              <span
+                className="join-link"
+                onClick={() => {
+                  try {
+                    if (
+                      window?.Tawk_API &&
+                      typeof window.Tawk_API.showWidget === "function"
+                    ) {
+                      window.Tawk_API.showWidget();
+                      if (typeof window.Tawk_API.maximize === "function")
+                        window.Tawk_API.maximize();
+                    } else {
+                      // Fallback: open direct Tawk chat in new tab if widget not loaded
+                      window.open(
+                        "https://tawk.to/chat/69f072268cab611c324fe080/1jn9jrqpv",
+                        "_blank",
+                      );
+                    }
+                  } catch (err) {
+                    // Ensure click doesn't throw for any unexpected runtime error
+                    window.open(
+                      "https://tawk.to/chat/69f072268cab611c324fe080/1jn9jrqpv",
+                      "_blank",
+                    );
+                  }
+                }}
+              >
+                Join us
+              </span>
             </div>
           </div>
 

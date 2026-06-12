@@ -195,7 +195,7 @@ export default function ScrollSection() {
           left: card.offsetLeft - track.offsetWidth / 2 + card.offsetWidth / 2,
           behavior: "smooth",
         });
-      }, 4500);
+      }, 3000);
     };
 
     startAutoSlide();

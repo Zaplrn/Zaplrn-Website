@@ -4,44 +4,63 @@
 
 @font-face {
   font-family: "Denton";
-  src: url("../assets/fonts/Denton/Denton Test Thin 100.otf") format("opentype");
+  font-style: normal;
   font-weight: 100;
+  font-display: swap;
+  src: url("../assets/fonts/Denton/Denton-Test-Thin-100.otf") format("opentype");
 }
 
 @font-face {
   font-family: "Denton";
-  src: url("../assets/fonts/Denton/Denton Test Light 300.otf") format("opentype");
+  font-style: normal;
   font-weight: 300;
+  font-display: swap;
+  src: url("../assets/fonts/Denton/Denton-Test-Light-300.otf")
+    format("opentype");
 }
 
 @font-face {
   font-family: "Denton";
-  src: url("../assets/fonts/Denton/Denton Test Regular 400.otf") format("opentype");
+  font-style: normal;
   font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/Denton/Denton-Test-Regular-400.otf")
+    format("opentype");
 }
 
 @font-face {
   font-family: "Denton";
-  src: url("../assets/fonts/Denton/Denton Test Medium 500.otf") format("opentype");
+  font-style: normal;
   font-weight: 500;
+  font-display: swap;
+  src: url("../assets/fonts/Denton/Denton-Test-Medium-500.otf")
+    format("opentype");
 }
 
 @font-face {
   font-family: "Denton";
-  src: url("../assets/fonts/Denton/Denton Test Bold 700.otf") format("opentype");
+  font-style: normal;
   font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/Denton/Denton-Test-Bold-700.otf") format("opentype");
 }
 
 @font-face {
   font-family: "Denton";
-  src: url("../assets/fonts/Denton/Denton Test ExtraBold 800.otf") format("opentype");
+  font-style: normal;
   font-weight: 800;
+  font-display: swap;
+  src: url("../assets/fonts/Denton/Denton-Test-ExtraBold-800.otf")
+    format("opentype");
 }
 
 @font-face {
   font-family: "Denton";
-  src: url("../assets/fonts/Denton/Denton Test Black 900.otf") format("opentype");
+  font-style: normal;
   font-weight: 900;
+  font-display: swap;
+  src: url("../assets/fonts/Denton/Denton-Test-Black-900.otf")
+    format("opentype");
 }
 
 /* ===============================
@@ -50,36 +69,48 @@
 
 @font-face {
   font-family: "Gilroy";
-  src: url("../assets/fonts/Gilroy/Gilroy-Thin.ttf") format("truetype");
+  font-style: normal;
   font-weight: 100;
+  font-display: swap;
+  src: url("../assets/fonts/Gilroy/Gilroy-Thin.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Gilroy";
-  src: url("../assets/fonts/Gilroy/Gilroy-Light.ttf") format("truetype");
+  font-style: normal;
   font-weight: 300;
+  font-display: swap;
+  src: url("../assets/fonts/Gilroy/Gilroy-Light.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Gilroy";
-  src: url("../assets/fonts/Gilroy/Gilroy-Regular.ttf") format("truetype");
+  font-style: normal;
   font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/Gilroy/Gilroy-Regular.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Gilroy";
-  src: url("../assets/fonts/Gilroy/Gilroy-Medium.ttf") format("truetype");
+  font-style: normal;
   font-weight: 500;
+  font-display: swap;
+  src: url("../assets/fonts/Gilroy/Gilroy-Medium.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Gilroy";
-  src: url("../assets/fonts/Gilroy/Gilroy-SemiBold.ttf") format("truetype");
+  font-style: normal;
   font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/Gilroy/Gilroy-SemiBold.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Gilroy";
-  src: url("../assets/fonts/Gilroy/Gilroy-Bold.ttf") format("truetype");
+  font-style: normal;
   font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/Gilroy/Gilroy-Bold.ttf") format("truetype");
 }

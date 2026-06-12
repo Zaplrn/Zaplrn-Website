@@ -302,7 +302,7 @@ export default function WhySection() {
 
             settledIndex.current = currentIndex;
             setActiveCard(POINTS[currentIndex].key);
-          }, 4500);
+          }, 3000);
         } else {
           clearInterval(autoSlideRef.current);
         }

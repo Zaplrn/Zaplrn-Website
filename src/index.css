@@ -2,3 +2,38 @@
 html {
   scroll-behavior: smooth;
 }
+
+/* Tawk widget: increase floating launcher size on small screens */
+/* Mobile: hide Tawk floating launcher (we'll use the 'Join us' button instead) */
+@media (max-width: 640px) {
+  iframe[src*="embed.tawk.to"],
+  .tawk-minified,
+  .tawk-launcher,
+  .tawk-minified *,
+  .tawk-launcher * {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+}
+
+/* Desktop / large screens: keep floating launcher but slightly smaller */
+@media (min-width: 641px) {
+  iframe[src*="embed.tawk.to"] {
+    width: 56px !important;
+    height: 56px !important;
+    right: 18px !important;
+    bottom: 18px !important;
+    transform: none !important;
+  }
+
+  .tawk-minified,
+  .tawk-launcher,
+  .tawk-minified *,
+  .tawk-launcher * {
+    width: 56px !important;
+    height: 56px !important;
+    min-width: 56px !important;
+    min-height: 56px !important;
+  }
+}

@@ -118,6 +118,7 @@ export default function FeaturesSection() {
   const trackRef = useRef(null);
   const autoSlideRef = useRef(null);
   const [visibleCards, setVisibleCards] = useState(0);
+  const [activeCard, setActiveCard] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -173,7 +174,7 @@ export default function FeaturesSection() {
           left: card.offsetLeft - track.offsetWidth / 2 + card.offsetWidth / 2,
           behavior: "smooth",
         });
-      }, 4500);
+      }, 3000);
     };
 
     startAutoSlide();
