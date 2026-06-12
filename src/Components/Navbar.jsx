@@ -18,15 +18,26 @@ function StoreButton({ icon, alt, label, iconSize = 22, onClick }) {
 function HamburgerIcon({ open }) {
   return (
     <svg
-      width="30"
-      height="32"
-      viewBox="0 0 48 32"
       xmlns="http://www.w3.org/2000/svg"
-      fill="currentColor"
+      viewBox="0 0 512 200"
+      style={{ width: "50px", height: "auto", display: "block" }}
     >
-      <rect x="12" y="4" width="36" height="6" rx="4" />
-
-      <rect x="0" y="20" width="48" height="6" rx="4" />
+      <rect
+        x="352"
+        y="40"
+        width="120"
+        height="40"
+        rx="20"
+        fill="currentColor"
+      />
+      <rect
+        x="232"
+        y="120"
+        width="240"
+        height="40"
+        rx="20"
+        fill="currentColor"
+      />
     </svg>
   );
 }
