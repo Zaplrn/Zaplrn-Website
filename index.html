@@ -4,6 +4,22 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Preload above-the-fold Denton weights so the hero paints with the font
+         already loaded (avoids the brief fallback-serif flash / FOUT). -->
+    <link
+      rel="preload"
+      href="/fonts/Denton/Denton-Test-Bold-700.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/Denton/Denton-Test-Thin-100.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link href="/src/index.css" rel="stylesheet" />
     <title>Zaplrn - Better Than Mindless Scrolling </title>
   </head>
