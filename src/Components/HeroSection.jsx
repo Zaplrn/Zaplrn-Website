@@ -122,7 +122,7 @@ export default function HeroSection({ onLetsFix }) {
           font-weight: bold;
           color: #ffffff;
           line-height: 0.98;
-          letter-spacing: -0.03em;
+          letter-spacing: 0;
           margin: 0;
           font-size: clamp(38px, 5.5vw, 80px);
         }

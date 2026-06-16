@@ -293,7 +293,7 @@ export default function ScrollSection() {
     line-height: 1.0;
     color: #ffffff;
     margin: 0;
-    letter-spacing: -0.02em;
+    letter-spacing:0;
 }
 
         .scroll-heading em { font-style: italic; }
@@ -511,7 +511,7 @@ export default function ScrollSection() {
           <h2 className="scroll-heading">
             your growth,
             <br />
-            <em style={{fontWeight: '200'}}>on your terms</em>
+            <em style={{ fontWeight: "200" }}>on your terms</em>
           </h2>
           <p className="scroll-subtext">
             The internet has become a place where we spend hours but gain

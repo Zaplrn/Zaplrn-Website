@@ -187,7 +187,7 @@ const STYLES = `
     font-weight: bold;
     color: #ffffff;
     line-height: 98%;
-    letter-spacing: -0.04em;
+    letter-spacing: 0;
     margin: 0;
     font-size: clamp(42px, 7vw, 88px);
   }
@@ -403,7 +403,7 @@ function TextBlock() {
       <h2 className="zph-headline" id="zph-heading">
         to the future of
         <br />
-        <i style={{ fontWeight: "200" }}>micro–learning</i>
+        <i style={{ fontWeight: "200" }}>micro-learning</i>
       </h2>
       <p className="zph-body">
         Wasting hours on entertainment with zero ROI? Reclaim your time and your

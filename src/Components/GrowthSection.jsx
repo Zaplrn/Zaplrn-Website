@@ -152,7 +152,7 @@ export default function GrowthSection() {
           line-height: 1.1;
           color: #ffffff;
           margin: 0;
-          letter-spacing: -0.02em;
+          letter-spacing: 0;
         }
 
         .growth-heading em { font-style: italic; }

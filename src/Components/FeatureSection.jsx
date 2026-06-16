@@ -276,7 +276,7 @@ export default function FeatureSection({ onSelect }) {
           font-weight: 700;
           color: #ffffff;
           line-height: 1.0;
-          letter-spacing: -0.03em;
+          letter-spacing: 0;
           margin: 0;
           text-align: center;
           font-size: clamp(38px, 6vw, 80px);

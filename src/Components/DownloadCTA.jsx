@@ -124,11 +124,14 @@ export default function DownloadCTA() {
 
       <div className="max-w-4xl mx-auto text-center pb-16 sm:pb-20 relative z-10">
         <h2
-          className="text-white text-[38px] sm:text-5xl md:text-7xl font-serif font-bold tracking-tight sm:tracking-tighter leading-[1.12] sm:leading-[1.1] mb-6 sm:mb-8"
-          style={{ fontFamily: "Denton" }}
+          className="text-white text-[38px] sm:text-5xl md:text-7xl font-serif font-bold leading-[1.12] sm:leading-[1.1] mb-6 sm:mb-8"
+          style={{
+            fontFamily: "Denton",
+            letterSpacing: 0,
+          }}
         >
           ready to turn your scroll <br className="hidden md:block" />
-          <em style={{fontWeight: '200'}}>into a superpower?</em>
+          <em style={{ fontWeight: 200 }}>into a superpower?</em>
         </h2>
         <p
           className="text-gray-400 text-sm md:text-base leading-relaxed max-w-2xl mx-auto mb-10 sm:mb-12"
