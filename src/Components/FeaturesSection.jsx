@@ -24,7 +24,7 @@ function StarField() {
     resize();
     window.addEventListener("resize", resize);
 
-    const stars = Array.from({ length: 120 }, () => ({
+    const stars = Array.from({ length: 60 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       baseX: 0,

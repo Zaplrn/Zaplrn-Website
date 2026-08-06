@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import ZaplrnLogo from "../assets/Zaplrn_logo.png";
+import ZaplrnLogo from "../assets/Zaplrn_logo.svg";
 import PlayStoreImg from "../assets/playstore-icon.png";
 import AppStoreImg from "../assets/appstore-icon.png";
 import ComingSoonModal from "./modelComponent/CommingSoonModel";
@@ -26,7 +26,7 @@ function HamburgerIcon({ open }) {
         x="352"
         y="40"
         width="120"
-        height="40"
+        height="30"
         rx="20"
         fill="currentColor"
       />
@@ -34,7 +34,7 @@ function HamburgerIcon({ open }) {
         x="232"
         y="120"
         width="240"
-        height="40"
+        height="30"
         rx="20"
         fill="currentColor"
       />
@@ -113,12 +113,12 @@ export default function Navbar() {
 
         /* ── Logo ── */
         .navbar-logo {
-          width: 140px;
+          width: 100px;
           height: auto;
           object-fit: contain;
           transition: width 0.3s ease;
         }
-        @media (min-width: 768px) { .navbar-logo { width: 200px; } }
+        @media (min-width: 768px) { .navbar-logo { width: 160px; } }
 
         /* ── Store buttons (desktop) ── */
         .navbar-actions { display: none; align-items: center; gap: 10px; }
