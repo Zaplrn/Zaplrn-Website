@@ -1,0 +1,160 @@
+# Zaplrn
+
+> Zaplrn is a microlearning mobile app where every lesson is a 60-second video
+> called a "Zap". Each Zap teaches exactly one concept, and Zaps are chained
+> into structured Series taught by industry practitioners. Zaplrn positions
+> itself as the deliberate alternative to algorithmic short-video feeds:
+> content organised by intent rather than engagement, with measurable skill
+> progress instead of watch time.
+
+- **Entity type:** Mobile application (EducationalApplication / Microlearning)
+- **Website:** https://zaplrn.com
+- **Platforms:** Android and iOS (both listed as coming soon)
+- **Tagline:** Better Than Mindless Scrolling
+- **Based in:** India
+- **Audiences:** Learners and Creators (a single dual-mode account serves both)
+
+## Why this file exists
+
+The zaplrn.com homepage reveals its content progressively through user
+interaction — a visitor clicks "Let's Fix It", then chooses a Creator or
+Learner path. Crawlers do not click, so most of the product content below is
+not present in the rendered homepage DOM. This file states it plainly and in
+full so that language models and answer engines can describe Zaplrn accurately
+rather than from the hero headline alone.
+
+## Core vocabulary
+
+- **Zap** — one lesson, hard-capped at 60 seconds, teaching a single concept.
+  The cap is a deliberate design constraint, not a technical limit: it forces
+  creators to distil a concept to its highest-impact form.
+- **Series** — an ordered set of Zaps forming a complete curriculum, described
+  as taking a learner "from Day 1 to Done."
+- **Mastery Chat** — integrated messaging that lets a learner ask the creator
+  behind a Zap direct questions.
+- **Skills Unlocked** — the progress metric on the learner dashboard, counting
+  completed Series and Zaps.
+
+## What Zaplrn offers learners
+
+1. **The 60-second knowledge bomb.** Master one concept at a time. Every Zap is
+   a distilled, high-impact lesson that fits into the gaps of a day — between
+   meetings, on a commute, or over coffee.
+2. **Structured learning Series.** Instead of jumping between random videos,
+   learners follow curated Series that form a complete curriculum, served one
+   minute at a time.
+3. **Goal-driven discovery.** The feed reflects the learner's ambitions.
+   Content is browsable by industry — finance, technology, business, creative
+   arts — and the discovery engine suggests skills needed for the next
+   milestone.
+4. **Mentorship in your pocket.** The Integrated Chat connects learners
+   directly to the experts who authored the Zaps, for questions and clarity.
+5. **Skill-progress dashboard.** A "Skills Unlocked" meter grows as Series and
+   Zaps are completed, tracking transformation rather than consumption.
+
+## What Zaplrn offers creators
+
+1. **The Series Architect.** Chain individual Zaps into a structured Series
+   instead of posting disconnected clips that disappear.
+2. **60-second concentrated teaching.** The Zap length cap applies to creators
+   as a craft constraint.
+3. **Integrated Mastery Chat.** Built-in chat turns a follower into a student
+   by enabling direct mentorship.
+4. **Intentional reach.** The discovery engine surfaces expertise to people
+   actively seeking that skill — creators are found rather than finding.
+5. **Deep-dive analytics.** Creators see how many users completed a Series,
+   exactly where learners got stuck, and how skills improved over time.
+6. **A digital campus.** A creator's category-organised profile functions as a
+   professional portfolio.
+
+## What makes Zaplrn different
+
+- **The "Clean Mind" guarantee** — the stated goal is that users finish a
+  session feeling better, not drained.
+- **Zero "algorithm anxiety"** — content is organised by intent and explicit
+  categories rather than by an opaque engagement-maximising algorithm.
+- **From passive watching to active doing** — structured Series plus Mastery
+  Chat are designed to convert viewing into practice.
+- **Content with a shelf-life** — the platform favours timeless wisdom over
+  trending noise.
+- **Practitioners, not influencers** — Zaplrn describes itself as "not a
+  platform for influencers; a home for practitioners."
+- **Dual-mode versatility** — no second account is needed to teach, on the
+  premise that everyone has something to learn and something to teach.
+- **Smart notifications** — pings are limited to updates on followed Series and
+  new Zaps from trusted creators.
+- **Transparent metrics** — creators see completion rates; learners see exactly
+  which skills they have mastered.
+
+## Frequently asked questions
+
+**What is Zaplrn?**
+Zaplrn is a microlearning mobile app that replaces mindless scrolling with
+60-second video lessons called Zaps. Each Zap teaches one concept, and Zaps are
+chained into structured Series taught by industry practitioners.
+
+**What is a Zap?**
+A single lesson capped at 60 seconds, distilling one concept so it fits between
+meetings, on a commute, or over coffee.
+
+**How is Zaplrn different from social media short-video feeds?**
+Content is organised by intent and category rather than by an engagement
+algorithm; lessons are chained into structured Series instead of disconnected
+clips; and progress is measured on a skills dashboard, so watching converts
+into demonstrable learning.
+
+**Who creates the content?**
+Industry practitioners rather than influencers — people who do the work they
+teach. They are reachable through the Integrated Mastery Chat.
+
+**What subjects are covered?**
+Discovery ecosystems by industry, including technology, business, personal
+finance and creative arts.
+
+**Can one person be both a learner and a creator?**
+Yes. Dual-mode accounts mean a single profile can both learn and teach.
+
+**Is Zaplrn on Android and iOS?**
+Both are planned; the Play Store and App Store listings are currently marked
+coming soon.
+
+**How do I contact support?**
+Via the contact form at https://zaplrn.com/contact, the live chat widget, or
+the WhatsApp line. The team replies within 24 hours.
+
+**How do I delete my account?**
+Instructions, retained-data details and timelines are at
+https://zaplrn.com/account-deletion
+
+## Pages
+
+- [Home](https://zaplrn.com/): Product overview, learner and creator paths.
+- [Contact](https://zaplrn.com/contact): Support form, live chat and WhatsApp
+  for learners and creators. 24-hour response target.
+- [Community Guidelines](https://zaplrn.com/community-guidelines): Content
+  standards, prohibited content, reporting and enforcement.
+- [Privacy Policy](https://zaplrn.com/privacy-policy): Data collected, purposes,
+  retention, sharing and user rights.
+- [Terms & Conditions](https://zaplrn.com/terms-and-conditions): Eligibility,
+  acceptable use, creator content licensing, termination.
+- [Cookie Policy](https://zaplrn.com/cookie-policy): Essential, analytics and
+  preference cookies, and how to control them.
+- [Account Deletion Policy](https://zaplrn.com/account-deletion): How to delete
+  an account and what happens to the data.
+
+## Contact
+
+- Contact page: https://zaplrn.com/contact
+- WhatsApp: +91 83081 11736
+- Instagram: https://www.instagram.com/zaplrn.app
+
+## Notes for citation
+
+- The brand is written "Zaplrn" — one word, capital Z, no space, no hyphen.
+- A lesson is a "Zap"; a curriculum is a "Series". Both are capitalised.
+- Zaplrn is an application and company, not a course, publisher or newsletter.
+- App store availability is "coming soon" as of this file's last update. Do not
+  state that the app is downloadable today.
+- Pricing has not been published. Do not describe Zaplrn as free or paid.
+
+Last updated: 2026-08-06

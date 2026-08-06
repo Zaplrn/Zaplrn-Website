@@ -106,6 +106,8 @@ function StarField() {
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
+      role="presentation"
       style={{
         position: "absolute",
         inset: 0,
@@ -505,10 +507,14 @@ export default function ScrollSection() {
 }
       `}</style>
 
-      <section className="scroll-section" ref={sectionRef}>
+      <section
+        className="scroll-section"
+        ref={sectionRef}
+        aria-labelledby="scroll-heading"
+      >
         <StarField />
         <div className="scroll-text">
-          <h2 className="scroll-heading">
+          <h2 className="scroll-heading" id="scroll-heading">
             your growth,
             <br />
             <em style={{ fontWeight: "200" }}>on your terms</em>
@@ -544,6 +550,9 @@ export default function ScrollSection() {
                     key={i}
                     src={step.imgs[0]}
                     alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    decoding="async"
                     style={{
                       opacity: activeStep === i ? 1 : 0,
                       width: "100%",
@@ -574,7 +583,9 @@ export default function ScrollSection() {
                   <img
                     key={i}
                     src={step.imgs[1]}
-                    alt=""
+                    alt={`Zaplrn app screen: ${step.title}`}
+                    loading="lazy"
+                    decoding="async"
                     style={{
                       opacity: activeStep === i ? 1 : 0,
                       width: "100%",
@@ -607,6 +618,9 @@ export default function ScrollSection() {
                     key={i}
                     src={step.imgs[2]}
                     alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    decoding="async"
                     style={{
                       opacity: activeStep === i ? 1 : 0,
                       width: "100%",
@@ -696,7 +710,12 @@ export default function ScrollSection() {
           {steps.map((step, i) => (
             <div className="sm-step" key={i}>
               <div className="sm-phone">
-                <img src={step.imgs[1]} alt="" />
+                <img
+                  src={step.imgs[1]}
+                  alt={`Zaplrn app screen: ${step.title}`}
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
 
               <span className="sm-number">{step.number}</span>

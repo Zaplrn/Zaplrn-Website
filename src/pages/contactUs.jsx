@@ -23,7 +23,7 @@ function StarField() {
     resize();
     window.addEventListener("resize", resize);
 
-    const stars = Array.from({ length: 120 }, () => ({
+    const stars = Array.from({ length: 60 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       baseX: 0,
@@ -100,6 +100,8 @@ function StarField() {
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
+      role="presentation"
       style={{
         position: "absolute",
         inset: 0,
@@ -138,6 +140,30 @@ function InstagramIcon() {
   );
 }
 
+function FacebookIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 3.926 23.094 9.101 24v-8.437H6.627v-3.49h2.474V9.9c0-2.99 1.696-4.643 4.34-4.643 1.257 0 2.573.232 2.573.232v2.85h-1.45c-1.427 0-1.872.897-1.872 1.816v2.18h3.187l-.51 3.49h-2.677V24C20.074 23.094 24 18.1 24 12.073z" />
+    </svg>
+  );
+}
+
+function LinkedInIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+    </svg>
+  );
+}
+
+function XIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
 // ── Input field ───────────────────────────────────────────────────────────────
 function Field({
   label,
@@ -147,6 +173,7 @@ function Field({
   onChange,
   placeholder,
   textarea,
+  autoComplete,
 }) {
   const base = {
     width: "100%",
@@ -173,7 +200,10 @@ function Field({
 
   return (
     <div>
+      {/* htmlFor/id pairing: without it the label is decorative text and
+          screen readers announce the input as unlabelled. */}
       <label
+        htmlFor={name}
         style={{
           display: "block",
           fontSize: "16px",
@@ -186,7 +216,9 @@ function Field({
       </label>
       {textarea ? (
         <textarea
+          id={name}
           name={name}
+          autoComplete={autoComplete}
           value={value}
           onChange={onChange}
           placeholder={placeholder}
@@ -197,8 +229,10 @@ function Field({
         />
       ) : (
         <input
+          id={name}
           name={name}
           type={type}
+          autoComplete={autoComplete}
           value={value}
           onChange={onChange}
           placeholder={placeholder}
@@ -233,7 +267,14 @@ export default function ContactUs() {
     await new Promise((r) => setTimeout(r, 900));
     console.log("Contact form submitted", form);
     setStatus("Message sent! We'll get back to you shortly.");
-    setForm({ firstName: "", lastName: "", email: "", phone: "", message: "" });
+    setForm({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      userType: "Learner",
+      message: "",
+    });
     setSending(false);
   };
 
@@ -384,6 +425,15 @@ export default function ContactUs() {
               <span className="pill-divider" />
               <span
                 className="join-link"
+                role="button"
+                tabIndex={0}
+                aria-label="Open the Zaplrn live support chat"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    e.currentTarget.click();
+                  }
+                }}
                 onClick={() => {
                   try {
                     if (
@@ -416,6 +466,7 @@ export default function ContactUs() {
 
           {/* Heading */}
           <h1
+            id="contact-heading"
             style={{
               fontFamily: "Denton",
               fontSize: "clamp(36px, 6vw, 58px)",
@@ -446,8 +497,13 @@ export default function ContactUs() {
           </p>
 
           {/* Form */}
-          <div
+          {/* Was a <div onSubmit>, which never fires — divs emit no submit
+              event. Now a real <form>, so Enter submits. The inline
+              display:flex is carried over verbatim, so rendering is
+              byte-identical. */}
+          <form
             onSubmit={handleSubmit}
+            aria-labelledby="contact-heading"
             style={{ display: "flex", flexDirection: "column", gap: "16px" }}
           >
             {/* Row 1 */}
@@ -461,6 +517,7 @@ export default function ContactUs() {
               <Field
                 label="First name"
                 name="firstName"
+                autoComplete="given-name"
                 value={form.firstName}
                 onChange={handleChange}
                 placeholder="Jonathan"
@@ -468,6 +525,7 @@ export default function ContactUs() {
               <Field
                 label="Last name"
                 name="lastName"
+                autoComplete="family-name"
                 value={form.lastName}
                 onChange={handleChange}
                 placeholder="James"
@@ -485,6 +543,7 @@ export default function ContactUs() {
               <Field
                 label="Email"
                 name="email"
+                autoComplete="email"
                 type="email"
                 value={form.email}
                 onChange={handleChange}
@@ -493,6 +552,7 @@ export default function ContactUs() {
               <Field
                 label="Phone number"
                 name="phone"
+                autoComplete="tel"
                 value={form.phone}
                 onChange={handleChange}
                 placeholder="+91 98765 43210"
@@ -500,7 +560,8 @@ export default function ContactUs() {
             </div>
 
             <div>
-              <label
+              <span
+                id="usertype-label"
                 style={{
                   display: "block",
                   fontSize: "16px",
@@ -510,9 +571,11 @@ export default function ContactUs() {
                 }}
               >
                 I am a
-              </label>
+              </span>
 
               <div
+                role="group"
+                aria-labelledby="usertype-label"
                 style={{
                   display: "grid",
                   gridTemplateColumns: "1fr 1fr",
@@ -523,6 +586,7 @@ export default function ContactUs() {
                   <button
                     key={type}
                     type="button"
+                    aria-pressed={form.userType === type}
                     onClick={() => setForm({ ...form, userType: type })}
                     style={{
                       padding: "14px",
@@ -560,8 +624,8 @@ export default function ContactUs() {
             {/* Submit */}
             <button
               className="send-btn"
+              type="submit"
               disabled={sending}
-              onClick={handleSubmit}
             >
               {sending ? "Sending…" : "Send Message"}
             </button>
@@ -569,6 +633,8 @@ export default function ContactUs() {
             {/* Status */}
             {status && (
               <p
+                role="status"
+                aria-live="polite"
                 style={{
                   textAlign: "center",
                   color: "#4ade80",
@@ -580,10 +646,11 @@ export default function ContactUs() {
                 {status}
               </p>
             )}
-          </div>
+          </form>
 
           {/* Social icons */}
-          <div
+          <nav
+            aria-label="Zaplrn social profiles"
             style={{
               display: "flex",
               justifyContent: "center",
@@ -591,21 +658,59 @@ export default function ContactUs() {
               marginTop: "32px",
             }}
           >
+            {/* NOTE: the WhatsApp link previously carried aria-label="X /
+                Twitter" — screen readers announced the wrong destination. */}
             <a
               href="https://wa.me/918308111736?text=Hello%2C%20I%20want%20to%20talk%20about%20Zaplrn"
               className="social-btn"
-              aria-label="X / Twitter"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Chat with Zaplrn on WhatsApp (opens in a new tab)"
+              title="WhatsApp"
             >
               <WhatsAppIcon />
             </a>
             <a
               href="https://www.instagram.com/zaplrn.app"
               className="social-btn"
-              aria-label="Instagram"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Zaplrn on Instagram (opens in a new tab)"
+              title="Instagram"
             >
               <InstagramIcon />
             </a>
-          </div>
+            <a
+              href="https://www.linkedin.com/company/zaplrn"
+              className="social-btn"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Zaplrn on LinkedIn (opens in a new tab)"
+              title="LinkedIn"
+            >
+              <LinkedInIcon />
+            </a>
+            <a
+              href="https://x.com/zaplrn"
+              className="social-btn"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Zaplrn on X, formerly Twitter (opens in a new tab)"
+              title="X"
+            >
+              <XIcon />
+            </a>
+            <a
+              href="https://www.facebook.com/zaplrn"
+              className="social-btn"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Zaplrn on Facebook (opens in a new tab)"
+              title="Facebook"
+            >
+              <FacebookIcon />
+            </a>
+          </nav>
         </div>
       </div>
     </>

@@ -104,6 +104,8 @@ function StarField() {
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
+      role="presentation"
       style={{
         position: "absolute",
         inset: 0,
@@ -203,6 +205,14 @@ export default function WhySection() {
     selfLife: selfLifeImg,
   };
   const activeImg = cardImages[activeCard] || cardImages.cleanMind;
+
+  // Image SEO: the phone mockup swaps as the user hovers each point, so the
+  // alt text tracks it instead of staying a generic "App Preview".
+  const activeAlt = activeCard
+    ? `Zaplrn app screen illustrating ${
+        POINTS.find((p) => p.key === activeCard)?.title
+      }`
+    : "Zaplrn app screen showing the intent-driven microlearning feed";
 
   const stopAutoSlide = () => {
     clearInterval(autoSlideRef.current);
@@ -686,11 +696,11 @@ export default function WhySection() {
 }
       `}</style>
 
-      <section className="why-section">
+      <section className="why-section" aria-labelledby="why-heading">
         <StarField />
 
         <div className="why-text">
-          <h2 className="why-heading">
+          <h2 className="why-heading" id="why-heading">
             why zaplrn is solution
             <br />
             <span>
@@ -706,7 +716,9 @@ export default function WhySection() {
         <div className="why-body">
           <img
             src={activeImg}
-            alt="Zaplrn App Preview"
+            alt={activeAlt}
+            loading="lazy"
+            decoding="async"
             className={activeCard ? "why-phone why-phone-active" : "why-phone"}
           />
 
@@ -860,7 +872,12 @@ export default function WhySection() {
         {/* MOBILE — image on top + right-to-left swipe cards (centre = active) */}
         <div className="why-mobile">
           <div className="why-mobile-phone">
-            <img src={activeImg} alt="Zaplrn App Preview" />
+            <img
+              src={activeImg}
+              alt={activeAlt}
+              loading="lazy"
+              decoding="async"
+            />
           </div>
 
           <div className="why-mobile-track" ref={trackRef}>

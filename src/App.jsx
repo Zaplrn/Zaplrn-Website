@@ -8,11 +8,14 @@ import CommunityGuidelines from "./pages/communityGuidelines";
 import PageShell from "./Components/PageShell";
 import { Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "./Components/ScrollToTop";
+import Seo from "./seo/Seo";
 
 function App() {
   return (
     <>
       <ScrollToTop />
+      {/* Renders null — updates document.head only, so it cannot affect paint. */}
+      <Seo />
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route element={<PageShell />}>
@@ -35,9 +38,15 @@ function App() {
       <Route
         path="*"
         element={
-          <div className="min-h-screen bg-[#010101] text-white flex items-center justify-center">
-            Page not found
-          </div>
+          /* Tailwind's preflight resets h1 to inherit font-size/weight, so
+             swapping the bare text for a real <h1> is visually identical while
+             giving the 404 the single H1 every page needs. */
+          <main
+            role="main"
+            className="min-h-screen bg-[#010101] text-white flex items-center justify-center"
+          >
+            <h1>Page not found</h1>
+          </main>
         }
       />
     </Routes>
