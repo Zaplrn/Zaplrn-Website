@@ -364,7 +364,7 @@ export default function WhySection() {
           line-height: 1.1;
           color: #ffffff;
           margin: 0;
-          letter-spacing: -0.02em;
+          letter-spacing: 0;
         }
 
         .why-heading em { font-style: italic; }

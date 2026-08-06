@@ -250,7 +250,7 @@ export default function FeaturesSection() {
           line-height: 1.1;
           color: #ffffff;
           margin: 0;
-          letter-spacing: -0.02em;
+          letter-spacing: 0;
         }
         .feat-heading em { font-style: italic; }
 

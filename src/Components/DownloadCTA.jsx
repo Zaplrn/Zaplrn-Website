@@ -134,7 +134,7 @@ export default function DownloadCTA() {
           style={{ fontFamily: "Denton" }}
         >
           ready to turn your scroll <br className="hidden md:block" />
-          <em style={{fontWeight: '200'}}>into a superpower?</em>
+          <em style={{ fontWeight: 200 }}>into a superpower?</em>
         </h2>
         <p
           className="text-gray-400 text-sm md:text-base leading-relaxed max-w-2xl mx-auto mb-10 sm:mb-12"
