@@ -43,7 +43,10 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0d0e0c]">
+    /* role="main" rather than swapping the tag for <main>: it gives the page
+       its required main landmark without adding or changing a single DOM node,
+       so layout and styling are provably untouched. */
+    <div className="min-h-screen bg-[#0d0e0c]" role="main">
       {!appReady && <Preloader onComplete={() => setAppReady(true)} />}
 
       <Navbar />

@@ -2,13 +2,327 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--
+      ══════════════════════════════════════════════════════════════════════
+      STATIC SEO FALLBACK
+      ──────────────────────────────────────────────────────────────────────
+      This app is a client-rendered SPA. Everything React injects into <head>
+      only exists AFTER JavaScript runs. Googlebot renders JS and will see the
+      per-route tags from src/seo/Seo.jsx — but these clients do NOT execute
+      JS and would otherwise see an empty <head>:
+
+        - LLM crawlers: GPTBot, ClaudeBot, PerplexityBot, Google-Extended,
+          Bytespider, CCBot, Applebot-Extended
+        - Link scrapers: Facebook, WhatsApp, LinkedIn, Slack, Discord, iMessage
+
+      So the site-wide metadata and entity graph are hardcoded here. Seo.jsx
+      then UPSERTS these same tags per route (it rewrites them in place rather
+      than appending, so there are never duplicate meta tags).
+
+      Keep in sync with src/seo/siteConfig.js.
+      ══════════════════════════════════════════════════════════════════════
+    -->
+
+    <title>
+      Zaplrn — 60-Second Microlearning App for Real Skills
+    </title>
+    <meta
+      name="description"
+      content="Zaplrn turns screen time into skill time. Learn from industry practitioners in 60-second video lessons called Zaps, grouped into structured Series."
+    />
+    <meta
+      name="keywords"
+      content="microlearning app, 60 second lessons, short video learning, learn new skills app, skill development app, alternative to mindless scrolling, structured learning series, creator education platform, Zaplrn"
+    />
+    <meta
+      name="robots"
+      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    />
+    <meta
+      name="googlebot"
+      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    />
+    <meta name="author" content="Zaplrn" />
+    <meta name="application-name" content="Zaplrn" />
+    <meta name="apple-mobile-web-app-title" content="Zaplrn" />
+    <meta name="theme-color" content="#010101" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="canonical" href="https://zaplrn.com" />
+
+    <!-- Language / locale -->
+    <meta http-equiv="content-language" content="en" />
+    <link rel="alternate" hreflang="en" href="https://zaplrn.com" />
+    <link rel="alternate" hreflang="x-default" href="https://zaplrn.com" />
+
+    <!-- Favicons. NOTE: previously declared type="image/svg+xml" while
+         pointing at a .png, which is a MIME mismatch some browsers reject. -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Zaplrn" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      property="og:title"
+      content="Zaplrn — 60-Second Microlearning App for Real Skills"
+    />
+    <meta
+      property="og:description"
+      content="Zaplrn turns screen time into skill time. Learn from industry practitioners in 60-second video lessons called Zaps, organised into structured Series."
+    />
+    <meta property="og:url" content="https://zaplrn.com" />
+    <meta property="og:image" content="https://zaplrn.com/favicon.png" />
+    <meta
+      property="og:image:alt"
+      content="Zaplrn — Better Than Mindless Scrolling"
+    />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@zaplrn" />
+    <meta name="twitter:creator" content="@zaplrn" />
+    <meta
+      name="twitter:title"
+      content="Zaplrn — 60-Second Microlearning App for Real Skills"
+    />
+    <meta
+      name="twitter:description"
+      content="Zaplrn turns screen time into skill time. Learn from industry practitioners in 60-second video lessons called Zaps, organised into structured Series."
+    />
+    <meta name="twitter:image" content="https://zaplrn.com/favicon.png" />
+    <meta
+      name="twitter:image:alt"
+      content="Zaplrn — Better Than Mindless Scrolling"
+    />
+
+    <!-- Third-party origin: resolve DNS/TLS early so the chat widget never
+         contends with first-party assets for connection setup. -->
+    <link rel="preconnect" href="https://embed.tawk.to" crossorigin />
+    <link rel="dns-prefetch" href="https://embed.tawk.to" />
+
     <link href="/src/index.css" rel="stylesheet" />
-    <title>Zaplrn - Better Than Mindless Scrolling </title>
+
+    <!--
+      Entity graph for zero-JS crawlers. Mirrors the @graph that
+      src/seo/schema.js emits at runtime; the shared @id values mean the two
+      resolve to the SAME entity rather than competing duplicates.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://zaplrn.com/#organization",
+            "name": "Zaplrn",
+            "legalName": "Zaplrn",
+            "url": "https://zaplrn.com",
+            "description": "Zaplrn is a microlearning app where every lesson is a 60-second Zap — a short, structured video that teaches one concept, organised into curated Series by industry practitioners.",
+            "slogan": "Better Than Mindless Scrolling",
+            "foundingLocation": { "@type": "Place", "name": "India" },
+            "logo": {
+              "@type": "ImageObject",
+              "@id": "https://zaplrn.com/#logo",
+              "url": "https://zaplrn.com/favicon.png",
+              "contentUrl": "https://zaplrn.com/favicon.png",
+              "caption": "Zaplrn logo"
+            },
+            "image": { "@id": "https://zaplrn.com/#logo" },
+            "sameAs": [
+              "https://www.instagram.com/zaplrn.app",
+              "https://www.linkedin.com/company/zaplrn",
+              "https://x.com/zaplrn",
+              "https://www.facebook.com/zaplrn"
+            ],
+            "contactPoint": [
+              {
+                "@type": "ContactPoint",
+                "contactType": "customer support",
+                "url": "https://zaplrn.com/contact",
+                "telephone": "+918308111736",
+                "areaServed": "Worldwide",
+                "availableLanguage": ["en"]
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://zaplrn.com/#website",
+            "url": "https://zaplrn.com",
+            "name": "Zaplrn",
+            "description": "Zaplrn is a microlearning app where every lesson is a 60-second Zap — a short, structured video that teaches one concept, organised into curated Series by industry practitioners.",
+            "publisher": { "@id": "https://zaplrn.com/#organization" },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://zaplrn.com/#app",
+            "name": "Zaplrn",
+            "applicationCategory": "EducationalApplication",
+            "applicationSubCategory": "Microlearning",
+            "operatingSystem": "Android, iOS",
+            "url": "https://zaplrn.com",
+            "description": "Zaplrn is a microlearning app where every lesson is a 60-second Zap — a short, structured video that teaches one concept, organised into curated Series by industry practitioners.",
+            "publisher": { "@id": "https://zaplrn.com/#organization" },
+            "inLanguage": "en",
+            "audience": [
+              {
+                "@type": "Audience",
+                "audienceType": "Learners",
+                "description": "People who want to convert screen time into measurable skill progress through short, structured lessons."
+              },
+              {
+                "@type": "Audience",
+                "audienceType": "Creators",
+                "description": "Industry practitioners who want to turn their expertise into a structured curriculum rather than disposable content."
+              }
+            ],
+            "featureList": [
+              "60-second Zaps — each lesson teaches one concept in under a minute",
+              "Structured Series — curated multi-lesson curricula that run from day one to done",
+              "Goal-driven discovery by industry, including tech, business, finance and creative arts",
+              "Integrated Mastery Chat for direct mentorship from the creator behind a Zap",
+              "Skill-progress dashboard tracking Series completed and skills unlocked",
+              "Dual-mode accounts — every user can both learn and teach without a second profile",
+              "Smart notifications limited to followed Series updates and trusted creator posts",
+              "Deep-dive creator analytics showing completion rates and where learners drop off"
+            ]
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://zaplrn.com/#webpage",
+            "url": "https://zaplrn.com",
+            "name": "Zaplrn — 60-Second Microlearning App",
+            "description": "Zaplrn is a microlearning mobile app that replaces mindless scrolling with 60-second video lessons, called Zaps, taught by industry practitioners and organised into structured Series.",
+            "isPartOf": { "@id": "https://zaplrn.com/#website" },
+            "about": { "@id": "https://zaplrn.com/#organization" },
+            "mainEntity": { "@id": "https://zaplrn.com/#app" },
+            "publisher": { "@id": "https://zaplrn.com/#organization" },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://zaplrn.com/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is Zaplrn?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Zaplrn is a microlearning mobile app that replaces mindless scrolling with 60-second video lessons called Zaps. Each Zap teaches one concept, and Zaps are chained into structured Series taught by industry practitioners."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is a Zap on Zaplrn?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A Zap is a single lesson capped at 60 seconds. The limit is deliberate: it forces creators to distil one concept into its highest-impact form, so a lesson fits between meetings, on a commute, or over coffee."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How is Zaplrn different from social media short-video feeds?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Three ways. Content is organised by intent and category rather than by an engagement algorithm, so there is no algorithm anxiety. Lessons are chained into structured Series instead of disconnected clips. And progress is measured on a skills dashboard, so watching converts into demonstrable learning."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Who creates the content on Zaplrn?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Industry practitioners, not influencers. Zaplrn is built for people who actually do the work they teach, and creators can be reached directly through the Integrated Mastery Chat."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What subjects can you learn on Zaplrn?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Zaplrn organises content into discovery ecosystems by industry, including technology, business, personal finance, and creative arts. Discovery is goal-driven, so the feed reflects the skills you are working toward."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I be both a learner and a creator on Zaplrn?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Zaplrn uses dual-mode accounts, so a single profile can both learn and teach. You do not need a separate creator account."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do creators benefit from publishing on Zaplrn?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Creators build a structured curriculum rather than disposable content. They get deep-dive analytics on Series completion rates and where learners get stuck, an intentional-reach discovery engine, and a category-organised profile that works as a professional portfolio."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is Zaplrn available on Android and iOS?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Zaplrn is being released for both Android and iOS. The Play Store and App Store listings are marked coming soon on the website."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do I delete my Zaplrn account?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Account deletion instructions, including what data is erased, what is retained for legal compliance, and the processing timeline, are documented on the Zaplrn account deletion page."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do I contact Zaplrn support?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Through the contact form on the Zaplrn contact page, the live chat widget, or the WhatsApp support line. The team replies within 24 hours."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+
+    <!--
+      Zero-JS fallback. Crawlers that do not execute JavaScript render an empty
+      #root; this gives them real content and real internal links to follow, so
+      the legal pages stay discoverable without relying on the sitemap alone.
+      Browsers with JS enabled never display this.
+    -->
+    <noscript>
+      <h1>Zaplrn — 60-Second Microlearning</h1>
+      <p>
+        Zaplrn is a microlearning app where every lesson is a 60-second Zap — a
+        short, structured video that teaches one concept. Zaps are chained into
+        curated Series taught by industry practitioners across technology,
+        business, finance and the creative arts.
+      </p>
+      <nav aria-label="Site pages">
+        <ul>
+          <li><a href="/contact">Contact Zaplrn</a></li>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/terms-and-conditions">Terms &amp; Conditions</a></li>
+          <li><a href="/cookie-policy">Cookie Policy</a></li>
+          <li><a href="/community-guidelines">Community Guidelines</a></li>
+          <li><a href="/account-deletion">Account Deletion Policy</a></li>
+        </ul>
+      </nav>
+      <p>This site requires JavaScript for the full experience.</p>
+    </noscript>
+
     <script type="module" src="/src/main.jsx"></script>
     <script type="text/javascript">
       // Initialize Tawk_API as an object (do not overwrite if already present)

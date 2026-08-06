@@ -6,10 +6,19 @@ import AppStoreImg from "../assets/appstore-icon.png";
 import ComingSoonModal from "./modelComponent/CommingSoonModel";
 
 // ─── Sub-components ──────────────────────────────────────────────────────────
-function StoreButton({ icon, alt, label, iconSize = 22, onClick }) {
+function StoreButton({ icon, label, iconSize = 22, onClick }) {
   return (
-    <button className="store-btn" onClick={onClick}>
-      <img src={icon} alt={alt} width={iconSize} height={iconSize} />
+    <button className="store-btn" type="button" aria-label={`${label} — coming soon`} onClick={onClick}>
+      {/* Decorative: the visible {label} text already names the button, so a
+          non-empty alt would make screen readers announce it twice. */}
+      <img
+        src={icon}
+        alt=""
+        aria-hidden="true"
+        width={iconSize}
+        height={iconSize}
+        decoding="async"
+      />
       {label}
     </button>
   );
@@ -196,10 +205,15 @@ export default function Navbar() {
       >
         <div className="navbar-inner">
           {/* Logo */}
-          <Link to="/" className="flex items-center" aria-label="Go to home">
+          <Link
+            to="/"
+            className="flex items-center"
+            aria-label="Zaplrn — go to homepage"
+          >
             <img
               src={ZaplrnLogo}
-              alt="Zaplrn"
+              alt="Zaplrn logo"
+              decoding="async"
               className="navbar-logo cursor-pointer"
             />
           </Link>
@@ -208,14 +222,12 @@ export default function Navbar() {
           <div className="navbar-actions">
             <StoreButton
               icon={PlayStoreImg}
-              alt="Play Store"
               label="Play Store"
               onClick={() => setShowComingSoon(true)}
             />
 
             <StoreButton
               icon={AppStoreImg}
-              alt="App Store"
               label="App Store"
               onClick={() => setShowComingSoon(true)}
             />
@@ -236,7 +248,6 @@ export default function Navbar() {
             <div className="mobile-menu">
               <StoreButton
                 icon={PlayStoreImg}
-                alt="Play Store"
                 label="Play Store"
                 onClick={() => {
                   setShowComingSoon(true);
@@ -246,7 +257,6 @@ export default function Navbar() {
 
               <StoreButton
                 icon={AppStoreImg}
-                alt="App Store"
                 label="App Store"
                 onClick={() => {
                   setShowComingSoon(true);

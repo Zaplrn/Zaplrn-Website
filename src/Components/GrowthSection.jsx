@@ -106,6 +106,8 @@ function StarField() {
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
+      role="presentation"
       style={{
         position: "absolute",
         inset: 0,
@@ -324,7 +326,7 @@ export default function GrowthSection() {
 }
       `}</style>
 
-      <section className="growth-section">
+      <section className="growth-section" aria-labelledby="growth-heading">
         <StarField />
 
         <div
@@ -352,7 +354,7 @@ export default function GrowthSection() {
           }}
         />
         <div className="growth-text">
-          <h2 className="growth-heading">
+          <h2 className="growth-heading" id="growth-heading">
             one app.
             <br />
             <span>
@@ -444,7 +446,11 @@ export default function GrowthSection() {
           <div className="growth-card card-4">
             <img
               src={card4Img}
-              alt=""
+              alt="Zaplrn discovery ecosystems — browsing lessons by category such as tech, business and art"
+              width="465"
+              height="277"
+              loading="lazy"
+              decoding="async"
               className="growth-card-img"
               style={{
                 height: "277px",
@@ -467,7 +473,11 @@ export default function GrowthSection() {
           <div className="growth-card card-5">
             <img
               src={card5Img}
-              alt=""
+              alt="Zaplrn transparent metrics — creator completion rates and learner skill mastery"
+              width="505"
+              height="282"
+              loading="lazy"
+              decoding="async"
               className="growth-card-img"
               style={{
                 left: "50%",

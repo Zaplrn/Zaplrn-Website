@@ -101,6 +101,8 @@ function StarField() {
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
+      role="presentation"
       style={{
         position: "absolute",
         inset: 0,
@@ -496,7 +498,7 @@ export default function FeaturesSection() {
           />
           {/* Heading */}
           <div className="feat-text">
-            <h2 className="feat-heading">
+            <h2 className="feat-heading" id="feat-heading">
               from content creator
               <br />
               <em style={{fontWeight: '200'}}>to knowledge leader</em>

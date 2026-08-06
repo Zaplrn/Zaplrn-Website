@@ -1,0 +1,90 @@
+# ==========================================================================
+# robots.txt — https://zaplrn.com
+# ==========================================================================
+
+# --- Default: everything is crawlable -------------------------------------
+User-agent: *
+Allow: /
+
+# Legacy redirect aliases. These 302 to their canonical targets in the SPA
+# router; disallowing them prevents duplicate-URL noise in the index.
+Disallow: /home
+Disallow: /terms
+Disallow: /cookies
+
+# Build output and asset hashes carry no standalone search value.
+Disallow: /assets/
+
+
+# --- Search engines -------------------------------------------------------
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+
+# --- AI / LLM crawlers ----------------------------------------------------
+# Explicitly allowed so Zaplrn can be cited in AI answers. Flip any of these
+# to `Disallow: /` to opt that specific engine out of training or retrieval.
+#
+# Note the split between retrieval and training bots:
+#   OAI-SearchBot / PerplexityBot / ClaudeBot   -> answer with citation
+#   GPTBot / CCBot / Google-Extended            -> model training corpora
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+
+# --- Machine-readable site summary for LLMs -------------------------------
+# https://zaplrn.com/llms.txt
+
+Sitemap: https://zaplrn.com/sitemap.xml

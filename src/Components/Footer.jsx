@@ -10,13 +10,15 @@ export default function Footer() {
             href="https://inspia.in"
             target="_blank"
             rel="noopener noreferrer"
+            title="Inspia Technologies — website design and development"
             className="text-white hover:text-gray-300"
           >
             Inspia Technologies
           </a>
         </div>
 
-        <div
+        <nav
+          aria-label="Legal and support"
           className="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500"
           style={{ fontFamily: "Gilroy" }}
         >
@@ -52,7 +54,7 @@ export default function Footer() {
           <Link to="/contact" className="text-gray-400 hover:text-white">
             Contact Us
           </Link>
-        </div>
+        </nav>
       </div>
     </footer>
   );

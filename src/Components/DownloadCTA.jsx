@@ -103,6 +103,8 @@ function StarField() {
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
+      role="presentation"
       style={{
         position: "absolute",
         inset: 0,
@@ -119,11 +121,15 @@ export default function DownloadCTA() {
   const [showComingSoon, setShowComingSoon] = useState(false);
 
   return (
-    <section className="w-full bg-[#010101] px-5 sm:px-6 relative overflow-hidden">
+    <section
+      className="w-full bg-[#010101] px-5 sm:px-6 relative overflow-hidden"
+      aria-labelledby="download-heading"
+    >
       <StarField />
 
       <div className="max-w-4xl mx-auto text-center pb-16 sm:pb-20 relative z-10">
         <h2
+          id="download-heading"
           className="text-white text-[38px] sm:text-5xl md:text-7xl font-serif font-bold tracking-tight sm:tracking-tighter leading-[1.12] sm:leading-[1.1] mb-6 sm:mb-8"
           style={{ fontFamily: "Denton" }}
         >
@@ -148,7 +154,12 @@ export default function DownloadCTA() {
           >
             <img
               src={PlayStoreImg}
-              alt="Play Store"
+              alt=""
+              aria-hidden="true"
+              width="24"
+              height="24"
+              loading="lazy"
+              decoding="async"
               className="w-6 h-6 object-contain"
             />
             <span
@@ -166,7 +177,12 @@ export default function DownloadCTA() {
           >
             <img
               src={AppStoreImg}
-              alt="App Store"
+              alt=""
+              aria-hidden="true"
+              width="24"
+              height="24"
+              loading="lazy"
+              decoding="async"
               className="w-6 h-6 object-contain"
             />
             <span

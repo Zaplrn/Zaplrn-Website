@@ -102,6 +102,8 @@ function StarField() {
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
+      role="presentation"
       style={{
         position: "absolute",
         inset: 0,
@@ -154,14 +156,23 @@ function CardLabel({ icon, text }) {
 function CreatorCard({ onClick }) {
   return (
     <button
+      type="button"
       className="fc-card fc-card--creator"
+      aria-label="For Creators — create something meaningful"
       onClick={(e) => {
         e.preventDefault();
         onClick("creator");
       }}
     >
       {/* Background image */}
-      <img src={creatorImg} alt="For Creators" className="fc-card__bg" />
+      <img
+        src={creatorImg}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+        className="fc-card__bg"
+      />
 
       {/* Gradient overlay */}
       <div className="fc-card__overlay fc-card__overlay--creator" />
@@ -195,13 +206,22 @@ function CreatorCard({ onClick }) {
 function LearnerCard({ onClick }) {
   return (
     <button
+      type="button"
       className="fc-card fc-card--learner"
+      aria-label="For Learners — learn something useful"
       onClick={(e) => {
         e.preventDefault();
         onClick("learner");
       }}
     >
-      <img src={learnerImg} alt="For Learners" className="fc-card__bg" />
+      <img
+        src={learnerImg}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+        className="fc-card__bg"
+      />
 
       <div className="fc-card__overlay fc-card__overlay--learner" />
 

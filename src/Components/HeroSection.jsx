@@ -45,7 +45,15 @@ function CtaButton({ onClick, pulsing }) {
 function HeroVideo() {
   return (
     <div className="hero-media">
-      <video src={heroVideo} autoPlay loop muted playsInline />
+      <video
+        src={heroVideo}
+        autoPlay
+        loop
+        muted
+        playsInline
+        aria-hidden="true"
+        tabIndex={-1}
+      />
     </div>
   );
 }
