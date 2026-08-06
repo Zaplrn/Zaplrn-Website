@@ -10,6 +10,7 @@ import GrowthSection from "../Components/GrowthSection";
 import WhySection from "../Components/WhySection";
 import DownloadCTA from "../Components/DownloadCTA";
 import Footer from "../Components/Footer";
+import BackToTop from "../Components/BackToTop";
 
 export default function LandingPage() {
   const [appReady, setAppReady] = useState(false);
@@ -77,6 +78,8 @@ export default function LandingPage() {
       )}
 
       <Footer />
+
+      <BackToTop />
     </div>
   );
 }
